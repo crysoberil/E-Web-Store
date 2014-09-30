@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
+import com.ewebstore.entity.BranchManager;
 
 public class BranchManagerQueryModel {
 	public static String getManagerId(String email, String password)
@@ -59,6 +60,38 @@ public class BranchManagerQueryModel {
 
 		} catch (SQLException ex) {
 			return "invalid manager";
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+	}
+
+	public static BranchManager getBranchManager(String managerID) {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection.getConnection().prepareStatement(
+					"SELECT * FROM BranchManager WHERE managerID = ?");
+
+			statement.setLong(1, Long.valueOf(managerID));
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException("No such branch manager");
+
+			String branchID = Long.toString(resultSet.getLong(1));
+			String branchName = BranchQueryModel.getBranchNameByID(branchID);
+
+			return new BranchManager(resultSet.getString(8), branchID,
+					branchName, resultSet.getString(2),
+					resultSet.getBoolean(3), resultSet.getString(4),
+					resultSet.getString(5), resultSet.getDate(6),
+					resultSet.getString(7));
+
+		} catch (SQLException ex) {
+			return null;
 		} finally {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(statement);
