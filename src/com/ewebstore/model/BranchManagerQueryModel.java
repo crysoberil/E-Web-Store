@@ -1,5 +1,6 @@
 package com.ewebstore.model;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,13 +83,16 @@ public class BranchManagerQueryModel {
 				throw new SQLException("No such branch manager");
 
 			String branchID = Long.toString(resultSet.getLong(1));
+			String managerName = resultSet.getString(2);
+			boolean gender = resultSet.getInt(3) == 1;
+			String email = resultSet.getString(4);
+			String address = resultSet.getString(5);
+			Date dob = resultSet.getDate(6);
+			String contactNumber = resultSet.getString(7);
 			String branchName = BranchQueryModel.getBranchNameByID(branchID);
 
-			return new BranchManager(resultSet.getString(8), branchID,
-					branchName, resultSet.getString(2),
-					resultSet.getBoolean(3), resultSet.getString(4),
-					resultSet.getString(5), resultSet.getDate(6),
-					resultSet.getString(7));
+			return new BranchManager(managerID, branchID, branchName,
+					managerName, gender, email, address, dob, contactNumber);
 
 		} catch (SQLException ex) {
 			return null;
