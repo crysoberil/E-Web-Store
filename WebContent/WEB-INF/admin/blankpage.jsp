@@ -50,9 +50,18 @@
 
 			<ul class="nav navbar-top-links navbar-right">
 				<div class="navbar-header">
-
-					<a class="navbar-brand"
-						href="<%=LinkGenerator.getAdminProfileLink()%>"><%=session.getAttribute("adminname").toString()%></a>
+					<div class="btn-group">
+						<button class="btn btn-transparent btn-lg dropdown-toggle"
+							type="button" data-toggle="dropdown">
+							<%=session.getAttribute("adminname").toString()%>
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="<%=LinkGenerator.getAdminProfileLink()%>">Profile</a></li>
+							<li><a href="<%=LinkGenerator.logOutSubmissionLink()%>">Log
+									Out</a></li>
+						</ul>
+					</div>
 				</div>
 			</ul>
 
@@ -121,13 +130,11 @@
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
 								<li><a href="<%=LinkGenerator.addProductsToStockLink()%>">Add
-										Product to Stock</a></li>
+										Products to Stock</a></li>
 								<li><a
 									href="<%=LinkGenerator.genericProductSearchPageLink()%>">Product
 										Search</a></li>
-							</ul>
-						<!-- /.nav-second-level -->
-						</li>
+							</ul> <!-- /.nav-second-level --></li>
 
 
 						<script>
@@ -162,7 +169,35 @@
 										Employees</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 
+						<script>
+							function reqFunction() {
+								var hasCollapsedClass = (" "
+										+ document
+												.getElementById("requestslist").className + " ")
+										.indexOf(" nav nav-second-level collapse in ") > -1;
+
+								if (hasCollapsedClass) {
+									document.getElementById("requestslist").className = "nav nav-second-level collapse";
+								} else {
+									document.getElementById("requestslist").className = "nav nav-second-level collapse in";
+								}
+							}
+						</script>
+
+						<li><a href="#" onclick="reqFunction()"><i
+								class="fa fa-sitemap fa-fw"></i>Products Transfer Requests<span
+								class="fa arrow"></span></a>
+							<ul id="requestslist" class="nav nav-second-level collapse">
+								<li><a
+									href="<%=LinkGenerator.productsSendRequestsPageLink()%>">Products
+										Send Requests</a></li>
+								<li><a
+									href="<%=LinkGenerator.productsReceiveRequestsPageLink()%>">Products
+										Receive Requests</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+
 					</ul>
+
 				</div>
 				<!-- /.sidebar-collapse -->
 			</div>
@@ -173,9 +208,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Dashboard</h1>
-					
-					
-					
+
+
+
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
