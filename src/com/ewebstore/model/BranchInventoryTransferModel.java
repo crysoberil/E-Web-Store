@@ -4,8 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.DefaultButtonModel;
-
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.CartItem;

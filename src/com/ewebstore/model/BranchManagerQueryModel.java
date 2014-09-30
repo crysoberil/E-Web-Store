@@ -64,6 +64,7 @@ public class BranchManagerQueryModel {
 		} finally {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(statement);
+			
 		}
 	}
 
@@ -95,6 +96,7 @@ public class BranchManagerQueryModel {
 					managerName, gender, email, address, dob, contactNumber);
 
 		} catch (SQLException ex) {
+			ex.printStackTrace();
 			return null;
 		} finally {
 			DBUtil.dispose(resultSet);
