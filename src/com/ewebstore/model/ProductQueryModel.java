@@ -15,7 +15,7 @@ public class ProductQueryModel {
 
 		try {
 			statement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT productName FROM Product WHERE productID = ?");
 

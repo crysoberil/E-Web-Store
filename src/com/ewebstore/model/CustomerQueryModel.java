@@ -19,7 +19,7 @@ public class CustomerQueryModel {
 
 		try {
 			statement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT customerID FROM Customer WHERE LOWER(email) = ? AND password = ?");
 
@@ -47,7 +47,7 @@ public class CustomerQueryModel {
 
 		try {
 
-			statement = DBConnection.getSharedConnection().prepareStatement(
+			statement = DBConnection.getConnection().prepareStatement(
 					"SELECT name FROM Customer WHERE customerID = ?");
 
 			statement.setLong(1, Long.valueOf(customerID));
@@ -73,7 +73,7 @@ public class CustomerQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT premiumCustomer FROM Customer WHERE customerID = ?");
 

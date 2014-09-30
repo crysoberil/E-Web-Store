@@ -17,7 +17,7 @@ public class BranchManagerQueryModel {
 		try {
 
 			statement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT managerID FROM BranchManager WHERE lower(email) = ? AND password = ?");
 
@@ -45,7 +45,7 @@ public class BranchManagerQueryModel {
 
 		try {
 
-			statement = DBConnection.getSharedConnection().prepareStatement(
+			statement = DBConnection.getConnection().prepareStatement(
 					"SELECT name FROM BranchManager WHERE managerID = ?");
 
 			statement.setLong(1, Long.valueOf(managerID));

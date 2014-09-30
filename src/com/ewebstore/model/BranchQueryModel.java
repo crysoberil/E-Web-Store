@@ -14,7 +14,7 @@ public class BranchQueryModel {
 		ResultSet resultSet = null;
 
 		try {
-			preparedStatement = DBConnection.getSharedConnection()
+			preparedStatement = DBConnection.getConnection()
 					.prepareStatement(
 							"SELECT branchName FROM Branch WHERE branchID = ?");
 

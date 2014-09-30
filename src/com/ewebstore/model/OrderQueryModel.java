@@ -36,7 +36,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT customerID, orderDate, detailedDeliveryLocation, orderStausID, branchID, associatedEmployee, totalOrderingCost FROM Order WHERE orderID = ?");
 
@@ -87,7 +87,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT productID, quantity FROM OrderProducts WHERE orderID = ?");
 
@@ -122,7 +122,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT orderID FROM Order WHERE orderStatusID = ? AND NOT EXISTS (SELECT orderID FROM OrderProducts WHERE OrderProducts.orderID = Order.orderID AND OrderProducts.quantity > (SELECT availableQuantity FROM BranchInventory WHERE BranchInventory.branchID = ? AND BranchInventory.productID = OrderProducts.productID))");
 
@@ -150,7 +150,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"UPDATE Order SET orderStatusID = (SELECT orderID FROM OrderStatus WHERE status = ?) WHERE orderID = ?");
 
@@ -203,7 +203,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT orderID FROM Order WHERE orderStatusID = ? AND branchID = ?");
 
@@ -239,7 +239,7 @@ public class OrderQueryModel {
 				return false;
 
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"UPDATE Order SET associatedEmployee = ? WHERE orderID = ?");
 
@@ -260,7 +260,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT associatedEmployee FROM Order WHERE orderID = ?");
 
@@ -286,7 +286,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT orderStatusID FROM OrderStatus WHERE status = ?");
 
@@ -313,7 +313,7 @@ public class OrderQueryModel {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"SELECT status FROM OrderStatus WHERE orderStatusID = ?");
 

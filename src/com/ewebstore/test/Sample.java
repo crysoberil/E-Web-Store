@@ -14,7 +14,7 @@ public class Sample {
 		ResultSet resultSet = null;
 
 		try {
-			preparedStatement = DBConnection.getSharedConnection().prepareStatement(
+			preparedStatement = DBConnection.getConnection().prepareStatement(
 					"");
 
 			preparedStatement.setString(1, "");

@@ -35,7 +35,7 @@ public class Main {
 
 		try {
 			preparedStatement = DBConnection
-					.getSharedConnection()
+					.getConnection()
 					.prepareStatement(
 							"INSERT INTO DistrictDistance VALUES(?, ?, ?)");
 
@@ -87,7 +87,7 @@ public class Main {
 			PreparedStatement preparedStatement = null;
 
 			try {
-				preparedStatement = DBConnection.getSharedConnection()
+				preparedStatement = DBConnection.getConnection()
 						.prepareStatement(
 								"INSERT INTO District VALUES(NULL, ?)");
 				preparedStatement.setString(1, scanner.nextLine());

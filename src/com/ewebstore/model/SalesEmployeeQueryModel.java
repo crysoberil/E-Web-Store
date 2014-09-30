@@ -18,7 +18,7 @@ public class SalesEmployeeQueryModel {
 		try {
 			String sqlString = "INSERT INTO SalesEmployee VALUES(NULL, ?, ?, ?, ?, ?, CURDATE(), ?, ?)";
 
-			preparedStatement = DBConnection.getSharedConnection().prepareStatement(
+			preparedStatement = DBConnection.getConnection().prepareStatement(
 					sqlString);
 
 			preparedStatement.setString(1, name);

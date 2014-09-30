@@ -38,7 +38,7 @@ public class DBConnection {
 		}
 	}
 
-	public static Connection getSharedConnection() {
+	public static Connection getConnection() {
 		while (sharedConnection == null)
 			;
 		return sharedConnection;
