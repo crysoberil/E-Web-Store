@@ -1,4 +1,4 @@
-package com.ewebstore.model;
+package com.ewebstore.linkgenerators;
 
 public class LinkGenerator {
 	private static final String home = "/E-Web-Store/";
@@ -109,5 +109,9 @@ public class LinkGenerator {
 
 	public static String productsReceiveRequestsPageLink() {
 		return home + "productsreceiverequests";
+	}
+	
+	public static String submitNewProductFormLink() {
+		return home + "addgenericproduct.do";
 	}
 }

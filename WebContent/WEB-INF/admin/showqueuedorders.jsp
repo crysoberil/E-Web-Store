@@ -2,7 +2,7 @@
 <%@page import="com.ewebstore.entity.Order"%>
 <%@page import="com.ewebstore.entity.OrderProduct"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.ewebstore.model.LinkGenerator"%>
+<%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
 <head>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.model.LinkGenerator"%>
+<%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
 <head>

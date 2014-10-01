@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.BranchManager"%>
+<%@page import="com.ewebstore.entity.ProductCategory"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
@@ -11,12 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<%
-	BranchManager branchManager = (BranchManager) request
-			.getAttribute("branchmanager");
-%>
-
-<title><%=branchManager.getName()%></title>
+<title>Admin Dashboard</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -45,6 +41,10 @@
     <![endif]-->
 
 </head>
+
+<%
+	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request.getAttribute("categories");
+%>
 
 <body>
 
@@ -130,8 +130,8 @@
 						</script>
 						<li><a href="#" onclick="prodFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Products<span class="fa arrow"></span></a>
-							<ul id="productslist" class="nav nav-second-level collapse">
-								<li><a
+							<ul id="productslist" class="nav nav-second-level collapse in">
+								<li><a class="active"
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
 								<li><a href="<%=LinkGenerator.addProductsToStockLink()%>">Add
@@ -212,97 +212,95 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Profile</h1>
-
-					<div
-						class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
-
-
-						<div class="panel panel-info">
-							<div class="panel-heading">
-								<h3 class="panel-title"><%=branchManager.getName()%></h3>
-							</div>
-							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-3 col-lg-3 " align="center">
-										<img alt="User Pic"
-											src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
-											class="img-circle">
-									</div>
-
-
-									<div class=" col-md-9 col-lg-9 ">
-										<table class="table table-user-information">
-											<tbody>
-												<tr>
-													<td>Manager ID</td>
-													<td><%=branchManager.getManagerID()%></td>
-												</tr>
-												<tr>
-													<td>Branch ID</td>
-													<td><%=branchManager.getBranchID()%></td>
-												</tr>
-												<tr>
-													<td>Branch Name</td>
-													<td><%=branchManager.getBranchName()%></td>
-												</tr>
-												<tr>
-													<td>Gender</td>
-													<td><%=branchManager.isGender() ? "Male" : "Female"%>
-													</td>
-												</tr>
-												<tr>
-													<td>Email</td>
-													<td><%=branchManager.getEmail()%></td>
-												</tr>
-												<tr>
-													<td>Address</td>
-													<td><%=branchManager.getAddress()%></td>
-												</tr>
-												<tr>
-													<td>Date of Birth</td>
-													<td><%=branchManager.getDob()%></td>
-												</tr>
-												<tr>
-													<td>Contact Number</td>
-													<td><%=branchManager.getContactNumber()%></td>
-												</tr>
-
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-					<!-- /.col-lg-12 -->
+					<h1 class="page-header">Add Product</h1>
 				</div>
-				<!-- /.row -->
-
+				<!-- /.col-lg-12 -->
 			</div>
-			<!-- /#page-wrapper -->
+			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Product information</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<form role="form" method="post"
+										action="<%=LinkGenerator.submitNewProductFormLink()%>"
+										enctype="multipart/form-data">
+										<div class="form-group">
+											<label>Product Name</label> <input name="productname"
+												class="form-control">
+										</div>
+										<div class="form-group">
+											<label>Select Categories</label>
+											<%
+												for (ProductCategory category : categories) {
+											%>
+											<div class="checkbox">
+												<label><input type="checkbox"
+													name="<%=category.getCategoryCheckBoxName()%>"><%=category.getCategoryName()%></label>
+											</div>
+											<%
+												}
+											%>
+										</div>
+										<div class="form-group">
+											<label>Brand Name</label> <input name="brand"
+												class="form-control">
+										</div>
 
+										<div class="form-group">
+											<label>Display Image</label> <input name="displayimage"
+												type="file">
+										</div>
+										<div class="form-group">
+											<label>Description</label>
+											<textarea name="description" class="form-control" rows="3"></textarea>
+										</div>
+										<div class="form-group">
+											<label>Price(BDT)</label> <input name="price"
+												class="form-control">
+										</div>
+
+										<button type="submit" class="btn btn-default">Submit</button>
+										<button type="reset" class="btn btn-default">Reset</button>
+									</form>
+								</div>
+
+								<!-- /.col-lg-6 (nested) -->
+							</div>
+							<!-- /.row (nested) -->
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
 		</div>
-		<!-- /#wrapper -->
+		<!-- /#page-wrapper -->
 
-		<!-- jQuery Version 1.11.0 -->
-		<script src="js/jquery-1.11.0.js"></script>
+	</div>
+	<!-- /#wrapper -->
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="js/bootstrap.min.js"></script>
+	<!-- jQuery Version 1.11.0 -->
+	<script src="js/jquery-1.11.0.js"></script>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="js/plugins/metisMenu/metisMenu.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
 
-		<!-- Morris Charts JavaScript -->
-		<script src="js/plugins/morris/raphael.min.js"></script>
-		<script src="js/plugins/morris/morris.min.js"></script>
-		<script src="js/plugins/morris/morris-data.js"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="js/plugins/metisMenu/metisMenu.min.js"></script>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="js/sb-admin-2.js"></script>
+	<!-- Morris Charts JavaScript -->
+	<script src="js/plugins/morris/raphael.min.js"></script>
+	<script src="js/plugins/morris/morris.min.js"></script>
+	<script src="js/plugins/morris/morris-data.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="js/sb-admin-2.js"></script>
+
 </body>
 
 </html>

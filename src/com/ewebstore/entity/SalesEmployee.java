@@ -2,7 +2,7 @@ package com.ewebstore.entity;
 
 import java.sql.Date;
 
-import com.ewebstore.model.LinkGenerator;
+import com.ewebstore.linkgenerators.LinkGenerator;
 
 public class SalesEmployee {
 	private String employeeID;

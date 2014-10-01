@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ewebstore.linkgenerators.LinkGenerator;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.CustomerQueryModel;
-import com.ewebstore.model.LinkGenerator;
 
 public class LogInController extends CheckedHttpServlet {
 	@Override

@@ -59,4 +59,24 @@
   	<servlet-name>AdminProfilePageLoader</servlet-name>
   	<url-pattern>/adminprofile</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>AddGenericProductPageLoader</servlet-name>
+  	<servlet-class>com.ewebstore.controller.AddGenericProductPageLoader</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>AddGenericProductPageLoader</servlet-name>
+  	<url-pattern>/addgenericproduct</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>SubmitNewGenericProductController</servlet-name>
+  	<servlet-class>com.ewebstore.controller.SubmitNewGenricProductController</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>SubmitNewGenericProductController</servlet-name>
+  	<url-pattern>/addgenericproduct.do</url-pattern>
+  </servlet-mapping>
 </web-app>

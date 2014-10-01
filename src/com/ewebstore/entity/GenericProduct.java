@@ -1,6 +1,6 @@
 package com.ewebstore.entity;
 
-import com.ewebstore.model.LinkGenerator;
+import com.ewebstore.linkgenerators.LinkGenerator;
 
 public class GenericProduct {
 	
