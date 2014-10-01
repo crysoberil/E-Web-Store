@@ -85,4 +85,24 @@
 		<servlet-name>SubmitNewGenericProductController</servlet-name>
 		<url-pattern>/addgenericproduct.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddProductToStockPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.AddProductToStockPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AddProductToStockPageLoader</servlet-name>
+		<url-pattern>/addproducttostock</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SubmitStockProductAdditionController</servlet-name>
+		<servlet-class>com.ewebstore.controller.SubmitStockProductAdditionController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitStockProductAdditionController</servlet-name>
+		<url-pattern>/addproducttostock.do</url-pattern>
+	</servlet-mapping>
 </web-app>

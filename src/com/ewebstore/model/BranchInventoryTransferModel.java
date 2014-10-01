@@ -140,32 +140,12 @@ public class BranchInventoryTransferModel {
 	public static void confirmInventoryTransfer(String inventoryTransferID)
 			throws SQLException {
 		try {
-			updateBranchInventoryAfterTransfer(inventoryTransferID);
+			BranchInventoryQueryModel
+					.updateBranchInventoryAfterTransfer(inventoryTransferID);
 			deleteCompletedInventoryTransfer(inventoryTransferID);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw ex;
-		}
-	}
-
-	private static void updateBranchInventoryAfterTransfer(
-			String inventoryTransferID) throws SQLException {
-		PreparedStatement preparedStatement = null;
-		try {
-			preparedStatement = DBConnection
-					.getConnection()
-					.prepareStatement(
-							"UPDATE BranchInventory SET availableQuantity = availableQuantity + (SELECT quantity FROM BranchInventoryTransfer WHERE BranchInventoryTransfer.productID = BranchInventory.productID AND inventoryTransferID = ?), inStockQuantity = inStockQuantity + (SELECT quantity FROM BranchInventoryTransfer WHERE BranchInventoryTransfer.productID = BranchInventory.productID AND inventoryTransferID = ?) WHERE BranchInventory.branchID = (SELECT toBranchID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?)");
-
-			preparedStatement.setLong(1, Long.valueOf(inventoryTransferID));
-			preparedStatement.setLong(2, Long.valueOf(inventoryTransferID));
-			preparedStatement.setLong(3, Long.valueOf(inventoryTransferID));
-
-			preparedStatement.executeUpdate();
-		} catch (SQLException ex) {
-			throw ex;
-		} finally {
-			DBUtil.dispose(preparedStatement);
 		}
 	}
 

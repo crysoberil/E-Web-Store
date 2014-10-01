@@ -69,7 +69,7 @@
 						<li><a href="<%=LinkGenerator.queuedOrdersPageLink()%>"><i
 								class="fa fa-edit fa-fw"></i>Queued Orders</a></li>
 
-						<li><a href="<%=LinkGenerator.addProductsToStockLink()%>"><i
+						<li><a href="<%=LinkGenerator.addProductsToStockPageLink()%>"><i
 								class="fa fa-edit fa-fw"></i>Add Products to Stock</a></li>
 
 
@@ -123,7 +123,7 @@
 								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
-								<li><a href="<%=LinkGenerator.addProductsToStockLink()%>">Add
+								<li><a href="<%=LinkGenerator.addProductsToStockPageLink()%>">Add
 										Product to Stock</a></li>
 								<li><a
 									href="<%=LinkGenerator.genericProductSearchPageLink()%>">Product

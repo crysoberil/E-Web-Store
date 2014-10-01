@@ -55,7 +55,7 @@ public class LinkGenerator {
 		return home + "dashboard";
 	}
 
-	public static String addProductsToStockLink() {
+	public static String addProductsToStockPageLink() {
 		return home + "addproducttostock";
 	}
 
@@ -110,8 +110,12 @@ public class LinkGenerator {
 	public static String productsReceiveRequestsPageLink() {
 		return home + "productsreceiverequests";
 	}
-	
+
 	public static String submitNewProductFormLink() {
 		return home + "addgenericproduct.do";
+	}
+
+	public static String submitProductAdditionToInventory() {
+		return home + "addproducttostock.do";
 	}
 }
