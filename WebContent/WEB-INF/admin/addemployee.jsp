@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.ProductCategory"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
@@ -41,10 +39,6 @@
     <![endif]-->
 
 </head>
-
-<%
-	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request.getAttribute("categories");
-%>
 
 <body>
 
@@ -130,8 +124,8 @@
 						</script>
 						<li><a href="#" onclick="prodFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Products<span class="fa arrow"></span></a>
-							<ul id="productslist" class="nav nav-second-level collapse in">
-								<li><a class="active"
+							<ul id="productslist" class="nav nav-second-level collapse">
+								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
 								<li><a
@@ -213,7 +207,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Add Product</h1>
+					<h1 class="page-header">Add Employee</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -221,45 +215,39 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Product information</div>
+						<div class="panel-heading">Employee Information</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
 									<form role="form" method="post"
-										action="<%=LinkGenerator.submitNewProductFormLink()%>"
-										enctype="multipart/form-data">
+										action="<%=LinkGenerator.submitNewEmployeeFormLink()%>">
+
 										<div class="form-group">
-											<label>Product Name</label> <input name="productname"
-												class="form-control">
+											<label>Name</label> <input name="name" class="form-control">
 										</div>
-										<div class="form-group">
-											<label>Select Categories</label>
-											<%
-												for (ProductCategory category : categories) {
-											%>
-											<div class="checkbox">
-												<label><input type="checkbox"
-													name="<%=category.getCategoryCheckBoxName()%>"><%=category.getCategoryName()%></label>
-											</div>
-											<%
-												}
-											%>
+
+										<div class="input-group">
+											<label>Gender</label> <br> <input type="radio"
+												name="gender" value="male">Male<br> <input
+												type="radio" name="gender" value="female">Female
 										</div>
+
 										<div class="form-group">
-											<label>Brand Name</label> <input name="brand"
+											<label><br>Email</label> <input name="email"
 												class="form-control">
 										</div>
 
 										<div class="form-group">
-											<label>Display Image</label> <input name="displayimage"
-												type="file">
+											<label>Contact Number</label> <input name="contactNumber"
+												class="form-control">
 										</div>
+
 										<div class="form-group">
-											<label>Description</label>
-											<textarea name="description" class="form-control" rows="3"></textarea>
+											<label>Date of Birth</label> <input name="dob" type="date">
 										</div>
+
 										<div class="form-group">
-											<label>Price(BDT)</label> <input name="price"
+											<label>Address</label> <input name="address"
 												class="form-control">
 										</div>
 
@@ -281,6 +269,9 @@
 			<!-- /.row -->
 		</div>
 		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
 
 	</div>
 	<!-- /#wrapper -->

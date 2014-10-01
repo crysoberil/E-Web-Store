@@ -9,9 +9,8 @@ import com.ewebstore.dbutil.DBUtil;
 
 public class SalesEmployeeQueryModel {
 	public static void addSalesEmployee(String name, boolean gender,
-			String email, String contactnumber, Date dob, String joinDate,
-			String address, String branchID, String branchName)
-			throws SQLException {
+			String email, String contactnumber, Date dob, String address,
+			String branchID, String branchName) throws SQLException {
 
 		PreparedStatement preparedStatement = null;
 

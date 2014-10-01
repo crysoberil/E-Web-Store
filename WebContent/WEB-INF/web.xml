@@ -105,4 +105,34 @@
 		<servlet-name>SubmitStockProductAdditionController</servlet-name>
 		<url-pattern>/addproducttostock.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminProductSearchController</servlet-name>
+		<servlet-class>com.ewebstore.controller.AdminProductSearchController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminProductSearchController</servlet-name>
+		<url-pattern>/searchgenericproduct</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddEmployeePageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.AddEmployeePageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AddEmployeePageLoader</servlet-name>
+		<url-pattern>/addemployee</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SubmitNewEmployeeController</servlet-name>
+		<servlet-class>com.ewebstore.controller.SubmitNewEmployeeController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitNewEmployeeController</servlet-name>
+		<url-pattern>/addemployee.do</url-pattern>
+	</servlet-mapping>
 </web-app>

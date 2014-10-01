@@ -30,7 +30,26 @@ public class BranchInventoryQueryModel {
 
 	public static void addProductToInventory(String branchManagerID,
 			String productID, int quantity) throws SQLException {
-		// TODO Auto-generated method stub
-		
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"INSERT INTO BranchInventory VALUES ((SELECT branchID FROM BranchManager WHERE managerID = ?), ?, ?, 0, 0, ?) ON DUPLICATE KEY UPDATE inStockQuantity = inStockQuantity + ?, availableQuantity = availableQuantity + ?");
+
+			preparedStatement.setLong(1, Long.parseLong(branchManagerID));
+			preparedStatement.setLong(2, Long.parseLong(productID));
+			preparedStatement.setInt(3, quantity);
+			preparedStatement.setInt(4, quantity);
+			preparedStatement.setInt(5, quantity);
+			preparedStatement.setInt(6, quantity);
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+		}
 	}
 }

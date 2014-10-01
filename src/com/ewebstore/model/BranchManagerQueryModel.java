@@ -64,7 +64,34 @@ public class BranchManagerQueryModel {
 		} finally {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(statement);
-			
+
+		}
+	}
+
+	public static String getBranchID(String managerID) {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection.getConnection().prepareStatement(
+					"SELECT branchID FROM BranchManager WHERE managerID = ?");
+
+			statement.setLong(1, Long.valueOf(managerID));
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException("No such branch manager");
+
+			String branchID = Long.toString(resultSet.getLong(1));
+
+			return branchID;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
 		}
 	}
 

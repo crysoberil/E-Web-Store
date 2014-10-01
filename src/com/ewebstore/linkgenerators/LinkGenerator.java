@@ -118,4 +118,8 @@ public class LinkGenerator {
 	public static String submitProductAdditionToInventory() {
 		return home + "addproducttostock.do";
 	}
+
+	public static String submitNewEmployeeFormLink() {
+		return home + "addemployee.do";
+	}
 }
