@@ -2,7 +2,6 @@ package com.ewebstore.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
@@ -44,7 +43,7 @@ public class SubmitNewGenricProductController extends CheckedHttpServlet {
 					throw new IllegalArgumentException(
 							"Brand Name field is empty");
 				else
-					brandName = productName.trim().toLowerCase();
+					brandName = brandName.trim().toLowerCase();
 
 				String description = req.getParameter("description");
 
@@ -67,15 +66,22 @@ public class SubmitNewGenricProductController extends CheckedHttpServlet {
 																						// checked
 						selectedCategoryIDs.add(category.getCategoryID());
 
-				String imageLink = ImageLinkGenerator.getNewImageName();
+				String imageLink = ImageLinkGenerator.getNewImagePath();
 
 				Part imageFilePart = req.getPart("displayimage");
-				InputStream stream = imageFilePart.getInputStream();
-
-				putImageFileToDisk(imageLink, stream);
+				
+				
+				if (imageFilePart != null) {
+					InputStream stream = imageFilePart.getInputStream();
+					putImageFileToDisk(imageLink, stream);
+				} else
+					imageLink = null;
 
 				ProductQueryModel.addGenericProduct(productName, brandName,
 						description, price, selectedCategoryIDs, imageLink);
+				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+						"Success", "New Product Added", "New product infromtaion added.");
+				
 			} catch (IllegalArgumentException ex) {
 				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", ex.getMessage());

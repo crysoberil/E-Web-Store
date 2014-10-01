@@ -1,82 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>E-Web-Store</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  
-  <servlet>
-  	<servlet-name>AdminLogInPageLoader</servlet-name>
-  	<servlet-class>com.ewebstore.controller.AdminLogInPageLoader</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>AdminLogInPageLoader</servlet-name>
-  	<url-pattern>/adminlogin</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>LogInController</servlet-name>
-  	<servlet-class>com.ewebstore.controller.LogInController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>LogInController</servlet-name>
-  	<url-pattern>/login.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>AdminHomePageLoader</servlet-name>
-  	<servlet-class>com.ewebstore.controller.AdminHomePageLoader</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>AdminHomePageLoader</servlet-name>
-  	<url-pattern>/admin</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>LogoutController</servlet-name>
-  	<servlet-class>com.ewebstore.controller.LogoutController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>LogoutController</servlet-name>
-  	<url-pattern>/logout.do</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>AdminProfilePageLoader</servlet-name>
-  	<servlet-class>com.ewebstore.controller.AdminProfilePageLoader</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>AdminProfilePageLoader</servlet-name>
-  	<url-pattern>/adminprofile</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>AddGenericProductPageLoader</servlet-name>
-  	<servlet-class>com.ewebstore.controller.AddGenericProductPageLoader</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>AddGenericProductPageLoader</servlet-name>
-  	<url-pattern>/addgenericproduct</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-  	<servlet-name>SubmitNewGenericProductController</servlet-name>
-  	<servlet-class>com.ewebstore.controller.SubmitNewGenricProductController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>SubmitNewGenericProductController</servlet-name>
-  	<url-pattern>/addgenericproduct.do</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>E-Web-Store</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>AdminLogInPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.AdminLogInPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminLogInPageLoader</servlet-name>
+		<url-pattern>/adminlogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LogInController</servlet-name>
+		<servlet-class>com.ewebstore.controller.LogInController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LogInController</servlet-name>
+		<url-pattern>/login.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminHomePageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.AdminHomePageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminHomePageLoader</servlet-name>
+		<url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LogoutController</servlet-name>
+		<servlet-class>com.ewebstore.controller.LogoutController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>LogoutController</servlet-name>
+		<url-pattern>/logout.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminProfilePageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.AdminProfilePageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminProfilePageLoader</servlet-name>
+		<url-pattern>/adminprofile</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AddGenericProductPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.AddGenericProductPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AddGenericProductPageLoader</servlet-name>
+		<url-pattern>/addgenericproduct</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SubmitNewGenericProductController</servlet-name>
+		<servlet-class>com.ewebstore.controller.SubmitNewGenricProductController</servlet-class>
+		<multipart-config>
+			<!-- In this case empty, but can contain additional nested elements -->
+		</multipart-config>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitNewGenericProductController</servlet-name>
+		<url-pattern>/addgenericproduct.do</url-pattern>
+	</servlet-mapping>
 </web-app>

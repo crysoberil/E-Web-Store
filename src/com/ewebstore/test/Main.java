@@ -11,7 +11,7 @@ import com.ewebstore.dbutil.DBUtil;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-		// pushDistrictNamesToDataBase();
+//		 pushDistrictNamesToDataBase();
 		updateDistrictDistances();
 	}
 
