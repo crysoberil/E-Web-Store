@@ -1,15 +1,17 @@
 package com.ewebstore.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
-public class SubmitNewEmployeeController extends CheckedHttpServlet {
+public class SubmitEditEmployeeFormController extends CheckedHttpServlet {
 
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -20,11 +22,10 @@ public class SubmitNewEmployeeController extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
-
-		if (!isAdmin(req))
-			SimpleFeedbackPageLoader.showInvalidAccessPage(req, resp);
-		else {
+		if (isAdmin(req)) {
 			try {
+				String employeeID = req.getParameter("employeeid");
+
 				String name = req.getParameter("name");
 				if (name == null || name.trim().length() == 0)
 					throw new IllegalArgumentException("Name field empty");
@@ -48,23 +49,26 @@ public class SubmitNewEmployeeController extends CheckedHttpServlet {
 				if (address == null || address.trim().length() == 0)
 					throw new IllegalArgumentException("Address field empty");
 
-				String adminID = req.getSession().getAttribute("adminid")
-						.toString();
-				String branchID = BranchManagerQueryModel.getBranchID(adminID);				
-
-				SalesEmployeeQueryModel.addSalesEmployee(name, gender, email,
-						contactNumber, dob, address, branchID);
+				SalesEmployeeQueryModel.updateSalesEmployee(employeeID, name,
+						gender, email, contactNumber, dob, address);
 
 				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Success", "New Employee Added",
-						"New employee information added.");
+						"Success", "Employee Updated",
+						"Employee information updated.");
 
-			} catch (IllegalArgumentException ex) {
+			} catch (IllegalArgumentException e) {
 				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Error", "Invalid Input", ex.getMessage());
-			} catch (SQLException ex) {
+						"Error", "Invalid Input", e.getMessage());
+			} catch (SQLException e) {
 				SimpleFeedbackPageLoader
 						.showAdminOperationFailedPage(req, resp);
+			}
+		} else {
+			try {
+				req.getRequestDispatcher("/WEB-INF/admin/login.jsp").forward(
+						req, resp);
+			} catch (IOException | ServletException ex) {
+				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
 			}
 		}
 	}

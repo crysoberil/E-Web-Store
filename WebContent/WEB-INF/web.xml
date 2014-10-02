@@ -135,4 +135,54 @@
 		<servlet-name>SubmitNewEmployeeController</servlet-name>
 		<url-pattern>/addemployee.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RemoveEmployeePageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.RemoveEmployeePageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RemoveEmployeePageLoader</servlet-name>
+		<url-pattern>/removeemployee</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SubmitRemoveEmployeeController</servlet-name>
+		<servlet-class>com.ewebstore.controller.SubmitRemoveEmployeeController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitRemoveEmployeeController</servlet-name>
+		<url-pattern>/removeemployee.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditEmployeePageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.EditEmployeePageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EditEmployeePageLoader</servlet-name>
+		<url-pattern>/editemployee</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditEmployeeFormLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.EditEmployeeFormLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EditEmployeeFormLoader</servlet-name>
+		<url-pattern>/editemployeeform.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SubmitEditEmployeeFormController</servlet-name>
+		<servlet-class>com.ewebstore.controller.SubmitEditEmployeeFormController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitEditEmployeeFormController</servlet-name>
+		<url-pattern>/editemployee.do</url-pattern>
+	</servlet-mapping>
 </web-app>

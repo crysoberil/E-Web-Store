@@ -55,7 +55,7 @@ public class BranchManagerQueryModel {
 			resultSet = statement.executeQuery();
 
 			if (!resultSet.next())
-				throw new SQLException("No such branch manager");
+				throw new IllegalArgumentException("No such branch manager");
 
 			return resultSet.getString(1);
 

@@ -88,7 +88,7 @@ public class LinkGenerator {
 	}
 
 	public static String editEmployeePageLink() {
-		return home + "editemployeeinformation";
+		return home + "editemployee";
 	}
 
 	public static String removeEmployeePageLink() {
@@ -121,5 +121,17 @@ public class LinkGenerator {
 
 	public static String submitNewEmployeeFormLink() {
 		return home + "addemployee.do";
+	}
+
+	public static String submitEditEmployeeLink() {
+		return home + "editemployeeform.do";
+	}
+
+	public static String submitEditEmployeeFormLink() {
+		return home + "editemployee.do";
+	}
+
+	public static String submitRemoveEmployeeFormLink() {
+		return home + "removeemployee.do";
 	}
 }

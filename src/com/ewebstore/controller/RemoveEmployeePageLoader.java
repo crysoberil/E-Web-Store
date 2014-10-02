@@ -6,12 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AddEmployeePageLoader extends CheckedHttpServlet {
+public class RemoveEmployeePageLoader extends CheckedHttpServlet {
+
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
 		if (isAdmin(req)) {
+			// TODO load admin home
 			try {
-				req.getRequestDispatcher("/WEB-INF/admin/addemployee.jsp")
+				req.getRequestDispatcher("/WEB-INF/admin/removeemployee.jsp")
 						.forward(req, resp);
 			} catch (ServletException | IOException ex) {
 				ex.printStackTrace();
@@ -29,5 +31,8 @@ public class AddEmployeePageLoader extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
+		// TODO Auto-generated method stub
+
 	}
+
 }

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.ProductCategory"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
@@ -12,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>New Product</title>
+<title>Product Search</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,10 +40,6 @@
     <![endif]-->
 
 </head>
-
-<%
-	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request.getAttribute("categories");
-%>
 
 <body>
 
@@ -131,13 +126,13 @@
 						<li><a href="#" onclick="prodFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Products<span class="fa arrow"></span></a>
 							<ul id="productslist" class="nav nav-second-level collapse in">
-								<li><a class="active"
+								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
 								<li><a
 									href="<%=LinkGenerator.addProductsToStockPageLink()%>">Add
 										Products to Stock</a></li>
-								<li><a
+								<li><a class="active"
 									href="<%=LinkGenerator.genericProductSearchPageLink()%>">Product
 										Search</a></li>
 							</ul> <!-- /.nav-second-level --></li>
@@ -213,72 +208,88 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Add Product</h1>
+					<h1 class="page-header">Product Search</h1>
+
+					<%
+						ArrayList<String> productIDs = (ArrayList<String>) request
+								.getAttribute("productids");
+						ArrayList<String> productNames = (ArrayList<String>) request
+								.getAttribute("productnames");
+						ArrayList<String> productBrands = (ArrayList<String>) request
+								.getAttribute("productbrands");
+						boolean emptyList = productIDs.isEmpty();
+					%>
+
+					<%
+						if (emptyList) {
+					%>
+					<br> <br>
+					<form action="<%=LinkGenerator.genericProductSearchPageLink()%>"
+						method="get">
+						<input name="searchwordprefix" type="search"
+							placeholder="Search Product"
+							style="margin-left: auto; margin-right: auto; text-align: center;"
+							class="form-control">
+					</form>
+
+					<%
+						} else {
+					%>
+					<br> <br>
+					<form action="<%=LinkGenerator.genericProductSearchPageLink()%>"
+						method="get">
+						<input name="searchwordprefix" type="search"
+							placeholder="Search Product"
+							style="margin-left: auto; margin-right: auto; text-align: center;"
+							class="form-control">
+					</form>
+					<br> <br>
+
+					<table
+						class="table table-striped table-bordered table-hover dataTable no-footer"
+						aria-describedby="dataTables-example_info">
+						<thead>
+							<tr role="row" class="gradeA odd">
+								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
+									colspan="1" style="width: 228px;" aria-sort="descending">Product
+									ID</th>
+								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
+									colspan="1" style="width: 228px;">Product Name</th>
+								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
+									colspan="1" style="width: 228px;">Brand</th>
+							</tr>
+						</thead>
+
+
+						<tbody>
+							<%
+								for (int i = 0; i < productIDs.size(); i++) {
+										String productID = productIDs.get(i);
+										String productName = productNames.get(i);
+										String productBrand = productBrands.get(i);
+							%>
+							<tr class="gradeA even">
+								<td><%=productID%></td>
+								<td><%=productName%></td>
+								<td><%=productBrand.substring(0, 1).toUpperCase()
+							+ productBrand.substring(1)%></td>
+							</tr>
+
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+
+					<%
+						}
+					%>
+
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
 			<!-- /.row -->
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-						<div class="panel-heading">Product information</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-lg-6">
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitNewProductFormLink()%>"
-										enctype="multipart/form-data">
-										<div class="form-group">
-											<label>Product Name</label> <input name="productname"
-												class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Select Categories</label>
-											<%
-												for (ProductCategory category : categories) {
-											%>
-											<div class="checkbox">
-												<label><input type="checkbox"
-													name="<%=category.getCategoryCheckBoxName()%>"><%=category.getCategoryName()%></label>
-											</div>
-											<%
-												}
-											%>
-										</div>
-										<div class="form-group">
-											<label>Brand Name</label> <input name="brand"
-												class="form-control">
-										</div>
 
-										<div class="form-group">
-											<label>Display Image</label> <input name="displayimage"
-												type="file">
-										</div>
-										<div class="form-group">
-											<label>Description</label>
-											<textarea name="description" class="form-control" rows="3"></textarea>
-										</div>
-										<div class="form-group">
-											<label>Price(BDT)</label> <input name="price"
-												class="form-control">
-										</div>
-
-										<button type="submit" class="btn btn-default">Submit</button>
-										<button type="reset" class="btn btn-default">Reset</button>
-									</form>
-								</div>
-
-								<!-- /.col-lg-6 (nested) -->
-							</div>
-							<!-- /.row (nested) -->
-						</div>
-						<!-- /.panel-body -->
-					</div>
-					<!-- /.panel -->
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
-			<!-- /.row -->
 		</div>
 		<!-- /#page-wrapper -->
 

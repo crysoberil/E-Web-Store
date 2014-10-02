@@ -34,9 +34,16 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 			if (productNamePrefix != null)
 				productNamePrefix = productNamePrefix.trim().toLowerCase();
 
+			if (productNamePrefix != null && productNamePrefix.length() == 0)
+				productNamePrefix = null;
+
 			ArrayList<String> productIDs = new ArrayList<String>();
 			ArrayList<String> productNames = new ArrayList<String>();
 			ArrayList<String> productBrands = new ArrayList<String>();
+
+			req.setAttribute("productids", productIDs);
+			req.setAttribute("productnames", productNames);
+			req.setAttribute("productbrands", productBrands);
 
 			try {
 				if (productNamePrefix != null) {
@@ -54,6 +61,10 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 						throw ex;
 					}
 				}
+
+				req.setAttribute("productids", productIDs);
+				req.setAttribute("productnames", productNames);
+				req.setAttribute("productbrands", productBrands);
 
 				req.getRequestDispatcher("/WEB-INF/admin/productsearch.jsp")
 						.forward(req, resp);

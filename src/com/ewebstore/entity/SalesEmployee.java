@@ -9,7 +9,7 @@ public class SalesEmployee {
 	private String name;
 	private boolean gender;
 	private String email;
-	private String contactnumber;
+	private String contactNumber;
 	private Date dob;
 	private Date joinDate;
 	private String address;
@@ -17,13 +17,13 @@ public class SalesEmployee {
 	private String branchName;
 
 	public SalesEmployee(String employeeID, String name, boolean gender,
-			String email, String contactnumber, Date dob, Date joinDate,
+			String email, String contactNumber, Date dob, Date joinDate,
 			String address, String branchID, String branchName) {
 		this.employeeID = employeeID;
 		this.name = name;
 		this.gender = gender;
 		this.email = email;
-		this.contactnumber = contactnumber;
+		this.contactNumber = contactNumber;
 		this.dob = dob;
 		this.joinDate = joinDate;
 		this.address = address;
@@ -47,8 +47,8 @@ public class SalesEmployee {
 		return email;
 	}
 
-	public String getContactnumber() {
-		return contactnumber;
+	public String getContactNumber() {
+		return contactNumber;
 	}
 
 	public Date getDob() {

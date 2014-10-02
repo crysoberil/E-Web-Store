@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.ProductCategory"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="com.ewebstore.entity.SalesEmployee"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
@@ -12,7 +11,12 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>New Product</title>
+<%
+	SalesEmployee salesEmployee = (SalesEmployee) request
+			.getAttribute("salesemployee");
+%>
+
+<title>Edit Employee Information Form</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,10 +45,6 @@
     <![endif]-->
 
 </head>
-
-<%
-	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request.getAttribute("categories");
-%>
 
 <body>
 
@@ -130,8 +130,8 @@
 						</script>
 						<li><a href="#" onclick="prodFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Products<span class="fa arrow"></span></a>
-							<ul id="productslist" class="nav nav-second-level collapse in">
-								<li><a class="active"
+							<ul id="productslist" class="nav nav-second-level collapse">
+								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
 								<li><a
@@ -161,10 +161,11 @@
 						<li><a href="#" onclick="empFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Sales Employee<span
 								class="fa arrow"></span></a>
-							<ul id="employeelist" class="nav nav-second-level collapse">
+							<ul id="employeelist" class="nav nav-second-level collapse in">
 								<li><a href="<%=LinkGenerator.addEmployeePageLink()%>">Add
 										Employee</a></li>
-								<li><a href="<%=LinkGenerator.editEmployeePageLink()%>">Edit
+								<li><a class="active"
+									href="<%=LinkGenerator.editEmployeePageLink()%>">Edit
 										Employee Profile</a></li>
 								<li><a href="<%=LinkGenerator.removeEmployeePageLink()%>">Remove
 										Employee</a></li>
@@ -213,7 +214,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Add Product</h1>
+					<h1 class="page-header">Edit Employee</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -221,46 +222,46 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Product information</div>
+						<div class="panel-heading">Employee Information</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
 									<form role="form" method="post"
-										action="<%=LinkGenerator.submitNewProductFormLink()%>"
-										enctype="multipart/form-data">
+										action="<%=LinkGenerator.submitEditEmployeeFormLink()%>">
+
+										<input type="hidden" name="employeeid"
+											value="<%=salesEmployee.getEmployeeID()%>" />
+
 										<div class="form-group">
-											<label>Product Name</label> <input name="productname"
-												class="form-control">
+											<label>Name</label> <input name="name"
+												value="<%=salesEmployee.getName()%>" class="form-control">
 										</div>
-										<div class="form-group">
-											<label>Select Categories</label>
-											<%
-												for (ProductCategory category : categories) {
-											%>
-											<div class="checkbox">
-												<label><input type="checkbox"
-													name="<%=category.getCategoryCheckBoxName()%>"><%=category.getCategoryName()%></label>
-											</div>
-											<%
-												}
-											%>
+
+										<div class="input-group">
+											<label>Gender</label> <br> <input type="radio"
+												name="gender" value="male">Male<br> <input
+												type="radio" name="gender" value="female">Female
 										</div>
+
 										<div class="form-group">
-											<label>Brand Name</label> <input name="brand"
+											<label><br>Email</label> <input name="email"
+												value="<%=salesEmployee.getEmail()%>" class="form-control">
+										</div>
+
+										<div class="form-group">
+											<label>Contact Number</label> <input name="contactNumber"
+												value="<%=salesEmployee.getContactNumber()%>"
 												class="form-control">
 										</div>
 
 										<div class="form-group">
-											<label>Display Image</label> <input name="displayimage"
-												type="file">
+											<label>Date of Birth</label> <input name="dob" type="date"
+												value="<%=salesEmployee.getDob()%>">
 										</div>
+
 										<div class="form-group">
-											<label>Description</label>
-											<textarea name="description" class="form-control" rows="3"></textarea>
-										</div>
-										<div class="form-group">
-											<label>Price(BDT)</label> <input name="price"
-												class="form-control">
+											<label>Address</label> <input name="address"
+												value="<%=salesEmployee.getAddress()%>" class="form-control">
 										</div>
 
 										<button type="submit" class="btn btn-default">Submit</button>
@@ -281,6 +282,9 @@
 			<!-- /.row -->
 		</div>
 		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
 
 	</div>
 	<!-- /#wrapper -->

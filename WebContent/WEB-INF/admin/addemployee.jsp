@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Admin Dashboard</title>
+<title>New Employee</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -155,8 +155,9 @@
 						<li><a href="#" onclick="empFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Sales Employee<span
 								class="fa arrow"></span></a>
-							<ul id="employeelist" class="nav nav-second-level collapse">
-								<li><a href="<%=LinkGenerator.addEmployeePageLink()%>">Add
+							<ul id="employeelist" class="nav nav-second-level collapse in">
+								<li><a class="active"
+									href="<%=LinkGenerator.addEmployeePageLink()%>">Add
 										Employee</a></li>
 								<li><a href="<%=LinkGenerator.editEmployeePageLink()%>">Edit
 										Employee Profile</a></li>

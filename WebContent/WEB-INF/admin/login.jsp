@@ -55,7 +55,7 @@
 									<input class="form-control" placeholder="Password"
 										name="password" type="password" value="">
 								</div>
-								<input type="hidden" name="logintype" value=admin /> <input
+								<input type="hidden" name="logintype" value="admin" /> <input
 									type="submit" class="btn btn-lg btn-success btn-block"
 									value="Login">
 							</fieldset>
