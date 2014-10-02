@@ -88,6 +88,10 @@ public class OrderQueryModel {
 				String orderBranchID = Long.toString(resultSet.getLong(5));
 				String associatedEmployeeID = Long.toString(resultSet
 						.getLong(6));
+
+				if (associatedEmployeeID.equals("0"))
+					associatedEmployeeID = null;
+
 				double totalOrderingCost = resultSet.getDouble(7);
 
 				String customerName = CustomerQueryModel
@@ -96,8 +100,11 @@ public class OrderQueryModel {
 				String orderBranchName = BranchQueryModel
 						.getBranchNameByID(orderBranchID);
 
-				String associatedEmployeeName = SalesEmployeeQueryModel
-						.getSalesEmployeeName(associatedEmployeeID);
+				String associatedEmployeeName = null;
+
+				if (associatedEmployeeID != null)
+					associatedEmployeeName = SalesEmployeeQueryModel
+							.getSalesEmployeeName(associatedEmployeeID);
 
 				String orderStatus = getOrderStatusByID(orderStatusID);
 
@@ -109,7 +116,7 @@ public class OrderQueryModel {
 						associatedEmployeeName, totalOrderingCost,
 						orderProducts);
 			}
-		} catch (SQLException ex) {
+		} catch (SQLException | NumberFormatException | NullPointerException ex) {
 			ex.printStackTrace();
 		} finally {
 			DBUtil.dispose(preparedStatement);
