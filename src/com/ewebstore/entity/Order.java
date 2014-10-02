@@ -3,6 +3,8 @@ package com.ewebstore.entity;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import com.ewebstore.linkgenerators.LinkGenerator;
+
 public class Order {
 	private String orderID;
 	private String customerID;
@@ -14,6 +16,7 @@ public class Order {
 	private String orderBranchID;
 	private String orderBranchName;
 	private String associatedEmployeeID;
+	private String associatedEmployeeName;
 	private double totalOrderingCost;
 
 	private ArrayList<OrderProduct> orderProducts;
@@ -21,8 +24,8 @@ public class Order {
 	public Order(String orderID, String customerID, String customerName,
 			Date orderDate, String deliveryLocation, String orderStatusID,
 			String orderStatus, String orderBranchID, String orderBranchName,
-			String associatedEmployeeID, double totalOrderingCost,
-			ArrayList<OrderProduct> orderProducts) {
+			String associatedEmployeeID, String associatedEmployeeName,
+			double totalOrderingCost, ArrayList<OrderProduct> orderProducts) {
 		super();
 		this.orderID = orderID;
 		this.customerID = customerID;
@@ -34,6 +37,7 @@ public class Order {
 		this.orderBranchID = orderBranchID;
 		this.orderBranchName = orderBranchName;
 		this.associatedEmployeeID = associatedEmployeeID;
+		this.associatedEmployeeName = associatedEmployeeName;
 		this.totalOrderingCost = totalOrderingCost;
 		this.orderProducts = orderProducts;
 	}
@@ -77,6 +81,10 @@ public class Order {
 	public String getAssociatedEmployeeID() {
 		return associatedEmployeeID;
 	}
+	
+	public String getAssociatedEmployeeName() {
+		return associatedEmployeeName;
+	}
 
 	public double getTotalOrderingCost() {
 		return totalOrderingCost;
@@ -84,5 +92,9 @@ public class Order {
 
 	public ArrayList<OrderProduct> getOrderProducts() {
 		return orderProducts;
+	}
+
+	public String getOrderPageLink() {
+		return LinkGenerator.getOrderLink(orderID);
 	}
 }

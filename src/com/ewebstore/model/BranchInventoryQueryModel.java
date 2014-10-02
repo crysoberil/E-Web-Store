@@ -1,6 +1,7 @@
 package com.ewebstore.model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ewebstore.dbutil.DBConnection;
@@ -50,6 +51,35 @@ public class BranchInventoryQueryModel {
 			throw ex;
 		} finally {
 			DBUtil.dispose(preparedStatement);
+		}
+	}
+	
+	public static int getAvailableProductQuantity(String branchID,
+			String productID) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT availableQuantity FROM BranchInventory WHERE branchID = ? AND productID = ?");
+
+			preparedStatement.setLong(1, Long.valueOf(branchID));
+			preparedStatement.setLong(2, Long.valueOf(productID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			return resultSet.getInt(1);
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
 		}
 	}
 }

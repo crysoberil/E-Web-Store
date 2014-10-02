@@ -126,4 +126,30 @@ public class SalesEmployeeQueryModel {
 			DBUtil.dispose(statement);
 		}
 	}
+	
+	public static String getSalesEmployeeName(String employeeID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					"SELECT name FROM SalesEmployee WHERE employeeID = ?");
+
+			preparedStatement.setLong(1, Long.valueOf(employeeID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			return resultSet.getString(1);
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
+		}
+	}
 }

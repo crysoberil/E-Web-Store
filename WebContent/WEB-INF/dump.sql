@@ -106,7 +106,8 @@ CREATE TABLE IF NOT EXISTS `ewebstore`.`Customer` (
   `premiumCustomer` TINYINT(1) NOT NULL,
   `totalTransaction` DOUBLE NOT NULL,
   `password` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`customerID`))
+  PRIMARY KEY (`customerID`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
@@ -211,14 +212,14 @@ CREATE TABLE IF NOT EXISTS `ewebstore`.`Order` (
   `customerID` BIGINT NOT NULL,
   `orderDate` DATE NOT NULL,
   `detailedDeliveryLocation` VARCHAR(80) NOT NULL,
-  `orderStausID` BIGINT NOT NULL,
+  `orderStatusID` BIGINT NOT NULL,
   `branchID` BIGINT NOT NULL,
-  `associatedEmployee` BIGINT NOT NULL,
+  `associatedEmployee` BIGINT NULL,
   `totalOrderingCost` DOUBLE NOT NULL,
   PRIMARY KEY (`orderID`),
   INDEX `fk_Order_1_idx` (`customerID` ASC),
   INDEX `fk_Order_2_idx` (`associatedEmployee` ASC),
-  INDEX `fk_Order_4_idx` (`orderStausID` ASC),
+  INDEX `fk_Order_4_idx` (`orderStatusID` ASC),
   INDEX `fk_Order_3_idx` (`branchID` ASC),
   CONSTRAINT `fk_Order_1`
     FOREIGN KEY (`customerID`)
@@ -236,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `ewebstore`.`Order` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Order_4`
-    FOREIGN KEY (`orderStausID`)
+    FOREIGN KEY (`orderStatusID`)
     REFERENCES `ewebstore`.`OrderStatus` (`orderStatusID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -388,6 +389,16 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `ewebstore`.`Customer`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ewebstore`;
+INSERT INTO `ewebstore`.`Customer` (`customerID`, `name`, `dob`, `gender`, `email`, `address`, `contactNumber`, `registrationDate`, `premiumCustomer`, `totalTransaction`, `password`) VALUES (NULL, 'Jamshed', '2013-09-23', 1, 'qq@q', 'Uttara', '015', '2013-09-23', 1, 0, 'asd');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `ewebstore`.`Category`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -400,6 +411,29 @@ INSERT INTO `ewebstore`.`Category` (`categoryID`, `categoryName`) VALUES (5, 'Ce
 INSERT INTO `ewebstore`.`Category` (`categoryID`, `categoryName`) VALUES (6, 'Clothings and Shoes');
 INSERT INTO `ewebstore`.`Category` (`categoryID`, `categoryName`) VALUES (7, 'Computers');
 INSERT INTO `ewebstore`.`Category` (`categoryID`, `categoryName`) VALUES (8, 'Electronics');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ewebstore`.`OrderStatus`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ewebstore`;
+INSERT INTO `ewebstore`.`OrderStatus` (`orderStatusID`, `status`) VALUES (NULL, 'Unhandled');
+INSERT INTO `ewebstore`.`OrderStatus` (`orderStatusID`, `status`) VALUES (NULL, 'Being Delivered');
+INSERT INTO `ewebstore`.`OrderStatus` (`orderStatusID`, `status`) VALUES (NULL, 'Delivered');
+INSERT INTO `ewebstore`.`OrderStatus` (`orderStatusID`, `status`) VALUES (NULL, 'Failed Delivery');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `ewebstore`.`Order`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ewebstore`;
+INSERT INTO `ewebstore`.`Order` (`orderID`, `customerID`, `orderDate`, `detailedDeliveryLocation`, `orderStatusID`, `branchID`, `associatedEmployee`, `totalOrderingCost`) VALUES (NULL, 4, '2013-09-23', 'dhaka', 5, 2, NULL, 10);
 
 COMMIT;
 

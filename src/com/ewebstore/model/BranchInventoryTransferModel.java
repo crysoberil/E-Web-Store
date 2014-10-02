@@ -44,8 +44,8 @@ public class BranchInventoryTransferModel {
 				.getNearestBranchIDWithProductAvailble(targetBranchID,
 						productID);
 
-		int availableAmount = BranchQueryModel.getAvailableProductQuantity(
-				supplierBranchID, productID);
+		int availableAmount = BranchInventoryQueryModel
+				.getAvailableProductQuantity(supplierBranchID, productID);
 
 		int toSupplyQuantity = Math.min(availableAmount, maxQuantity);
 

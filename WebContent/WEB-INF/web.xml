@@ -85,7 +85,7 @@
 		<servlet-name>SubmitNewGenericProductController</servlet-name>
 		<url-pattern>/addgenericproduct.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AddProductToStockPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.AddProductToStockPageLoader</servlet-class>
@@ -95,7 +95,7 @@
 		<servlet-name>AddProductToStockPageLoader</servlet-name>
 		<url-pattern>/addproducttostock</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SubmitStockProductAdditionController</servlet-name>
 		<servlet-class>com.ewebstore.controller.SubmitStockProductAdditionController</servlet-class>
@@ -105,7 +105,7 @@
 		<servlet-name>SubmitStockProductAdditionController</servlet-name>
 		<url-pattern>/addproducttostock.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AdminProductSearchController</servlet-name>
 		<servlet-class>com.ewebstore.controller.AdminProductSearchController</servlet-class>
@@ -115,7 +115,7 @@
 		<servlet-name>AdminProductSearchController</servlet-name>
 		<url-pattern>/searchgenericproduct</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AddEmployeePageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.AddEmployeePageLoader</servlet-class>
@@ -125,7 +125,7 @@
 		<servlet-name>AddEmployeePageLoader</servlet-name>
 		<url-pattern>/addemployee</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SubmitNewEmployeeController</servlet-name>
 		<servlet-class>com.ewebstore.controller.SubmitNewEmployeeController</servlet-class>
@@ -135,7 +135,7 @@
 		<servlet-name>SubmitNewEmployeeController</servlet-name>
 		<url-pattern>/addemployee.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>RemoveEmployeePageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.RemoveEmployeePageLoader</servlet-class>
@@ -145,7 +145,7 @@
 		<servlet-name>RemoveEmployeePageLoader</servlet-name>
 		<url-pattern>/removeemployee</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SubmitRemoveEmployeeController</servlet-name>
 		<servlet-class>com.ewebstore.controller.SubmitRemoveEmployeeController</servlet-class>
@@ -155,7 +155,7 @@
 		<servlet-name>SubmitRemoveEmployeeController</servlet-name>
 		<url-pattern>/removeemployee.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>EditEmployeePageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.EditEmployeePageLoader</servlet-class>
@@ -165,7 +165,7 @@
 		<servlet-name>EditEmployeePageLoader</servlet-name>
 		<url-pattern>/editemployee</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>EditEmployeeFormLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.EditEmployeeFormLoader</servlet-class>
@@ -175,7 +175,7 @@
 		<servlet-name>EditEmployeeFormLoader</servlet-name>
 		<url-pattern>/editemployeeform.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SubmitEditEmployeeFormController</servlet-name>
 		<servlet-class>com.ewebstore.controller.SubmitEditEmployeeFormController</servlet-class>
@@ -184,5 +184,45 @@
 	<servlet-mapping>
 		<servlet-name>SubmitEditEmployeeFormController</servlet-name>
 		<url-pattern>/editemployee.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>QueuedOrdersPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.QueuedOrdersPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>QueuedOrdersPageLoader</servlet-name>
+		<url-pattern>/queuedorders</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DeliveredOrdersPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.DeliveredOrdersPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DeliveredOrdersPageLoader</servlet-name>
+		<url-pattern>/completedeliveries</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>OnDeliveryOrdersPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.OnDeliveryOrdersPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>OnDeliveryOrdersPageLoader</servlet-name>
+		<url-pattern>/ondeliveryorders</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ShowOrderDetailsController</servlet-name>
+		<servlet-class>com.ewebstore.controller.ShowOrderDetailsController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ShowOrderDetailsController</servlet-name>
+		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
 </web-app>

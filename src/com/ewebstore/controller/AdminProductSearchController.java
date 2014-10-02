@@ -31,11 +31,12 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 		else {
 			String productNamePrefix = req.getParameter("searchwordprefix");
 
-			if (productNamePrefix != null)
+			if (productNamePrefix != null) {
 				productNamePrefix = productNamePrefix.trim().toLowerCase();
-
-			if (productNamePrefix != null && productNamePrefix.length() == 0)
-				productNamePrefix = null;
+				
+				if (productNamePrefix.length() == 0)
+					productNamePrefix = null;
+			}
 
 			ArrayList<String> productIDs = new ArrayList<String>();
 			ArrayList<String> productNames = new ArrayList<String>();

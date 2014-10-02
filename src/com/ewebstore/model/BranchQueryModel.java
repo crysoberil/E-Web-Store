@@ -61,35 +61,6 @@ public class BranchQueryModel {
 		}
 	}
 
-	public static int getAvailableProductQuantity(String branchID,
-			String productID) throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			preparedStatement = DBConnection
-					.getConnection()
-					.prepareStatement(
-							"SELECT availableQuantity FROM BranchInventory WHERE branchID = ? AND productID = ?");
-
-			preparedStatement.setLong(1, Long.valueOf(branchID));
-			preparedStatement.setLong(2, Long.valueOf(productID));
-
-			resultSet = preparedStatement.executeQuery();
-
-			if (!resultSet.next())
-				throw new SQLException();
-
-			return resultSet.getInt(1);
-
-		} catch (SQLException ex) {
-			throw ex;
-		} finally {
-			DBUtil.dispose(preparedStatement);
-			DBUtil.dispose(resultSet);
-		}
-	}
-
 	public static void removeAvailableProduct(String supplierBranchID,
 			String productID, int toSupplyQuantity) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -110,6 +81,31 @@ public class BranchQueryModel {
 			throw ex;
 		} finally {
 			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static String getBranchID(String managerID) throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection.getConnection().prepareStatement(
+					"SELECT branchID FROM BranchManager WHERE managerID = ?");
+
+			statement.setLong(1, Long.valueOf(managerID));
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException("No such branch manager");
+
+			return Long.toString(resultSet.getLong(1));
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
 		}
 	}
 }
