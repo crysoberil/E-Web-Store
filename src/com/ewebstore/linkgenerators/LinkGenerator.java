@@ -138,4 +138,8 @@ public class LinkGenerator {
 	public static String dispatchOrderSubmissionLink() {
 		return home + "dispatchorder.do";
 	}
+
+	public static String orderDeliveryConfirmationSubmissionLink() {
+		return home + "confirmdelivery.do";
+	}
 }

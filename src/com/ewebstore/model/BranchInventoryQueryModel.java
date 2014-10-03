@@ -53,7 +53,7 @@ public class BranchInventoryQueryModel {
 			DBUtil.dispose(preparedStatement);
 		}
 	}
-	
+
 	public static int getAvailableProductQuantity(String branchID,
 			String productID) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -80,6 +80,76 @@ public class BranchInventoryQueryModel {
 		} finally {
 			DBUtil.dispose(preparedStatement);
 			DBUtil.dispose(resultSet);
+		}
+	}
+
+	public static void withdrawProductsFromStock(String orderID)
+			throws SQLException {
+		// availability of products already reduced during shopping cart
+		// checkout
+		// so just withdraw from stock
+
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"UPDATE BranchInventory AS BRI1 SET inStockQuantity = inStockQuantity - (SELECT quantity FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ? AND ORDP1.productID = BRI1.productID) WHERE branchID = (SELECT branchID FROM `Order` WHERE orderID = ?) AND productID IN (SELECT productID FROM OrderProducts AS ORDP2 WHERE ORDP2.orderID = ?)");
+
+			preparedStatement.setLong(1, Long.parseLong(orderID));
+			preparedStatement.setLong(2, Long.parseLong(orderID));
+			preparedStatement.setLong(3, Long.parseLong(orderID));
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static void addProductsBackToStockAndMakeAvailable(String orderID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"UPDATE BranchInventory AS BRI1 SET inStockQuantity = inStockQuantity + (SELECT quantity FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ? AND ORDP1.productID = BRI1.productID), availableQuantity = availableQuantity + (SELECT quantity FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ? AND ORDP1.productID = BRI1.productID) WHERE branchID = (SELECT branchID FROM `Order` WHERE orderID = ?) AND productID IN (SELECT productID FROM OrderProducts AS ORDP2 WHERE ORDP2.orderID = ?)");
+
+			preparedStatement.setLong(1, Long.parseLong(orderID));
+			preparedStatement.setLong(2, Long.parseLong(orderID));
+			preparedStatement.setLong(3, Long.parseLong(orderID));
+			preparedStatement.setLong(4, Long.parseLong(orderID));
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static void markProductsAsSold(String orderID) throws SQLException {
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"UPDATE BranchInventory AS BRI1 SET soldQuantity = soldQuantity + (SELECT quantity FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ? AND ORDP1.productID = BRI1.productID) WHERE branchID = (SELECT branchID FROM `Order` WHERE orderID = ?) AND productID IN (SELECT productID FROM OrderProducts AS ORDP2 WHERE ORDP2.orderID = ?)");
+
+			preparedStatement.setLong(1, Long.parseLong(orderID));
+			preparedStatement.setLong(2, Long.parseLong(orderID));
+			preparedStatement.setLong(3, Long.parseLong(orderID));
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
 		}
 	}
 }

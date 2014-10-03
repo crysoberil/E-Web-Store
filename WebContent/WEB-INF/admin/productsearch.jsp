@@ -226,7 +226,7 @@
 					<br> <br>
 					<form action="<%=LinkGenerator.genericProductSearchPageLink()%>"
 						method="get">
-						<input name="searchwordprefix" type="search"
+						<input name="searchwordsubstring" type="search"
 							placeholder="Search Product"
 							style="margin-left: auto; margin-right: auto; text-align: center;"
 							class="form-control">
@@ -238,7 +238,7 @@
 					<br> <br>
 					<form action="<%=LinkGenerator.genericProductSearchPageLink()%>"
 						method="get">
-						<input name="searchwordprefix" type="search"
+						<input name="searchwordsubstring" type="search"
 							placeholder="Search Product"
 							style="margin-left: auto; margin-right: auto; text-align: center;"
 							class="form-control">

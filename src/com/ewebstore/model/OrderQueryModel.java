@@ -14,6 +14,10 @@ import com.ewebstore.entity.OrderProduct;
 
 public class OrderQueryModel {
 
+	// Note-
+	// alloted for delivery from this branch := instock - available -
+	// sum(quantity)_for_this_branch_in_BranchInventoryTransfer_table
+
 	public static ArrayList<BriefOrder> getOrdersToDispatch(String branchID) {
 
 		ArrayList<String> collectiveOrderIDs = getToDispatchOrderIDs(branchID);
@@ -171,7 +175,7 @@ public class OrderQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT orderID FROM `Order` AS ORD1 WHERE orderStatusID = ? AND branchID = ? AND NOT EXISTS(SELECT orderProductsID FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ORD1.orderID AND ORDP1.quantity > (SELECT inStockQuantity - availableQuantity - (SELECT COALESCE(SUM(quantity), 0) FROM BranchInventoryTransfer AS BRIT1 WHERE fromBranchID = BRINV1.branchID AND BRIT1.productID = BRINV1.productID) FROM BranchInventory AS BRINV1 WHERE BRINV1.branchID = ORD1.branchID AND BRINV1.productID = ORDP1.productID)) ORDER BY orderDate DESC");
+							"SELECT orderID FROM `Order` AS ORD1 WHERE orderStatusID = ? AND branchID = ? AND NOT EXISTS(SELECT orderProductsID FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ORD1.orderID AND ORDP1.quantity > (SELECT inStockQuantity - availableQuantity - (SELECT COALESCE(SUM(quantity), 0) FROM BranchInventoryTransfer AS BRIT1 WHERE fromBranchID = BRINV1.branchID AND BRIT1.productID = BRINV1.productID) FROM BranchInventory AS BRINV1 WHERE BRINV1.branchID = ORD1.branchID AND BRINV1.productID = ORDP1.productID)) ORDER BY orderDate ASC");
 
 			preparedStatement.setLong(1,
 					Long.valueOf(getOrderStatusIDByStatus("Unhandled")));
@@ -199,12 +203,13 @@ public class OrderQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"UPDATE `Order` SET orderStatusID = (SELECT orderID FROM OrderStatus WHERE status = ?) WHERE orderID = ?");
+							"UPDATE `Order` SET orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = ?) WHERE orderID = ?");
 
 			preparedStatement.setString(1, orderStatus);
 			preparedStatement.setLong(2, Long.valueOf(orderID));
 
-			preparedStatement.executeUpdate();
+			if (preparedStatement.executeUpdate() != 1)
+				throw new SQLException();
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {
@@ -318,9 +323,15 @@ public class OrderQueryModel {
 
 			resultSet = preparedStatement.executeQuery();
 
-			resultSet.next();
+			if (!resultSet.next())
+				throw new SQLException();
 
-			return Long.toString(resultSet.getLong(1));
+			long associatedEmployeeID = resultSet.getLong(1);
+
+			if (associatedEmployeeID == 0)
+				throw new SQLException();
+
+			return Long.toString(associatedEmployeeID);
 		} catch (SQLException ex) {
 			return null;
 		} finally {
@@ -383,7 +394,21 @@ public class OrderQueryModel {
 			throws SQLException {
 		if (!assignEmployeeForDelivery(orderID, employeeID))
 			throw new SQLException();
-		else
+		else {
 			updateOrderStatus(orderID, "Being Delivered");
+			BranchInventoryQueryModel.withdrawProductsFromStock(orderID);
+		}
+	}
+
+	public static void confirmOrderDelivery(String orderID,
+			boolean successfulDelivery) throws SQLException {
+		if (successfulDelivery) {
+			updateOrderStatus(orderID, "Delivered"); // checks order existence
+			BranchInventoryQueryModel.markProductsAsSold(orderID);
+		} else {
+			updateOrderStatus(orderID, "Failed Delivery");
+			BranchInventoryQueryModel
+					.addProductsBackToStockAndMakeAvailable(orderID);
+		}
 	}
 }

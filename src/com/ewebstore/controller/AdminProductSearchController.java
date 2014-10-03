@@ -29,14 +29,14 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 		if (!isAdmin(req))
 			SimpleFeedbackPageLoader.showInvalidAccessPage(req, resp);
 		else {
-			String productNamePrefix = req.getParameter("searchwordprefix");
+			String productNameSubstring = req
+					.getParameter("searchwordsubstring");
 
-			if (productNamePrefix != null) {
-				productNamePrefix = productNamePrefix.trim().toLowerCase();
-				
-				if (productNamePrefix.length() == 0)
-					productNamePrefix = null;
-			}
+			if (productNameSubstring != null)
+				productNameSubstring = productNameSubstring.trim()
+						.toLowerCase();
+			else
+				productNameSubstring = "";
 
 			ArrayList<String> productIDs = new ArrayList<String>();
 			ArrayList<String> productNames = new ArrayList<String>();
@@ -47,10 +47,10 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 			req.setAttribute("productbrands", productBrands);
 
 			try {
-				if (productNamePrefix != null) {
+				if (productNameSubstring != null) {
 					try {
 						productIDs = ProductQueryModel
-								.getAllProductIDsWithNamePrefix(productNamePrefix);
+								.getAllProductIDsWithNameSubstring(productNameSubstring);
 
 						for (String productID : productIDs) {
 							productNames.add(ProductQueryModel

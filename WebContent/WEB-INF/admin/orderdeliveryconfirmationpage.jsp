@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.BriefOrder"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
@@ -12,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title><%=(String) request.getAttribute("pagetitle")%></title>
+<title>Confirm Order Delivery</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -93,28 +91,19 @@
 								}
 							}
 						</script>
-						<%
-							int pageType = (Integer)request.getAttribute("pagetype");
-							String queuedOrdersCSSClass = pageType == 0 ? "class=\"active\"" : "";
-							String onDeliveryOrdersCSSClass = pageType == 1 ? "class=\"active\"" : "";
-							String deliveredOrdersCSSClass = pageType == 2 ? "class=\"active\"" : "";
-						%>
 						<li><a href="#" onclick="ordFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Orders<span class="fa arrow"></span></a>
 							<ul id="orderslist" class="nav nav-second-level collapse in">
-								<li><a <%=queuedOrdersCSSClass%>
-									href="<%=LinkGenerator.queuedOrdersPageLink()%>">Queued
+								<li><a href="<%=LinkGenerator.queuedOrdersPageLink()%>">Queued
 										Orders</a></li>
 								<li><a href="<%=LinkGenerator.dispatchOrderPageLink()%>">Dispatch
 										Order</a></li>
-								<li><a <%=onDeliveryOrdersCSSClass%>
-									href="<%=LinkGenerator.onDeliveryOrdersPageLink()%>">On
+								<li><a href="<%=LinkGenerator.onDeliveryOrdersPageLink()%>">On
 										Delivery Orders</a></li>
-								<li><a
+								<li><a class="active"
 									href="<%=LinkGenerator.confirmOrderDeliveryPageLink()%>">Confirm
 										Order Delivery</a></li>
-								<li><a <%=deliveredOrdersCSSClass%>
-									href="<%=LinkGenerator.deliveredOrdersPageLink()%>">Delivered
+								<li><a href="<%=LinkGenerator.deliveredOrdersPageLink()%>">Delivered
 										Orders</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 
@@ -218,77 +207,66 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header"><%=(String) request.getAttribute("pagetitle")%></h1>
-
-					<%
-						ArrayList<BriefOrder> orders = (ArrayList<BriefOrder>) request
-								.getAttribute("brieforders");
-						boolean noSalesEmployee = (Integer) request
-								.getAttribute("pagetype") == 0;
-					%>
-
-					<table
-						class="table table-striped table-bordered table-hover dataTable no-footer"
-						aria-describedby="dataTables-example_info">
-						<thead>
-							<tr role="row" class="gradeA odd">
-								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;" aria-sort="descending">Order
-									ID</th>
-								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Customer ID</th>
-								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Order Date</th>
-								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Delivery Location</th>
-
-								<%
-									if (!noSalesEmployee) {
-								%>
-								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Associated Employee ID</th>
-								<%
-									}
-								%>
-							</tr>
-						</thead>
-
-
-						<tbody>
-							<%
-								for (BriefOrder order : orders) {
-							%>
-							<tr class="gradeA even">
-								<td><a href="<%=order.getOrderPageLink()%>"><%=order.getOrderID()%></a></td>
-								<td><%=order.getCustomerID()%></td>
-								<td><%=order.getOrderDate()%></td>
-								<td><%=order.getDeliveryLocation()%></td>
-
-								<%
-									if (!noSalesEmployee) {
-								%>
-								<td><%=order.getAssociatedEmployeeID()%></td>
-								<%
-									}
-								%>
-							</tr>
-							<%
-								}
-							%>
-
-
-						</tbody>
-					</table>
-
-
-
+					<h1 class="page-header">Confirm Order Delivery</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
 			<!-- /.row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
 
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<form role="form" method="post"
+										action="<%=LinkGenerator.orderDeliveryConfirmationSubmissionLink()%>">
+
+										<div class="form-group">
+											<label>Order ID</label> <input name="orderid"
+												class="form-control">
+										</div>
+
+										<div class="input-group">
+											<label>Final Delivery Status</label>
+											<div class="radio">
+												<label> <input type="radio"
+													name="deliverycompletion" value="successful">Successful
+													Delivery
+												</label>
+											</div>
+
+											<div class="radio">
+												<label> <input type="radio"
+													name="deliverycompletion" value="failed">Failed
+													Delivery
+												</label>
+											</div>
+										</div>
+
+										<br>
+
+										<button type="submit" class="btn btn-default">Submit</button>
+										<button type="reset" class="btn btn-default">Reset</button>
+									</form>
+								</div>
+
+								<!-- /.col-lg-6 (nested) -->
+							</div>
+							<!-- /.row (nested) -->
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
 		</div>
 		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
@@ -313,4 +291,3 @@
 </body>
 
 </html>
-

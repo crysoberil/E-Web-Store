@@ -165,7 +165,7 @@
 		<servlet-name>SubmitEditEmployeeFormController</servlet-name>
 		<url-pattern>/editemployee.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>RemoveEmployeePageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.RemoveEmployeePageLoader</servlet-class>
@@ -185,7 +185,7 @@
 		<servlet-name>SubmitRemoveEmployeeController</servlet-name>
 		<url-pattern>/removeemployee.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AvailableEmployeesPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.AvailableEmployeesPageLoader</servlet-class>
@@ -195,7 +195,7 @@
 		<servlet-name>AvailableEmployeesPageLoader</servlet-name>
 		<url-pattern>/availableemployees</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AllEmployeesPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.AllEmployeesPageLoader</servlet-class>
@@ -245,7 +245,7 @@
 		<servlet-name>ShowOrderDetailsController</servlet-name>
 		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>DispatchOrdersFormLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.DispatchOrdersFormLoader</servlet-class>
@@ -255,7 +255,7 @@
 		<servlet-name>DispatchOrdersFormLoader</servlet-name>
 		<url-pattern>/dispatchorders</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>SubmitDispatchOrderController</servlet-name>
 		<servlet-class>com.ewebstore.controller.SubmitDispatchOrderController</servlet-class>
@@ -264,5 +264,25 @@
 	<servlet-mapping>
 		<servlet-name>SubmitDispatchOrderController</servlet-name>
 		<url-pattern>/dispatchorder.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ConfirmOrderDeliveryPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.ConfirmOrderDeliveryPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ConfirmOrderDeliveryPageLoader</servlet-name>
+		<url-pattern>/confirmdelivery</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ConfirmOrderDeliverySubmissionController</servlet-name>
+		<servlet-class>com.ewebstore.controller.ConfirmOrderDeliverySubmissionController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ConfirmOrderDeliverySubmissionController</servlet-name>
+		<url-pattern>/confirmdelivery.do</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -220,7 +220,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
-									<form role="form" method="post"
+									<form role="form" method="get"
 										action="<%=LinkGenerator.submitEditEmployeeLink()%>">
 
 										<div class="form-group">

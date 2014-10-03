@@ -3,7 +3,6 @@ package com.ewebstore.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.ewebstore.dbutil.DBConnection;
@@ -68,7 +67,7 @@ public class ProductQueryModel {
 		}
 	}
 
-	public static ArrayList<String> getAllProductIDsWithNamePrefix(
+	public static ArrayList<String> getAllProductIDsWithNameSubstring(
 			String productNamePrefix) throws SQLException {
 		ArrayList<String> productIDs = new ArrayList<String>();
 
@@ -79,7 +78,7 @@ public class ProductQueryModel {
 			statement = DBConnection.getConnection().prepareStatement(
 					"SELECT productID FROM Product WHERE productName LIKE ?");
 
-			statement.setString(1, productNamePrefix + "%");
+			statement.setString(1, "%" + productNamePrefix + "%");
 
 			resultSet = statement.executeQuery();
 
