@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
@@ -96,37 +97,39 @@ public class SalesEmployeeQueryModel {
 
 	public static void removeSalesEmployee(String employeeID)
 			throws SQLException {
-		PreparedStatement statement = null;
+		PreparedStatement preparedStatement1 = null;
+		PreparedStatement preparedStatement2 = null;
 		ResultSet resultSet = null;
 
 		try {
-			statement = DBConnection
+			preparedStatement1 = DBConnection
 					.getConnection()
 					.prepareStatement(
 							"SELECT employeeID FROM SalesEmployee WHERE employeeID = ?");
 
-			statement.setLong(1, Long.parseLong(employeeID));
+			preparedStatement1.setLong(1, Long.parseLong(employeeID));
 
-			resultSet = statement.executeQuery();
+			resultSet = preparedStatement1.executeQuery();
 
 			if (!resultSet.next())
 				throw new IllegalArgumentException("No such sales employee");
 
-			statement = DBConnection.getConnection().prepareStatement(
+			preparedStatement2 = DBConnection.getConnection().prepareStatement(
 					"DELETE FROM SalesEmployee WHERE employeeID = ?");
 
-			statement.setLong(1, Long.parseLong(employeeID));
+			preparedStatement2.setLong(1, Long.parseLong(employeeID));
 
-			statement.executeUpdate();
+			preparedStatement2.executeUpdate();
 
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {
 			DBUtil.dispose(resultSet);
-			DBUtil.dispose(statement);
+			DBUtil.dispose(preparedStatement1);
+			DBUtil.dispose(preparedStatement2);
 		}
 	}
-	
+
 	public static String getSalesEmployeeName(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -145,6 +148,117 @@ public class SalesEmployeeQueryModel {
 
 			return resultSet.getString(1);
 
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
+		}
+	}
+
+	public static String getSalesEmployeeContactNumber(String employeeID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT contactNumber FROM SalesEmployee WHERE employeeID = ?");
+
+			preparedStatement.setLong(1, Long.valueOf(employeeID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			return resultSet.getString(1);
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
+		}
+	}
+
+	public static ArrayList<String> getAvailableSalesEmployeeIDs(String branchID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT employeeID FROM SalesEmployee WHERE branchID = ? AND employeeID NOT IN (SELECT associatedEmployee FROM `Order` WHERE orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = \'Being Delivered\') AND branchID = SalesEmployee.branchID)");
+
+			preparedStatement.setLong(1, Long.parseLong(branchID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			ArrayList<String> availableSalesEmployeeIDs = new ArrayList<String>();
+
+			while (resultSet.next())
+				availableSalesEmployeeIDs.add(resultSet.getString(1));
+
+			return availableSalesEmployeeIDs;
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
+		}
+	}
+
+	public static ArrayList<String> getAllSalesEmployeeIDs(String branchID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					"SELECT employeeID FROM SalesEmployee WHERE branchID = ?");
+
+			preparedStatement.setLong(1, Long.parseLong(branchID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			ArrayList<String> allSalesEmployeeIDs = new ArrayList<String>();
+
+			while (resultSet.next())
+				allSalesEmployeeIDs.add(resultSet.getString(1));
+
+			return allSalesEmployeeIDs;
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
+		}
+	}
+
+	public static boolean isSalesEmployeeAvailable(String employeeID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT employeeID FROM SalesEmployee SE1 WHERE employeeID = ? AND employeeID NOT IN (SELECT associatedEmployee FROM `Order` AS ORD1 WHERE SE1.employeeID = ORD1.associatedEmployee AND orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = \'Being Delivered\'))");
+			preparedStatement.setLong(1, Long.valueOf(employeeID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			return resultSet.next();
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {

@@ -134,4 +134,8 @@ public class LinkGenerator {
 	public static String submitRemoveEmployeeFormLink() {
 		return home + "removeemployee.do";
 	}
+
+	public static String dispatchOrderSubmissionLink() {
+		return home + "dispatchorder.do";
+	}
 }

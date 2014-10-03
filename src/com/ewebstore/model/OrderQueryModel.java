@@ -191,7 +191,7 @@ public class OrderQueryModel {
 		return orderIDs;
 	}
 
-	public static void updateOrderStatus(String orderID, String orderStatus)
+	private static void updateOrderStatus(String orderID, String orderStatus)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
 
@@ -272,7 +272,7 @@ public class OrderQueryModel {
 		return orderIDs;
 	}
 
-	public static boolean assignEmployeeForDelivery(String orderID,
+	private static boolean assignEmployeeForDelivery(String orderID,
 			String employeeID) {
 		// this method returns true if target employee can be assigned to an
 		// order
@@ -285,13 +285,17 @@ public class OrderQueryModel {
 			if (assignedEmployeeID != null)
 				return false;
 
+			if (!SalesEmployeeQueryModel.isSalesEmployeeAvailable(employeeID))
+				return false;
+
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"UPDATE `Order` SET associatedEmployee = ? WHERE orderID = ?");
+							"UPDATE `Order` AS ORD1 SET ORD1.associatedEmployee = ? WHERE ORD1.orderID = ? AND ORD1.branchID = (SELECT branchID FROM SalesEmployee WHERE SalesEmployee.employeeID = ?)");
 
 			preparedStatement.setLong(1, Long.valueOf(employeeID));
 			preparedStatement.setLong(2, Long.valueOf(orderID));
+			preparedStatement.setLong(3, Long.valueOf(employeeID));
 
 			return preparedStatement.executeUpdate() == 1;
 		} catch (SQLException ex) {
@@ -301,7 +305,8 @@ public class OrderQueryModel {
 		}
 	}
 
-	public static String getAssociatedEmployeeID(String orderID) {
+	// returns null on failure
+	private static String getAssociatedEmployeeID(String orderID) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
@@ -374,4 +379,11 @@ public class OrderQueryModel {
 		}
 	}
 
+	public static void dispatchOrder(String orderID, String employeeID)
+			throws SQLException {
+		if (!assignEmployeeForDelivery(orderID, employeeID))
+			throw new SQLException();
+		else
+			updateOrderStatus(orderID, "Being Delivered");
+	}
 }

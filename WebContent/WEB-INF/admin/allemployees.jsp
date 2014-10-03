@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.ProductCategory"%>
+<%@page import="com.ewebstore.entity.SalesEmployee"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
@@ -12,7 +13,11 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Add Product to Stock</title>
+<%
+	ArrayList<SalesEmployee> allEmployees =  (ArrayList<SalesEmployee>) request.getAttribute("allEmployees");
+%>
+
+<title>All Sales Employees</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,10 +47,6 @@
 
 </head>
 
-<%
-	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request.getAttribute("categories");
-%>
-
 <body>
 
 	<div id="wrapper">
@@ -74,7 +75,8 @@
 			<div class="navbar-default sidebar" role="navigation">
 				<div class="sidebar-nav navbar-collapse">
 					<ul class="nav" id="side-menu">
-						<li><a href="<%=LinkGenerator.adminDashBoardLink()%>"><i
+						<li><a class="active"
+							href="<%=LinkGenerator.adminDashBoardLink()%>"><i
 								class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
 
 						<li><a href="<%=LinkGenerator.queuedOrdersPageLink()%>"><i
@@ -130,11 +132,11 @@
 						</script>
 						<li><a href="#" onclick="prodFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Products<span class="fa arrow"></span></a>
-							<ul id="productslist" class="nav nav-second-level collapse in">
+							<ul id="productslist" class="nav nav-second-level collapse">
 								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
-								<li><a class="active"
+								<li><a
 									href="<%=LinkGenerator.addProductsToStockPageLink()%>">Add
 										Products to Stock</a></li>
 								<li><a
@@ -161,7 +163,7 @@
 						<li><a href="#" onclick="empFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Sales Employee<span
 								class="fa arrow"></span></a>
-							<ul id="employeelist" class="nav nav-second-level collapse">
+							<ul id="employeelist" class="nav nav-second-level collapse in">
 								<li><a href="<%=LinkGenerator.addEmployeePageLink()%>">Add
 										Employee</a></li>
 								<li><a href="<%=LinkGenerator.editEmployeePageLink()%>">Edit
@@ -171,7 +173,8 @@
 								<li><a
 									href="<%=LinkGenerator.availableEmployeesPageLink()%>">Available
 										Employees</a></li>
-								<li><a href="<%=LinkGenerator.allEmployeesPageLink()%>">All
+								<li><a class="active"
+									href="<%=LinkGenerator.allEmployeesPageLink()%>">All
 										Employees</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 
@@ -213,43 +216,43 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Add Product to Stock</h1>
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
-			<!-- /.row -->
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-						<div class="panel-heading">Add product to inventory</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-lg-6">
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitProductAdditionToInventory()%>">
-										<div class="form-group">
-											<label>Product ID</label> <input name="productid"
-												class="form-control">
-										</div>
-										<div class="form-group">
-											<label>Quantity</label> <input name="quantity"
-												class="form-control">
-										</div>
-										<button type="submit" class="btn btn-default">Submit</button>
-									</form>
-								</div>
+					<h1 class="page-header">All Employees Information</h1>
 
-								<!-- /.col-lg-6 (nested) -->
-							</div>
-							<!-- /.row (nested) -->
-						</div>
-						<!-- /.panel-body -->
-					</div>
-					<!-- /.panel -->
+					<table class="table table-striped table-hover" style="width: 100%">
+
+						<th>ID</th>
+						<th>Name</th>
+						<th>Gender</th>
+						<th>Email</th>
+						<th>Contact No.</th>
+						<th>Date of Birth</th>
+						<th>Join Date</th>
+						<th>Address</th>
+
+						<%
+							for (SalesEmployee salesEmployee : allEmployees) {
+						%>
+						<tr>
+							<td><%=salesEmployee.getEmployeeID()%></td>
+							<td><%=salesEmployee.getName()%></td>
+							<td><%=salesEmployee.isGender() ? "Male" : "Female"%></td>
+							<td><%=salesEmployee.getEmail()%></td>
+							<td><%=salesEmployee.getContactNumber()%></td>
+							<td><%=salesEmployee.getDob().toString()%></td>
+							<td><%=salesEmployee.getJoinDate().toString()%></td>
+							<td><%=salesEmployee.getAddress()%></td>
+						</tr>
+						<%
+							}
+						%>
+
+					</table>
+
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
 			<!-- /.row -->
+
 		</div>
 		<!-- /#page-wrapper -->
 

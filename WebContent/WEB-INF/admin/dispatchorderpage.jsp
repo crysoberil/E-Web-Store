@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.entity.ProductCategory"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 
@@ -12,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Add Product to Stock</title>
+<title>Dispatch Order</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -41,10 +39,6 @@
     <![endif]-->
 
 </head>
-
-<%
-	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request.getAttribute("categories");
-%>
 
 <body>
 
@@ -99,10 +93,11 @@
 						</script>
 						<li><a href="#" onclick="ordFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Orders<span class="fa arrow"></span></a>
-							<ul id="orderslist" class="nav nav-second-level collapse">
+							<ul id="orderslist" class="nav nav-second-level collapse in">
 								<li><a href="<%=LinkGenerator.queuedOrdersPageLink()%>">Queued
 										Orders</a></li>
-								<li><a href="<%=LinkGenerator.dispatchOrderPageLink()%>">Dispatch
+								<li><a class="active"
+									href="<%=LinkGenerator.dispatchOrderPageLink()%>">Dispatch
 										Order</a></li>
 								<li><a href="<%=LinkGenerator.onDeliveryOrdersPageLink()%>">On
 										Delivery Orders</a></li>
@@ -130,11 +125,11 @@
 						</script>
 						<li><a href="#" onclick="prodFunction()"><i
 								class="fa fa-sitemap fa-fw"></i>Products<span class="fa arrow"></span></a>
-							<ul id="productslist" class="nav nav-second-level collapse in">
+							<ul id="productslist" class="nav nav-second-level collapse">
 								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
-								<li><a class="active"
+								<li><a
 									href="<%=LinkGenerator.addProductsToStockPageLink()%>">Add
 										Products to Stock</a></li>
 								<li><a
@@ -213,7 +208,7 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Add Product to Stock</h1>
+					<h1 class="page-header">Dispatch Order</h1>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -221,21 +216,24 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">Add product to inventory</div>
+
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
 									<form role="form" method="post"
-										action="<%=LinkGenerator.submitProductAdditionToInventory()%>">
+										action="<%=LinkGenerator.dispatchOrderSubmissionLink()%>">
+
 										<div class="form-group">
-											<label>Product ID</label> <input name="productid"
+											<label>Order ID</label> <input name="orderid"
 												class="form-control">
 										</div>
 										<div class="form-group">
-											<label>Quantity</label> <input name="quantity"
+											<label>Sales Employee ID</label> <input name="employeeid"
 												class="form-control">
 										</div>
-										<button type="submit" class="btn btn-default">Submit</button>
+
+										<button type="submit" class="btn btn-default">Dispatch</button>
+										<button type="reset" class="btn btn-default">Reset</button>
 									</form>
 								</div>
 
@@ -252,6 +250,9 @@
 			<!-- /.row -->
 		</div>
 		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
 
 	</div>
 	<!-- /#wrapper -->
