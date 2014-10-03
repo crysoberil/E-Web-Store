@@ -17,6 +17,10 @@ public class EditEmployeeFormLoader extends CheckedHttpServlet {
 		if (isAdmin(req)) {
 			try {
 				String employeeID = req.getParameter("employeeid");
+
+				if (!SalesEmployeeQueryModel.isCurrentlyEmployed(employeeID))
+					throw new IllegalArgumentException("No such sales employee");
+
 				SalesEmployee salesEmployee = SalesEmployeeQueryModel
 						.getSalesEmployee(employeeID);
 

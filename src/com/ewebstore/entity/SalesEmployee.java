@@ -15,10 +15,12 @@ public class SalesEmployee {
 	private String address;
 	private String branchID;
 	private String branchName;
+	private boolean currentlyEmployed;
 
 	public SalesEmployee(String employeeID, String name, boolean gender,
 			String email, String contactNumber, Date dob, Date joinDate,
-			String address, String branchID, String branchName) {
+			String address, String branchID, String branchName,
+			boolean currentlyEmployed) {
 		this.employeeID = employeeID;
 		this.name = name;
 		this.gender = gender;
@@ -29,6 +31,7 @@ public class SalesEmployee {
 		this.address = address;
 		this.branchID = branchID;
 		this.branchName = branchName;
+		this.currentlyEmployed = currentlyEmployed;
 	}
 
 	public String getEmployeeID() {
@@ -69,6 +72,10 @@ public class SalesEmployee {
 
 	public String getBranchName() {
 		return branchName;
+	}
+
+	public boolean isCurrentlyEmployed() {
+		return currentlyEmployed;
 	}
 
 	public String getSalesEmployeeProfileLink() {

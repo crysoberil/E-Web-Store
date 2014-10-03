@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
-public class SubmitNewEmployeeController extends CheckedHttpServlet {
+public class SubmitAddEmployeeController extends CheckedHttpServlet {
 
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {

@@ -18,7 +18,7 @@ public class SalesEmployeeQueryModel {
 		PreparedStatement preparedStatement = null;
 
 		try {
-			String sqlString = "INSERT INTO SalesEmployee VALUES(NULL, ?, ?, ?, ?, CURDATE(), CURDATE(), ?, ?)";
+			String sqlString = "INSERT INTO SalesEmployee VALUES(NULL, ?, ?, ?, ?, CURDATE(), CURDATE(), ?, ?, 1)";
 
 			preparedStatement = DBConnection.getConnection().prepareStatement(
 					sqlString);
@@ -63,9 +63,11 @@ public class SalesEmployeeQueryModel {
 		String address = resultSet.getString(8);
 		String branchID = Long.toString(resultSet.getLong(9));
 		String branchName = BranchQueryModel.getBranchNameByID(branchID);
+		Boolean currentlyEmployed = (resultSet.getInt(10) == 1 ? true : false);
 
 		return new SalesEmployee(employeeID, name, gender, email,
-				contactNumber, dob, joinDate, address, branchID, branchName);
+				contactNumber, dob, joinDate, address, branchID, branchName,
+				currentlyEmployed);
 	}
 
 	public static void updateSalesEmployee(String employeeID, String name,
@@ -97,36 +99,51 @@ public class SalesEmployeeQueryModel {
 
 	public static void removeSalesEmployee(String employeeID)
 			throws SQLException {
-		PreparedStatement preparedStatement1 = null;
-		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
 		try {
-			preparedStatement1 = DBConnection
+			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT employeeID FROM SalesEmployee WHERE employeeID = ?");
+							"UPDATE SalesEmployee SET currentlyEmployed = 0 WHERE employeeID = ?");
 
-			preparedStatement1.setLong(1, Long.parseLong(employeeID));
+			preparedStatement.setLong(1, Long.parseLong(employeeID));
 
-			resultSet = preparedStatement1.executeQuery();
-
-			if (!resultSet.next())
-				throw new IllegalArgumentException("No such sales employee");
-
-			preparedStatement2 = DBConnection.getConnection().prepareStatement(
-					"DELETE FROM SalesEmployee WHERE employeeID = ?");
-
-			preparedStatement2.setLong(1, Long.parseLong(employeeID));
-
-			preparedStatement2.executeUpdate();
+			preparedStatement.executeUpdate();
 
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {
 			DBUtil.dispose(resultSet);
-			DBUtil.dispose(preparedStatement1);
-			DBUtil.dispose(preparedStatement2);
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static boolean isCurrentlyEmployed(String employeeID)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT currentlyEmployed FROM SalesEmployee WHERE employeeID = ? ");
+
+			preparedStatement.setLong(1, Long.parseLong(employeeID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new IllegalArgumentException("No such sales employee");
+
+			return (resultSet.getInt(1) == 1);
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
 		}
 	}
 
@@ -193,7 +210,7 @@ public class SalesEmployeeQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT employeeID FROM SalesEmployee WHERE branchID = ? AND employeeID NOT IN (SELECT associatedEmployee FROM `Order` WHERE orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = \'Being Delivered\') AND branchID = SalesEmployee.branchID)");
+							"SELECT employeeID FROM SalesEmployee WHERE branchID = ? AND currentlyEmployed = 1 AND employeeID NOT IN (SELECT associatedEmployee FROM `Order` WHERE orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = \'Being Delivered\') AND branchID = SalesEmployee.branchID)");
 
 			preparedStatement.setLong(1, Long.parseLong(branchID));
 
@@ -221,8 +238,10 @@ public class SalesEmployeeQueryModel {
 		ResultSet resultSet = null;
 
 		try {
-			preparedStatement = DBConnection.getConnection().prepareStatement(
-					"SELECT employeeID FROM SalesEmployee WHERE branchID = ?");
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT employeeID FROM SalesEmployee WHERE branchID = ? AND currentlyEmployed = 1");
 
 			preparedStatement.setLong(1, Long.parseLong(branchID));
 

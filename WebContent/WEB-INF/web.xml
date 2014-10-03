@@ -127,12 +127,12 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>SubmitNewEmployeeController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitNewEmployeeController</servlet-class>
+		<servlet-name>SubmitAddEmployeeController</servlet-name>
+		<servlet-class>com.ewebstore.controller.SubmitAddEmployeeController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>SubmitNewEmployeeController</servlet-name>
+		<servlet-name>SubmitAddEmployeeController</servlet-name>
 		<url-pattern>/addemployee.do</url-pattern>
 	</servlet-mapping>
 

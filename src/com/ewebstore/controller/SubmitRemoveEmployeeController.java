@@ -26,6 +26,9 @@ public class SubmitRemoveEmployeeController extends CheckedHttpServlet {
 			try {
 				String employeeID = req.getParameter("employeeid");
 
+				if (!SalesEmployeeQueryModel.isCurrentlyEmployed(employeeID))
+					throw new IllegalArgumentException("No such sales employee");
+
 				SalesEmployeeQueryModel.removeSalesEmployee(employeeID);
 
 				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
