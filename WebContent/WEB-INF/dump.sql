@@ -79,6 +79,8 @@ CREATE TABLE IF NOT EXISTS `ewebstore`.`SalesEmployee` (
   `joinDate` DATE NOT NULL,
   `address` VARCHAR(100) NULL,
   `branchID` BIGINT NOT NULL,
+  `SalesEmployeecol` VARCHAR(45) NULL,
+  `currentlyEmployed` TINYINT(1) NOT NULL,
   PRIMARY KEY (`employeeID`),
   INDEX `fk_SalesEmployee_1_idx` (`branchID` ASC),
   CONSTRAINT `fk_SalesEmployee_1`

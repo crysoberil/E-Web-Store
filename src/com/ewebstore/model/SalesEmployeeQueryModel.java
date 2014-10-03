@@ -253,7 +253,7 @@ public class SalesEmployeeQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT employeeID FROM SalesEmployee SE1 WHERE employeeID = ? AND employeeID NOT IN (SELECT associatedEmployee FROM `Order` AS ORD1 WHERE SE1.employeeID = ORD1.associatedEmployee AND orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = \'Being Delivered\'))");
+							"SELECT employeeID FROM SalesEmployee SE1 WHERE employeeID = ? AND employeeID NOT IN (SELECT associatedEmployee FROM `Order` AS ORD1 WHERE SE1.employeeID = ORD1.associatedEmployee AND orderStatusID = (SELECT orderStatusID FROM OrderStatus WHERE status = \'Being Delivered\')) AND currentlyEmployed = 1");
 			preparedStatement.setLong(1, Long.valueOf(employeeID));
 
 			resultSet = preparedStatement.executeQuery();
