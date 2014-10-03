@@ -334,9 +334,6 @@ CREATE TABLE IF NOT EXISTS `ewebstore`.`BranchInventoryTransfer` (
   PRIMARY KEY (`inventoryTransferID`),
   INDEX `fk_BranchInventoryTransfer_2_idx` (`toBranchID` ASC),
   INDEX `fk_BranchInventoryTransfer_3_idx` (`productID` ASC),
-  UNIQUE INDEX `fromBranchID_UNIQUE` (`fromBranchID` ASC),
-  UNIQUE INDEX `toBranchID_UNIQUE` (`toBranchID` ASC),
-  UNIQUE INDEX `productID_UNIQUE` (`productID` ASC),
   CONSTRAINT `fk_BranchInventoryTransfer_1`
     FOREIGN KEY (`fromBranchID`)
     REFERENCES `ewebstore`.`Branch` (`branchID`)
@@ -437,4 +434,3 @@ USE `ewebstore`;
 INSERT INTO `ewebstore`.`Order` (`orderID`, `customerID`, `orderDate`, `detailedDeliveryLocation`, `orderStatusID`, `branchID`, `associatedEmployee`, `totalOrderingCost`) VALUES (NULL, 4, '2013-09-23', 'dhaka', 5, 2, NULL, 10);
 
 COMMIT;
-

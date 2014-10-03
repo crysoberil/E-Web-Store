@@ -142,4 +142,46 @@ public class LinkGenerator {
 	public static String orderDeliveryConfirmationSubmissionLink() {
 		return home + "confirmdelivery.do";
 	}
+
+	public static String dispatchInventoryTransferSubmissionLink() {
+		return home + "dispatchinventorytransfer.do";
+	}
+
+	public static String receiveInventoryTransferSubmissionLink() {
+		return home + "receiveinventorytransfer.do";
+	}
+
+	// Customer Pages
+
+	public static String customerHomePageLink() {
+		return home + "home";
+	}
+
+	public static String customerAccountPageLink() {
+		return home + "account";
+	}
+
+	public static String checkoutFormLink() {
+		return home + "checkout";
+	}
+
+	public static String cartPageLink() {
+		return home + "cart";
+	}
+
+	public static String customerLoginPageLink() {
+		return home + "customerlogin";
+	}
+
+	public static String productsPageLink() {
+		return home + "shop";
+	}
+
+	public static String searchResultsPageLink() {
+		return home + "search";
+	}
+
+	public static String brandPageLink(String brandID) {
+		return home + "/brand?brandid=" + brandID;
+	}
 }

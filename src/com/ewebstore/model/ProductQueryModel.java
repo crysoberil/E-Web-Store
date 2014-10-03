@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
+import com.ewebstore.entity.Product;
 
 public class ProductQueryModel {
 
@@ -118,6 +119,48 @@ public class ProductQueryModel {
 		} finally {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(statement);
+		}
+	}
+
+	public static ArrayList<Product> getPopularProducts(int productCount)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT * from Product ORDER BY (SELECT COUNT(*) FROM OrderProducts WHERE OrderProducts.productID = Product.productID) DESC LIMIT ?");
+
+			preparedStatement.setInt(1, productCount);
+
+			resultSet = preparedStatement.executeQuery();
+
+			ArrayList<Product> popularProducts = new ArrayList<Product>();
+
+			while (resultSet.next()) {
+				String productID = Long.toString(resultSet.getLong(1));
+				String productName = resultSet.getString(2);
+				String brandID = Long.toString(resultSet.getLong(3));
+				String brandName = BrandQueryModel.getBrandName(brandID);
+				String productDetail = resultSet.getString(4);
+				String productImageLink = resultSet.getString(5);
+				Double price = resultSet.getDouble(6);
+				ArrayList<String> categories = null;
+
+				popularProducts.add(new Product(productID, productName,
+						brandID, brandName, productDetail, productImageLink,
+						price, categories));
+			}
+
+			return popularProducts;
+
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
 		}
 	}
 }

@@ -285,4 +285,54 @@
 		<servlet-name>ConfirmOrderDeliverySubmissionController</servlet-name>
 		<url-pattern>/confirmdelivery.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InventoryTransferSendRequestsPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.InventoryTransferSendRequestsPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>InventoryTransferSendRequestsPageLoader</servlet-name>
+		<url-pattern>/productssendrequests</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InventoryTransferReceiveRequestsPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.InventoryTransferReceiveRequestsPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>InventoryTransferReceiveRequestsPageLoader</servlet-name>
+		<url-pattern>/productsreceiverequests</url-pattern>
+	</servlet-mapping>
+
+		<servlet>
+		<servlet-name>DispatchInventoryTransferController</servlet-name>
+		<servlet-class>com.ewebstore.controller.DispatchInventoryTransferController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DispatchInventoryTransferController</servlet-name>
+		<url-pattern>/dispatchinventorytransfer.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ReceiveInventoryTransferController</servlet-name>
+		<servlet-class>com.ewebstore.controller.ReceiveInventoryTransferController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ReceiveInventoryTransferController</servlet-name>
+		<url-pattern>/receiveinventorytransfer.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CustomerHomePageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CustomerHomePageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CustomerHomePageLoader</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
 </web-app>

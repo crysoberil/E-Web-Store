@@ -3,10 +3,12 @@ package com.ewebstore.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.CartItem;
+import com.ewebstore.entity.ProductTransferEntity;
 import com.ewebstore.entity.ShoppingCart;
 
 // TODO repair class
@@ -117,7 +119,7 @@ public class BranchInventoryTransferModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT COUNT(*) FROM BranchInventoryTransfer WHERE fromBranchID = ? AND toBranchID = ? AND productID = ?");
+							"SELECT COUNT(*) FROM BranchInventoryTransfer WHERE fromBranchID = ? AND toBranchID = ? AND productID = ? AND transferStatus = 1");
 
 			preparedStatement.setLong(1, Long.valueOf(supplierBranchID));
 			preparedStatement.setLong(2, Long.valueOf(targetBranchID));
@@ -156,7 +158,7 @@ public class BranchInventoryTransferModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"DELETE FROM BranchInventoryTransfer inventoryTransferID = ?");
+							"DELETE FROM BranchInventoryTransfer WHERE inventoryTransferID = ?");
 
 			preparedStatement.setLong(1, Long.valueOf(inventoryTransferID));
 			preparedStatement.executeUpdate();
@@ -167,8 +169,8 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
-	public static void markAsOngoingInventoryTransfer(String inventoryTransferID)
-			throws SQLException {
+	private static void markAsOngoingInventoryTransfer(
+			String inventoryTransferID) throws SQLException {
 		updateInventoryTransferStatus(inventoryTransferID,
 				BEINGTRANSFERREDSTATUS);
 	}
@@ -186,12 +188,122 @@ public class BranchInventoryTransferModel {
 			preparedStatement.setInt(1, targetStatus);
 			preparedStatement.setLong(2, Long.valueOf(inventoryTransferID));
 
-			preparedStatement.executeUpdate();
+			if (preparedStatement.executeUpdate() != 1)
+				throw new SQLException();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw ex;
 		} finally {
 			DBUtil.dispose(preparedStatement);
 		}
+	}
+
+	public static ArrayList<ProductTransferEntity> getToSendTransferRequests(
+			String branchID) {
+		ArrayList<ProductTransferEntity> transferEntities = new ArrayList<ProductTransferEntity>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String branchName = BranchQueryModel.getBranchNameByID(branchID);
+
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT inventoryTransferID, toBranchID, productID, quantity FROM BranchInventoryTransfer WHERE fromBranchID = ? AND transferStatus = 1");
+			preparedStatement.setLong(1, Long.valueOf(branchID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String inventoryTransferID = Long
+						.toString(resultSet.getLong(1));
+				String toBranchID = Long.toString(resultSet.getLong(2));
+				String productID = Long.toString(resultSet.getLong(3));
+				int quantity = resultSet.getInt(4);
+
+				String toBranchName = BranchQueryModel
+						.getBranchNameByID(toBranchID);
+				String productName = ProductQueryModel
+						.getProductName(productID);
+
+				ProductTransferEntity transferEntity = new ProductTransferEntity(
+						inventoryTransferID, productID, productName, branchID,
+						branchName, toBranchID, toBranchName, quantity);
+
+				transferEntities.add(transferEntity);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+
+		return transferEntities;
+	}
+
+	public static void dispatchInventoryTransfer(String inventoryTransferID)
+			throws SQLException {
+		// get product out of stock
+		markAsOngoingInventoryTransfer(inventoryTransferID);
+		BranchInventoryQueryModel
+				.withdrawProductsForTransfer(inventoryTransferID);
+	}
+
+	public static ArrayList<ProductTransferEntity> getToReceiveTransferRequests(
+			String branchID) {
+		ArrayList<ProductTransferEntity> transferEntities = new ArrayList<ProductTransferEntity>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String branchName = BranchQueryModel.getBranchNameByID(branchID);
+
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT inventoryTransferID, fromBranchID, productID, quantity FROM BranchInventoryTransfer WHERE toBranchID = ? AND transferStatus = 2");
+			preparedStatement.setLong(1, Long.valueOf(branchID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String inventoryTransferID = Long
+						.toString(resultSet.getLong(1));
+				String fromBranchID = Long.toString(resultSet.getLong(2));
+				String productID = Long.toString(resultSet.getLong(3));
+				int quantity = resultSet.getInt(4);
+
+				String fromBranchName = BranchQueryModel
+						.getBranchNameByID(fromBranchID);
+				String productName = ProductQueryModel
+						.getProductName(productID);
+
+				ProductTransferEntity transferEntity = new ProductTransferEntity(
+						inventoryTransferID, productID, productName,
+						fromBranchID, fromBranchName, branchID, branchName,
+						quantity);
+
+				transferEntities.add(transferEntity);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+
+		return transferEntities;
+	}
+
+	public static void receiveInventoryTransfer(String inventoryTransferID)
+			throws SQLException {
+		// add to stock and NOT availability, then remove entry
+		BranchInventoryQueryModel
+				.updateBranchInventoryAfterTransfer(inventoryTransferID);
+		deleteCompletedInventoryTransfer(inventoryTransferID);
 	}
 }
