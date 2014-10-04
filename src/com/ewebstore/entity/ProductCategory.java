@@ -1,5 +1,7 @@
 package com.ewebstore.entity;
 
+import com.ewebstore.linkgenerators.LinkGenerator;
+
 public class ProductCategory {
 	String categoryID;
 	String categoryName;
@@ -19,5 +21,9 @@ public class ProductCategory {
 
 	public String getCategoryCheckBoxName() {
 		return "cat" + categoryID;
+	}
+
+	public String getCategoryPageLink() {
+		return LinkGenerator.getCategoryPageLink(categoryID);
 	}
 }

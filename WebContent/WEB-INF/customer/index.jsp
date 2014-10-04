@@ -71,7 +71,7 @@
 								<li><a href="<%=LinkGenerator.cartPageLink()%>"><i
 										class="fa fa-shopping-cart"></i> Cart</a></li>
 								<li><a
-									href="<%=loggedIn ? LinkGenerator.customerLogoutPageLink()
+									href="<%=loggedIn ? LinkGenerator.logOutSubmissionLink()
 					: LinkGenerator.customerLoginPageLink()%>"><i
 										class="fa fa-lock"></i><%=loggedIn ? "Logout" : "Login"%></a></li>
 							</ul>
@@ -116,8 +116,9 @@
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<form>
-								<input type="search" name="search" placeholder="Search">
+							<form method="get"
+								action="<%=LinkGenerator.searchResultsPageLink()%>">
+								<input type="search" name="searchkey" placeholder="Search">
 							</form>
 						</div>
 					</div>
@@ -143,9 +144,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<h4 class="panel-title">
-										<a
-											href="<%=LinkGenerator.getCategoryPageLink(category
-						.getCategoryID())%>"><%=category.getCategoryName()%></a>
+										<a href="<%=category.getCategoryPageLink()%>"><%=category.getCategoryName()%></a>
 									</h4>
 								</div>
 							</div>
@@ -163,8 +162,7 @@
 									<%
 										for (Brand brand : popularBrands) {
 									%>
-									<li><a
-										href="<%=LinkGenerator.getBrandPageLink(brand.getBrandID())%>"><%=brand.getBrandName()%>
+									<li><a href="<%=brand.getBrandPageLink()%>"><%=brand.getBrandName()%>
 									</a></li>
 									<%
 										}
@@ -194,9 +192,8 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="<%="images/home/" + product.getProductImageLink()%>"
-											alt="" />
-										<h2><%="BDT" + product.getPrice()%></h2>
+										<img src="<%=product.getProductImageLink()%>" alt="" />
+										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
 										<p><%=product.getProductName()%></p>
 										<a
 											href="<%=LinkGenerator.addToCartLink(product.getProductID())%>"
@@ -232,9 +229,8 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="<%="images/home/" + product.getProductImageLink()%>"
-											alt="" />
-										<h2><%="BDT" + product.getPrice()%></h2>
+										<img src="<%=product.getProductImageLink()%>" alt="" />
+										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
 										<p><%=product.getProductName()%></p>
 										<a
 											href="<%=LinkGenerator.addToCartLink(product
@@ -291,16 +287,10 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2013 E-SHOPPER Inc. All
+					<p class="pull-left">Copyright © 2015 E-SHOPPER Inc. All
 						rights reserved.</p>
-					<p class="pull-right">
-						Designed by <span><a target="_blank"
-							href="http://www.themeum.com">Themeum</a></span>
-					</p>
 				</div>
 			</div>
-		</div>
-
 	</footer>
 	<!--/Footer-->
 

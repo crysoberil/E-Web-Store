@@ -148,4 +148,8 @@ public abstract class CheckedHttpServlet extends HttpServlet {
 	protected boolean isAdmin(HttpSession session) {
 		return isLoggedIn(session) && (Boolean) session.getAttribute("isadmin");
 	}
+	
+	protected String getWebContextRootAddress() {
+		return getServletContext().getRealPath("");
+	}
 }

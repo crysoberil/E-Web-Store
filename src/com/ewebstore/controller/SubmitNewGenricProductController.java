@@ -66,22 +66,23 @@ public class SubmitNewGenricProductController extends CheckedHttpServlet {
 																						// checked
 						selectedCategoryIDs.add(category.getCategoryID());
 
-				String imageLink = ImageLinkGenerator.getNewImagePath();
-
 				Part imageFilePart = req.getPart("displayimage");
-				
-				
+
+				String[] imageLinks = new String[2];
+
 				if (imageFilePart != null) {
 					InputStream stream = imageFilePart.getInputStream();
-					putImageFileToDisk(imageLink, stream);
-				} else
-					imageLink = null;
+					imageLinks = ImageLinkGenerator
+							.getNewImagePath(getWebContextRootAddress());
+					putImageFileToDisk(imageLinks[0], stream);
+				}
 
 				ProductQueryModel.addGenericProduct(productName, brandName,
-						description, price, selectedCategoryIDs, imageLink);
+						description, price, selectedCategoryIDs, imageLinks[1]);
 				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Success", "New Product Added", "New product infromtaion added.");
-				
+						"Success", "New Product Added",
+						"New product infromtaion added.");
+
 			} catch (IllegalArgumentException ex) {
 				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", ex.getMessage());

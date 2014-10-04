@@ -1,11 +1,12 @@
 package com.ewebstore.entity;
 
+import com.ewebstore.linkgenerators.LinkGenerator;
+
 public class Brand {
 	private String brandID;
 	private String brandName;
 
 	public Brand(String brandID, String brandName) {
-		super();
 		this.brandID = brandID;
 		this.brandName = brandName;
 	}
@@ -18,4 +19,7 @@ public class Brand {
 		return brandName;
 	}
 
+	public String getBrandPageLink() {
+		return LinkGenerator.getBrandPageLink(brandID);
+	}
 }

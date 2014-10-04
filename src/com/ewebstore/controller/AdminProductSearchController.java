@@ -30,7 +30,7 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 			SimpleFeedbackPageLoader.showInvalidAccessPage(req, resp);
 		else {
 			String productNameSubstring = req
-					.getParameter("searchwordsubstring");
+					.getParameter("searchkey");
 
 			if (productNameSubstring != null)
 				productNameSubstring = productNameSubstring.trim()
