@@ -3,7 +3,6 @@ package com.ewebstore.entity;
 import java.util.ArrayList;
 
 public class Product {
-
 	private String productID;
 	private String productName;
 	private String brandID;
@@ -43,11 +42,11 @@ public class Product {
 	}
 
 	public String getProductDetail() {
-		return productDetail;
+		return productDetail == null ? "" : productDetail;
 	}
 
 	public String getProductImageLink() {
-		return productImageLink;
+		return productImageLink == null ? "" : productImageLink;
 	}
 
 	public double getPrice() {

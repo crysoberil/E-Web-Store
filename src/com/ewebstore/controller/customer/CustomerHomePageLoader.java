@@ -40,6 +40,7 @@ public class CustomerHomePageLoader extends CheckedHttpServlet {
 
 			ArrayList<Product> recommendedProducts = null;
 			if (session.getAttribute("loggedin") != null
+					&& session.getAttribute("customerid") != null
 					&& (Boolean) session.getAttribute("loggedin") == true) {
 				loggedIn = true;
 

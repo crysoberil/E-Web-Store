@@ -59,7 +59,7 @@
 					<div class="col-sm-4">
 						<div class="logo pull-left">
 							<a href="<%=LinkGenerator.customerHomePageLink()%>"><img
-								src="images/home/logo1.png" alt="" /></a>
+								src="images/home/logo.png" alt="" /></a>
 						</div>
 
 					</div>
@@ -291,6 +291,7 @@
 						rights reserved.</p>
 				</div>
 			</div>
+		</div>
 	</footer>
 	<!--/Footer-->
 
