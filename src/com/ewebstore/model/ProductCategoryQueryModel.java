@@ -38,32 +38,6 @@ public class ProductCategoryQueryModel {
 		return categories;
 	}
 
-	public static ArrayList<String> getProductCategoryNames()
-			throws SQLException {
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		ArrayList<String> productCategoryNames = new ArrayList<String>();
-
-		try {
-			preparedStatement = DBConnection.getConnection().prepareStatement(
-					"SELECT categoryName FROM Category ORDER BY categoryName");
-
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next())
-				productCategoryNames.add(resultSet.getString(1));
-
-			return productCategoryNames;
-
-		} catch (SQLException ex) {
-			throw ex;
-		} finally {
-			DBUtil.dispose(preparedStatement);
-			DBUtil.dispose(resultSet);
-		}
-	}
-
 	public static void addProductCategories(String productName,
 			ArrayList<String> categorieIDs) throws SQLException {
 

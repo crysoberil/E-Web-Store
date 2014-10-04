@@ -24,8 +24,7 @@ public class BrandQueryModel {
 
 			if (!resultSet.next())
 				throw new IllegalArgumentException("No such brand");
-			
-			
+
 		} catch (SQLException e) {
 			throw e;
 		}
@@ -97,7 +96,7 @@ public class BrandQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT brandID, brandName FROM Brand ORDER BY (SELECT COUNT(*) FROM OrderProducts WHERE OrderProducts.productID = Product.productID AND Product.brandID = Brand.brandID) DESC  LIMIT ?");
+							"SELECT brandID, brandName FROM Brand ORDER BY (SELECT COUNT(*) FROM OrderProducts, Product WHERE OrderProducts.productID = Product.productID AND Product.brandID = Brand.brandID) DESC  LIMIT ?");
 			preparedStatement.setInt(1, brandCount);
 
 			resultSet = preparedStatement.executeQuery();

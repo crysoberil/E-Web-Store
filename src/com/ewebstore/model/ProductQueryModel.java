@@ -163,4 +163,9 @@ public class ProductQueryModel {
 			DBUtil.dispose(preparedStatement);
 		}
 	}
+
+	public static ArrayList<Product> getRecommendedProducts(String customerID,
+			int productCount) {
+		return null;
+	}
 }

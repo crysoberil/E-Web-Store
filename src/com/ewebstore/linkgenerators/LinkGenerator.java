@@ -181,7 +181,24 @@ public class LinkGenerator {
 		return home + "search";
 	}
 
-	public static String brandPageLink(String brandID) {
-		return home + "/brand?brandid=" + brandID;
+	public static String getCategoryPageLink(String categoryID) {
+		return home + "category?categoryid=" + categoryID;
+	}
+
+	public static String getBrandPageLink(String brandID) {
+		return home + "brand?brandid=" + brandID;
+	}
+
+	public static String getProductPageLink(String productID) {
+		return home + "product?productid=" + productID;
+
+	}
+
+	public static String addToCartLink(String productID) {
+		return home + "addtocart?productid=" + productID;
+	}
+
+	public static String customerLogoutPageLink() {
+		return home + "customerlogout.do";
 	}
 }
