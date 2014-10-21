@@ -17,41 +17,26 @@ import com.ewebstore.model.BrandQueryModel;
 import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.ProductQueryModel;
 
-public class CustomerHomePageLoader extends CheckedHttpServlet {
-	private static int popularBrandCount = 7;
+public class CustomerHomePageLoader extends CheckedCustomerPanelServlet {
 	private static int popularProductCount = 6;
 	private static int recommendedProductCount = 3;
 
 	@Override
-	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
+	protected void customerPanelDoGet(HttpServletRequest req,
+			HttpServletResponse resp) {
 		try {
 			HttpSession session = req.getSession();
-
-			boolean loggedIn = false;
-
-			ArrayList<ProductCategory> categories = ProductCategoryQueryModel
-					.getAllProductCategories();
-
-			ArrayList<Brand> popularBrands = BrandQueryModel
-					.getPopularBrands(popularBrandCount);
 
 			ArrayList<Product> popularProducts = ProductQueryModel
 					.getPopularProducts(popularProductCount);
 
 			ArrayList<Product> recommendedProducts = null;
-			if (session.getAttribute("loggedin") != null
-					&& session.getAttribute("customerid") != null
-					&& (Boolean) session.getAttribute("loggedin") == true) {
-				loggedIn = true;
-
+			if (isLoggedInAsCustomer(req)) {
 				recommendedProducts = ProductQueryModel.getRecommendedProducts(
 						session.getAttribute("customerid").toString(),
 						recommendedProductCount);
 			}
 
-			req.setAttribute("loggedIn", loggedIn);
-			req.setAttribute("categories", categories);
-			req.setAttribute("popularBrands", popularBrands);
 			req.setAttribute("popularProducts", popularProducts);
 			req.setAttribute("recommendedProducts", recommendedProducts);
 
@@ -67,7 +52,7 @@ public class CustomerHomePageLoader extends CheckedHttpServlet {
 	}
 
 	@Override
-	protected void checkedDoPost(HttpServletRequest req,
+	protected void customerPanelDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 

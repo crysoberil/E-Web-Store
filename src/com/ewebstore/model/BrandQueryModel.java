@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.Brand;
+import com.ewebstore.entity.Product;
 
 public class BrandQueryModel {
 	public static String getBrandName(String brandID) throws SQLException {
@@ -25,10 +26,12 @@ public class BrandQueryModel {
 			if (!resultSet.next())
 				throw new IllegalArgumentException("No such brand");
 
+			String brandName = resultSet.getString(1);
+			return brandName;
+
 		} catch (SQLException e) {
 			throw e;
 		}
-		return brandID;
 	}
 
 	public static String pushAndGetBrandIDByName(String brandName)
@@ -117,4 +120,40 @@ public class BrandQueryModel {
 			DBUtil.dispose(resultSet);
 		}
 	}
+	
+	public static ArrayList<Product> getPopularBrandProducts(String brandID) {
+		ArrayList<Product> brandProducts = new ArrayList<>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String brandName = getBrandName(brandID);
+
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT productID, productName, productImageLink, price FROM Product WHERE brandID = ? ORDER BY (SELECT COALESCE(SUM(quantity), 0) FROM OrderProducts WHERE OrderProducts.productID = Product.productID) DESC LIMIT 10");
+			preparedStatement.setLong(1, Long.valueOf(brandID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String productID = resultSet.getString(1);
+				String productName = resultSet.getString(2);
+				String productImageLink = resultSet.getString(3);
+				double price = resultSet.getDouble(4);
+
+				Product product = new Product(productID, productName, brandID,
+						brandName, null, productImageLink, price, null);
+
+				brandProducts.add(product);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return brandProducts;
+	}
+
 }

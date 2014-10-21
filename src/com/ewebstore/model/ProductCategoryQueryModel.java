@@ -10,6 +10,30 @@ import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.ProductCategory;
 
 public class ProductCategoryQueryModel {
+
+	public static String getCategoryName(String categoryID) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					"SELECT categoryName FROM Category WHERE categoryID = ?");
+
+			preparedStatement.setLong(1, Long.parseLong(categoryID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new IllegalArgumentException("No such category");
+
+			String categoryName = resultSet.getString(1);
+			return categoryName;
+
+		} catch (SQLException e) {
+			throw e;
+		}
+	}
+
 	public static ArrayList<ProductCategory> getAllProductCategories() {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

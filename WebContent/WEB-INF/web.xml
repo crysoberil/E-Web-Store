@@ -335,4 +335,24 @@
 		<servlet-name>CustomerHomePageLoader</servlet-name>
 		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CategoryPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CategoryPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CategoryPageLoader</servlet-name>
+		<url-pattern>/category</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProductPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.ProductPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductPageLoader</servlet-name>
+		<url-pattern>/product</url-pattern>
+	</servlet-mapping>
 </web-app>
