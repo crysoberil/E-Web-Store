@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 
 public class ShoppingCart {
 	private HashMap<String, Integer> cartItems;
-	private String customerID;
-	private String customerName;
+	private String customerID = null;
+	private String customerName = null;
 
 	public ShoppingCart(String customerID, String customerName) {
 		this.customerID = customerID;
@@ -34,6 +34,10 @@ public class ShoppingCart {
 			cartItems.put(productID, cartItems.get(productID) - 1);
 		else
 			cartItems.remove(productID);
+	}
+
+	public void removeProduct(String productID) {
+		cartItems.remove(productID);
 	}
 
 	public ArrayList<CartItem> getCartItems() {

@@ -377,16 +377,6 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>SubmitAddToCartPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.customer.SubmitAddToCartPageLoader</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>SubmitAddToCartPageLoader</servlet-name>
-		<url-pattern>/addtocart</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>CustomerLoginSignupPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CustomerLoginSignupPageLoader</servlet-class>
 	</servlet>

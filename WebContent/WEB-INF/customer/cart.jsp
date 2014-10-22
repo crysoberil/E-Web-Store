@@ -24,7 +24,16 @@
 			.getAttribute("cartItemsInfo");
 	HashMap<String, Double> cartItemsPrice = (HashMap<String, Double>) request
 			.getAttribute("cartItemsPrice");
+	double totalOrderingCost = (double) request
+			.getAttribute("totalOrderingCost");
+	double shippingCost = (double) request.getAttribute("shippingCost");
 %>
+
+<style>
+form {
+	display: inline;
+}
+</style>
 
 <title>Cart</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -177,16 +186,26 @@
 
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up"
-										href="<%=LinkGenerator.submitChangeCartProductQuantityLink(
-						cartItem.getProductID(), true, false)%>">
-										+ </a> <input class="cart_quantity_input" type="text"
-										name="quantity" value="<%=cartItem.getQuantity()%>"
-										autocomplete="off" size="2" readonly> <a
-										class="cart_quantity_down"
-										href="<%=LinkGenerator.submitChangeCartProductQuantityLink(
-						cartItem.getProductID(), false, false)%>">
-										- </a>
+									<form role="form" method="post"
+										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
+										<input type="hidden" name="productid"
+											value="<%=cartItem.getProductID()%>"> <input
+											type="hidden" name="change" value="increment">
+										<button type="submit" class="btn btn-default cart_quantity_up">
+											+</button>
+									</form>
+
+									<label><%=cartItem.getQuantity()%></label>
+
+									<form role="form" method="post"
+										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
+										<input type="hidden" name="productid"
+											value="<%=cartItem.getProductID()%>"> <input
+											type="hidden" name="change" value="decrement">
+
+										<button type="submit" class="btn btn-default cart_quantity_up">
+											-</button>
+									</form>
 								</div>
 							</td>
 
@@ -195,10 +214,19 @@
 						cartItemsPrice.get(cartItem.getProductID()))%></p>
 							</td>
 
-							<td class="cart_delete"><a class="cart_quantity_delete"
-								href="<%=LinkGenerator.submitChangeCartProductQuantityLink(
-						cartItem.getProductID(), false, true)%>"><i
-									class="fa fa-times"></i></a></td>
+							<td class="cart_delete">
+								<form role="form" method="post"
+									action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
+									<input type="hidden" name="productid"
+										value="<%=cartItem.getProductID()%>"> <input
+										type="hidden" name="delete" value="true">
+
+									<button type="submit"
+										class="btn btn-default cart_quantity_delete">
+										<i class="fa fa-times"></i>
+									</button>
+								</form>
+							</td>
 
 						</tr>
 						<%
@@ -209,8 +237,35 @@
 				</table>
 			</div>
 		</div>
+
 	</section>
 	<!--/#cart_items-->
+
+	<section id="do_action">
+		<div class="container">
+			<div class="heading">
+				<h3>What would you like to do next?</h3>
+			</div>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="total_area">
+						<ul>
+							<li>Cart Sub Total <span><%=String.format("BDT %.2f", totalOrderingCost
+					- shippingCost)%></span></li>
+							<li>Shipping Cost <span><%=shippingCost > 0 ? String
+					.format("BDT %.2f", shippingCost) : "Free"%></span></li>
+							<li>Total <span><%=String.format("BDT %.2f", totalOrderingCost)%></span></li>
+						</ul>
+						<a class="btn btn-default update"
+							href="<%=LinkGenerator.customerHomePageLink()%>">Continue
+							Shopping</a> <a class="btn btn-default check_out"
+							href="<%=LinkGenerator.checkoutFormLink()%>">Check Out</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/#do_action-->
 
 	<footer id="footer">
 		<!--Footer-->

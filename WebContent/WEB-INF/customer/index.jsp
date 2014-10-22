@@ -195,10 +195,13 @@
 										<img src="<%=product.getProductImageLink()%>" alt="" />
 										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
 										<p><%=product.getProductName()%></p>
-										<a
-											href="<%=LinkGenerator.addToCartLink(product.getProductID())%>"
-											class="btn btn-default add-to-cart"><i
-											class="fa fa-shopping-cart"></i>Add to cart</a>
+										<form role="form" method="post"
+											action="<%=LinkGenerator.addToCartLink(product.getProductID())%>">
+
+											<button type="submit" class="btn btn-default add-to-cart">
+												<i class="fa fa-shopping-cart"></i>Add to cart
+											</button>
+										</form>
 									</div>
 								</div>
 								<div class="choose">
@@ -232,11 +235,14 @@
 										<img src="<%=product.getProductImageLink()%>" alt="" />
 										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
 										<p><%=product.getProductName()%></p>
-										<a
-											href="<%=LinkGenerator.addToCartLink(product
-							.getProductID())%>"
-											class="btn btn-default add-to-cart"><i
-											class="fa fa-shopping-cart"></i>Add to cart</a>
+										<form role="form" method="post"
+											action="<%=LinkGenerator.addToCartLink(product
+							.getProductID())%>">
+
+											<button type="submit" class="btn btn-default add-to-cart">
+												<i class="fa fa-shopping-cart"></i>Add to cart
+											</button>
+										</form>
 									</div>
 								</div>
 								<div class="choose">

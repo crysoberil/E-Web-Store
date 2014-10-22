@@ -199,7 +199,7 @@ public class LinkGenerator {
 	}
 
 	public static String addToCartLink(String productID) {
-		return home + "addtocart?productid=" + productID;
+		return getProductPageLink(productID);
 	}
 
 	public static String customerLogoutPageLink() {
@@ -210,10 +210,7 @@ public class LinkGenerator {
 		return home + "register.do";
 	}
 
-	public static String submitChangeCartProductQuantityLink(String productID,
-			boolean increment, boolean delete) {
-		return home + "incrementcartproductquantity?productid=" + productID
-				+ "&change=" + (increment ? "increment" : "decrement")
-				+ "&delete=" + delete;
+	public static String submitChangeCartProductQuantityLink() {
+		return cartPageLink();
 	}
 }

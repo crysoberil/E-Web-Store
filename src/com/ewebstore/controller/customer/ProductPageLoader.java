@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.entity.Product;
+import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.model.ProductQueryModel;
 
 public class ProductPageLoader extends CheckedCustomerPanelServlet {
@@ -36,8 +37,26 @@ public class ProductPageLoader extends CheckedCustomerPanelServlet {
 	@Override
 	protected void customerPanelDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+		try {
+			ShoppingCart cart = (ShoppingCart) req.getSession().getAttribute(
+					"cart");
+			String productID = req.getParameter("productid");
 
+			cart.addToCart(productID);
+
+			Product product = ProductQueryModel.getProduct(productID);
+
+			req.setAttribute("product", product);
+			req.setAttribute("addedToCart", true);
+
+			req.getRequestDispatcher("/WEB-INF/customer/product.jsp").forward(
+					req, resp);
+		} catch (ServletException | IOException ex) {
+			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("ERROR");
+		}
 	}
 
 }

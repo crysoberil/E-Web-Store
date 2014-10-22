@@ -196,11 +196,14 @@
 								<h2><%=product.getProductName()%></h2>
 								<p><%=product.getProductDetail()%></p>
 								<span> <span><%=String.format("BDT %.2f", product.getPrice())%></span>
-									<a
-									href="<%=LinkGenerator.addToCartLink(product.getProductID())%>"
-									class="btn btn-default add-to-cart"><i
-										class="fa fa-shopping-cart"></i>Add to cart</a>
 								</span>
+								<form role="form" method="post"
+									action="<%=LinkGenerator.addToCartLink(product.getProductID())%>">
+
+									<button type="submit" class="btn btn-default add-to-cart">
+										<i class="fa fa-shopping-cart"></i>Add to cart
+									</button>
+								</form>
 								<p>
 									<b>Brand:</b>
 									<%=product.getBrandName().toUpperCase()%>

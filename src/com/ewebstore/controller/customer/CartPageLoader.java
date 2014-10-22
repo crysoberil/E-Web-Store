@@ -26,6 +26,10 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 			ArrayList<CartItem> cartItems = cart.getCartItems();
 			HashMap<String, ShoppingCartDisplayInformation> cartItemsInfo = new HashMap<String, ShoppingCartDisplayInformation>();
 			HashMap<String, Double> cartItemsPrice = new HashMap<String, Double>();
+			double totalOrderingCost = ShoppingCartQueryModel
+					.getTotalOrderingCost(cart);
+			double shippingCost = (totalOrderingCost > 0 ? ShoppingCartQueryModel
+					.getShippingCost(cart) : 0);
 
 			for (CartItem cartItem : cartItems) {
 				String productID = cartItem.getProductID();
@@ -51,6 +55,8 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 			req.setAttribute("cartItems", cartItems);
 			req.setAttribute("cartItemsInfo", cartItemsInfo);
 			req.setAttribute("cartItemsPrice", cartItemsPrice);
+			req.setAttribute("totalOrderingCost", totalOrderingCost);
+			req.setAttribute("shippingCost", shippingCost);
 
 			req.getRequestDispatcher("/WEB-INF/customer/cart.jsp").forward(req,
 					resp);
@@ -65,8 +71,62 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 	@Override
 	protected void customerPanelDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
-		// TODO Auto-generated method stub
+		try {
+			ShoppingCart cart = (ShoppingCart) req.getSession().getAttribute(
+					"cart");
+			String productID = req.getParameter("productid");
 
+			if (req.getParameter("delete") != null)
+				cart.removeProduct(productID);
+			else if (req.getParameter("change").equals("increment"))
+				cart.addToCart(productID);
+			else
+				cart.removeFromCart(productID);
+
+			ArrayList<CartItem> cartItems = cart.getCartItems();
+			HashMap<String, ShoppingCartDisplayInformation> cartItemsInfo = new HashMap<String, ShoppingCartDisplayInformation>();
+			HashMap<String, Double> cartItemsPrice = new HashMap<String, Double>();
+			double totalOrderingCost = ShoppingCartQueryModel
+					.getTotalOrderingCost(cart);
+			double shippingCost = (totalOrderingCost > 0 ? ShoppingCartQueryModel
+					.getShippingCost(cart) : 0);
+
+			for (CartItem cartItem : cartItems) {
+				String productID2 = cartItem.getProductID();
+
+				String productName = ProductQueryModel
+						.getProductName(productID2);
+
+				String productImageLink = ProductQueryModel
+						.getProductImageLink(productID2);
+
+				double productPrice = ProductQueryModel
+						.getProductPrice(productID2);
+
+				cartItemsInfo.put(productID2,
+						new ShoppingCartDisplayInformation(productName,
+								productImageLink, productPrice));
+
+				cartItemsPrice.put(productID2,
+						ShoppingCartQueryModel.getCartItemCost(cartItem));
+
+			}
+
+			req.setAttribute("cartItems", cartItems);
+			req.setAttribute("cartItemsInfo", cartItemsInfo);
+			req.setAttribute("cartItemsPrice", cartItemsPrice);
+			req.setAttribute("totalOrderingCost", totalOrderingCost);
+			req.setAttribute("shippingCost", shippingCost);
+
+			req.getRequestDispatcher("/WEB-INF/customer/cart.jsp").forward(req,
+					resp);
+
+		} catch (ServletException | IOException ex) {
+			ex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("ERROR");
+		}
 	}
 
 }

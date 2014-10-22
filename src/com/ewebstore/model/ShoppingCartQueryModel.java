@@ -11,7 +11,6 @@ import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.ShoppingCart;
 
 public class ShoppingCartQueryModel {
-	private static final double SHIPPINGCOST = 30.0; // in BDT
 
 	private static boolean isOrderDeliverable(ShoppingCart cart) {
 		ArrayList<CartItem> cartItems = cart.getCartItems();
@@ -98,19 +97,6 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
-	public static double getTotalOrderingCost(ShoppingCart cart)
-			throws SQLException {
-		double cost = SHIPPINGCOST;
-
-		for (CartItem cartItem : cart.getCartItems())
-			cost += getCartItemCost(cartItem);
-
-		if (CustomerQueryModel.isPremiumUser(cart.getCustomerID()))
-			cost = cost * (1 - CustomerQueryModel.DISCOUNTPERCENTAGE / 100);
-
-		return cost;
-	}
-
 	public static double getCartItemCost(CartItem cartItem) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -126,13 +112,44 @@ public class ShoppingCartQueryModel {
 			if (!resultSet.next())
 				throw new SQLException();
 
-			return resultSet.getDouble(1);
+			return resultSet.getDouble(1) * cartItem.getQuantity();
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(preparedStatement);
 		}
+	}
+
+	public static double getCartSubTotalCost(ShoppingCart cart)
+			throws SQLException {
+		double cost = 0;
+
+		for (CartItem cartItem : cart.getCartItems())
+			cost += getCartItemCost(cartItem);
+
+		return cost;
+	}
+
+	public static double getTotalOrderingCost(ShoppingCart cart)
+			throws SQLException {
+		double cost = getCartSubTotalCost(cart);
+
+		if (cost > 0) {
+			cost += getShippingCost(cart);
+
+			if (cart.getCustomerID() != null
+					&& CustomerQueryModel.isPremiumUser(cart.getCustomerID()))
+				cost = cost * (1 - CustomerQueryModel.DISCOUNTPERCENTAGE / 100);
+
+			return cost;
+		}
+
+		return 0;
+	}
+
+	public static double getShippingCost(ShoppingCart cart) {
+		return SharedData.getShippingCost();
 	}
 
 	private static String getClosestBranchID(String nearestDistrictID)
