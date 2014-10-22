@@ -177,6 +177,10 @@ public class LinkGenerator {
 		return home + "shop";
 	}
 
+	public static String contactPageLink() {
+		return home + "contactus";
+	}
+
 	public static String searchResultsPageLink() {
 		return home + "search";
 	}
@@ -200,5 +204,16 @@ public class LinkGenerator {
 
 	public static String customerLogoutPageLink() {
 		return home + "customerlogout.do";
+	}
+
+	public static String customerRegistrationSubmissionLink() {
+		return home + "register.do";
+	}
+
+	public static String submitChangeCartProductQuantityLink(String productID,
+			boolean increment, boolean delete) {
+		return home + "incrementcartproductquantity?productid=" + productID
+				+ "&change=" + (increment ? "increment" : "decrement")
+				+ "&delete=" + delete;
 	}
 }

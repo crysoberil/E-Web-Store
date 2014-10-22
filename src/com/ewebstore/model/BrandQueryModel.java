@@ -31,6 +31,9 @@ public class BrandQueryModel {
 
 		} catch (SQLException e) {
 			throw e;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
 		}
 	}
 
@@ -120,7 +123,7 @@ public class BrandQueryModel {
 			DBUtil.dispose(resultSet);
 		}
 	}
-	
+
 	public static ArrayList<Product> getPopularBrandProducts(String brandID) {
 		ArrayList<Product> brandProducts = new ArrayList<>();
 
@@ -151,6 +154,9 @@ public class BrandQueryModel {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
 		}
 
 		return brandProducts;

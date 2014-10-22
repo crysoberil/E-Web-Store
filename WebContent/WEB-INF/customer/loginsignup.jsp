@@ -17,10 +17,6 @@
 			.getAttribute("categories");
 	ArrayList<Brand> popularBrands = (ArrayList<Brand>) request
 			.getAttribute("popularBrands");
-	ArrayList<Product> popularProducts = (ArrayList<Product>) request
-			.getAttribute("popularProducts");
-	ArrayList<Product> recommendedProducts = (ArrayList<Product>) request
-			.getAttribute("recommendedProducts");
 %>
 
 <title>Home | E-Shopper</title>
@@ -129,136 +125,65 @@
 	</header>
 	<!--/header-->
 
-	<section>
+
+
+
+	<section id="form">
+		<!--form-->
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Category</h2>
-						<div class="panel-group category-products" id="accordian">
-							<!--category-productsr-->
-
-							<%
-								for (ProductCategory category : categories) {
-							%>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a href="<%=category.getCategoryPageLink()%>"><%=category.getCategoryName()%></a>
-									</h4>
-								</div>
-							</div>
-							<%
-								}
-							%>
-						</div>
-						<!--/category-products-->
-
-						<div class="brands_products">
-							<!--brands_products-->
-							<h2>Brands</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-									<%
-										for (Brand brand : popularBrands) {
-									%>
-									<li><a href="<%=brand.getBrandPageLink()%>"><%=brand.getBrandName()%>
-									</a></li>
-									<%
-										}
-									%>
-								</ul>
-							</div>
-						</div>
-						<!--/brands_products-->
-
-						<div class="shipping text-center">
-							<!--shipping-->
-							<img src="images/home/freeshipping.jpg" alt="" />
-						</div>
-						<!--/shipping-->
-
+				<div class="col-sm-4 col-sm-offset-1">
+					<div class="login-form">
+						<!--login form-->
+						<h2>Login to your account</h2>
+						<form action="<%=LinkGenerator.logInSubmissionLink()%>"
+							method="post">
+							<input type="text" placeholder="Email Address" name="email">
+							<input type="password" placeholder="Password" name="password">
+							<input type="hidden" name="logintype" value="customer"> <span>
+								<input type="checkbox" class="checkbox" name="staysignedin">
+								Keep me signed in
+							</span>
+							<button type="submit" class="btn btn-default">Login</button>
+						</form>
 					</div>
+					<!--/login form-->
 				</div>
 
-				<div class="col-sm-9 padding-right">
-					<div class="features_items">
-						<!--features_items-->
-						<h2 class="title text-center">Popular Items</h2>
-						<%
-							for (Product product : popularProducts) {
-						%>
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="<%=product.getProductImageLink()%>" alt="" />
-										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
-										<p><%=product.getProductName()%></p>
-										<a
-											href="<%=LinkGenerator.addToCartLink(product.getProductID())%>"
-											class="btn btn-default add-to-cart"><i
-											class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a
-											href="<%=LinkGenerator.getProductPageLink(product
-						.getProductID())%>"><i
-												class="fa"></i>Product Details</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<%
-							}
-						%>
+
+				<div class="col-sm-1">
+					<h2 class="or">OR</h2>
+				</div>
+
+
+				<div class="col-sm-4">
+					<div class="signup-form">
+						<!--sign up form-->
+						<h2>New User Signup!</h2>
+						<form
+							action="<%=LinkGenerator.customerRegistrationSubmissionLink()%>"
+							method="post">
+							<input type="text" placeholder="Name" name="name"> <input
+								type="email" placeholder="Email" name="email"> <input
+								type="password" placeholder="Password" name="password">
+
+							<input type="text" placeholder="Gender(Male/Female)"
+								name="gender"> <input type="date"
+								placeholder="Date of birth" name="dob"> <input
+								type="text" placeholder="Address" name="address"> <input
+								type="text" placeholder="Contact Number" name="contactnumber">
+
+							<button type="submit" class="btn btn-default">Signup</button>
+						</form>
 					</div>
-					<!--features_items-->
-
-
-					<div class="recommended_items">
-						<!--recommended_items-->
-						<h2 class="title text-center">Recommended Items</h2>
-						<%
-							if (recommendedProducts != null)
-								for (Product product : recommendedProducts) {
-						%>
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="<%=product.getProductImageLink()%>" alt="" />
-										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
-										<p><%=product.getProductName()%></p>
-										<a
-											href="<%=LinkGenerator.addToCartLink(product
-							.getProductID())%>"
-											class="btn btn-default add-to-cart"><i
-											class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a
-											href="<%=LinkGenerator.getProductPageLink(product
-							.getProductID())%>"><i
-												class="fa"></i>Product Details</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<%
-							}
-						%>
-					</div>
-					<!--/recommended_items-->
-
+					<!--/sign up form-->
 				</div>
 			</div>
 		</div>
 	</section>
+
+
+
 
 	<footer id="footer">
 		<!--Footer-->
@@ -287,8 +212,8 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright Â© 2015 E-SHOPPER Inc. All
-						rights reserved.</p>
+					<p class="pull-left">Copyright © 2015 E-SHOPPER Inc. All rights
+						reserved.</p>
 				</div>
 			</div>
 		</div>

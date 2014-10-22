@@ -16,6 +16,10 @@ public class ShoppingCart {
 		cartItems = new HashMap<String, Integer>();
 	}
 
+	public ShoppingCart() {
+		cartItems = new HashMap<String, Integer>();
+	}
+
 	public void addToCart(String productID) {
 		if (cartItems.containsKey(productID))
 			cartItems.put(productID, cartItems.get(productID) + 1);
@@ -35,18 +39,26 @@ public class ShoppingCart {
 	public ArrayList<CartItem> getCartItems() {
 		ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
 
-		for (Entry<String, Integer> cartItem : ((Map<String, Integer>) cartItems)
+		for (Entry<String, Integer> cartItem : ((Map<String, Integer>) this.cartItems)
 				.entrySet())
 			cartItems.add(new CartItem(cartItem.getKey(), cartItem.getValue()));
 
 		return cartItems;
 	}
-	
+
 	public String getCustomerID() {
 		return customerID;
 	}
-	
+
 	public String getCustomerName() {
 		return customerName;
+	}
+
+	public void setCustomerID(String customerID) {
+		this.customerID = customerID;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 }

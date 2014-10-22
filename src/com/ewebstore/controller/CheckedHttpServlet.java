@@ -23,13 +23,28 @@ public abstract class CheckedHttpServlet extends HttpServlet {
 	}
 
 	private void attachShoppingCartIfRequired(HttpServletRequest req) {
-		if (isLoggedIn(req) && !isAdmin(req)
-				&& req.getSession().getAttribute("cart") == null) {
-			String customerID = (String) req.getSession().getAttribute(
-					"customerid");
-			String customerName = (String) req.getSession().getAttribute(
-					"customername");
-			req.setAttribute("cart", new ShoppingCart(customerID, customerName));
+		HttpSession session = req.getSession();
+
+		if (isLoggedIn(req)) {
+			if (!isAdmin(req)) {
+
+				String customerID = (String) req.getSession().getAttribute(
+						"customerid");
+				String customerName = (String) req.getSession().getAttribute(
+						"customername");
+
+				if (session.getAttribute("cart") == null) {
+					session.setAttribute("cart", new ShoppingCart(customerID,
+							customerName));
+				} else {
+					ShoppingCart cart = (ShoppingCart) session
+							.getAttribute("cart");
+					cart.setCustomerID(customerID);
+					cart.setCustomerName(customerName);
+				}
+			}
+		} else if (session.getAttribute("cart") == null) {
+			session.setAttribute("cart", new ShoppingCart());			
 		}
 	}
 
@@ -148,7 +163,7 @@ public abstract class CheckedHttpServlet extends HttpServlet {
 	protected boolean isAdmin(HttpSession session) {
 		return isLoggedIn(session) && (Boolean) session.getAttribute("isadmin");
 	}
-	
+
 	protected String getWebContextRootAddress() {
 		return getServletContext().getRealPath("");
 	}

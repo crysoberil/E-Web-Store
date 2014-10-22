@@ -98,7 +98,7 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
-	private static double getTotalOrderingCost(ShoppingCart cart)
+	public static double getTotalOrderingCost(ShoppingCart cart)
 			throws SQLException {
 		double cost = SHIPPINGCOST;
 
@@ -111,8 +111,7 @@ public class ShoppingCartQueryModel {
 		return cost;
 	}
 
-	private static double getCartItemCost(CartItem cartItem)
-			throws SQLException {
+	public static double getCartItemCost(CartItem cartItem) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 

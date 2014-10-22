@@ -11,7 +11,7 @@ public class LogoutController extends CheckedHttpServlet {
 		forceLogOut(req, resp);
 
 		SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-				"Logged Out", "Logged Out", "Admin is logged out");
+				"Logged Out", "Logged Out", "User logged out");
 
 		// TODO
 

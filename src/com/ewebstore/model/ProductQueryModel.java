@@ -96,6 +96,57 @@ public class ProductQueryModel {
 		}
 	}
 
+	public static String getProductImageLink(String productID)
+			throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection.getConnection().prepareStatement(
+					"SELECT productImageLink FROM Product WHERE productID = ?");
+
+			statement.setLong(1, Long.valueOf(productID));
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException("invalid productID");
+
+			return resultSet.getString(1);
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+	}
+
+	public static double getProductPrice(String productID) throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection.getConnection().prepareStatement(
+					"SELECT price FROM Product WHERE productID = ?");
+
+			statement.setLong(1, Long.valueOf(productID));
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException("invalid productID");
+
+			return resultSet.getDouble(1);
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+	}
+
 	public static void addGenericProduct(String productName, String brandName,
 			String description, double price,
 			ArrayList<String> selectedCategoryIDs, String imageLink)

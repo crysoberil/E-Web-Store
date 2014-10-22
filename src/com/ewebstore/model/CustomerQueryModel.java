@@ -1,5 +1,6 @@
 package com.ewebstore.model;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -90,6 +91,34 @@ public class CustomerQueryModel {
 		} finally {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static void addCustomer(String customerName, String email,
+			String password, boolean isMale, Date dob, String address,
+			String contactNumber) throws SQLException {
+		PreparedStatement statement = null;
+
+		try {
+			statement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"INSERT INTO Customer VALUES(NULL, ?, ?, ?, ?, ?, ?, CURDATE(), 0, 0, ?)");
+
+			statement.setString(1, customerName);
+			statement.setDate(2, dob);
+			statement.setBoolean(3, isMale);
+			statement.setString(4, email);
+			statement.setString(5, address);
+			statement.setString(6, contactNumber);
+			statement.setString(7, password);
+
+			if (statement.executeUpdate() == 0)
+				throw new SQLException();
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(statement);
 		}
 	}
 

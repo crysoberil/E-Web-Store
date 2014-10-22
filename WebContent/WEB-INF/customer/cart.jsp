@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page import="com.ewebstore.model.SharedData"%>
+<%@page import="com.ewebstore.entity.ShoppingCartDisplayInformation"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="com.ewebstore.model.ShoppingCartQueryModel"%>
+<%@page import="com.ewebstore.entity.CartItem"%>
 <%@page import="com.ewebstore.entity.ProductCategory"%>
 <%@page import="com.ewebstore.entity.Product"%>
 <%@page import="com.ewebstore.entity.Brand"%>
@@ -13,17 +18,15 @@
 
 <%
 	boolean loggedIn = (boolean) request.getAttribute("loggedIn");
-	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request
-			.getAttribute("categories");
-	ArrayList<Brand> popularBrands = (ArrayList<Brand>) request
-			.getAttribute("popularBrands");
-	ArrayList<Product> popularProducts = (ArrayList<Product>) request
-			.getAttribute("popularProducts");
-	ArrayList<Product> recommendedProducts = (ArrayList<Product>) request
-			.getAttribute("recommendedProducts");
+	ArrayList<CartItem> cartItems = (ArrayList<CartItem>) request
+			.getAttribute("cartItems");
+	HashMap<String, ShoppingCartDisplayInformation> cartItemsInfo = (HashMap<String, ShoppingCartDisplayInformation>) request
+			.getAttribute("cartItemsInfo");
+	HashMap<String, Double> cartItemsPrice = (HashMap<String, Double>) request
+			.getAttribute("cartItemsPrice");
 %>
 
-<title>Home | E-Shopper</title>
+<title>Cart</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -97,8 +100,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="<%=LinkGenerator.customerHomePageLink()%>"
-									class="active">Home</a></li>
+								<li><a href="<%=LinkGenerator.customerHomePageLink()%>">Home</a></li>
 
 								<li class="dropdown"><a href="#">Shop<i
 										class="fa fa-angle-down"></i></a>
@@ -129,136 +131,86 @@
 	</header>
 	<!--/header-->
 
-	<section>
+	<section id="cart_items">
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-3">
-					<div class="left-sidebar">
-						<h2>Category</h2>
-						<div class="panel-group category-products" id="accordian">
-							<!--category-productsr-->
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+					<li class="active"><h2>Shopping Cart</h2></li>
+				</ol>
+			</div>
+			<div class="table-responsive cart_info">
+				<table class="table table-condensed">
+					<thead>
+						<tr class="cart_menu">
+							<td class="image">Item</td>
+							<td class="description"></td>
+							<td class="price">Price</td>
+							<td class="quantity">Quantity</td>
+							<td class="total">Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
 
-							<%
-								for (ProductCategory category : categories) {
-							%>
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a href="<%=category.getCategoryPageLink()%>"><%=category.getCategoryName()%></a>
-									</h4>
-								</div>
-							</div>
-							<%
-								}
-							%>
-						</div>
-						<!--/category-products-->
-
-						<div class="brands_products">
-							<!--brands_products-->
-							<h2>Brands</h2>
-							<div class="brands-name">
-								<ul class="nav nav-pills nav-stacked">
-									<%
-										for (Brand brand : popularBrands) {
-									%>
-									<li><a href="<%=brand.getBrandPageLink()%>"><%=brand.getBrandName()%>
-									</a></li>
-									<%
-										}
-									%>
-								</ul>
-							</div>
-						</div>
-						<!--/brands_products-->
-
-						<div class="shipping text-center">
-							<!--shipping-->
-							<img src="images/home/freeshipping.jpg" alt="" />
-						</div>
-						<!--/shipping-->
-
-					</div>
-				</div>
-
-				<div class="col-sm-9 padding-right">
-					<div class="features_items">
-						<!--features_items-->
-						<h2 class="title text-center">Popular Items</h2>
 						<%
-							for (Product product : popularProducts) {
+							for (CartItem cartItem : cartItems) {
+								ShoppingCartDisplayInformation cartDisplayInformation = cartItemsInfo
+										.get(cartItem.getProductID());
 						%>
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="<%=product.getProductImageLink()%>" alt="" />
-										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
-										<p><%=product.getProductName()%></p>
-										<a
-											href="<%=LinkGenerator.addToCartLink(product.getProductID())%>"
-											class="btn btn-default add-to-cart"><i
-											class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
+						<tr>
+							<td class="cart_product"><a
+								href="<%=LinkGenerator.getProductLink(cartItem.getProductID())%>"><img
+									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
+									height="<%=SharedData.getProductImageHeight()%>"
+									width="<%=SharedData.getProductImageWidth()%>"></a></td>
+
+							<td class="cart_description">
+								<h4>
+									<a href=""><%=cartDisplayInformation.getProductName()%></a>
+								</h4>
+							</td>
+
+							<td class="cart_price">
+								<p><%=String.format("BDT %.2f",
+						cartDisplayInformation.getProductPrice())%></p>
+							</td>
+
+							<td class="cart_quantity">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up"
+										href="<%=LinkGenerator.submitChangeCartProductQuantityLink(
+						cartItem.getProductID(), true, false)%>">
+										+ </a> <input class="cart_quantity_input" type="text"
+										name="quantity" value="<%=cartItem.getQuantity()%>"
+										autocomplete="off" size="2" readonly> <a
+										class="cart_quantity_down"
+										href="<%=LinkGenerator.submitChangeCartProductQuantityLink(
+						cartItem.getProductID(), false, false)%>">
+										- </a>
 								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a
-											href="<%=LinkGenerator.getProductPageLink(product
-						.getProductID())%>"><i
-												class="fa"></i>Product Details</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
+							</td>
+
+							<td class="cart_total">
+								<p class="cart_total_price"><%=String.format("BDT %.2f",
+						cartItemsPrice.get(cartItem.getProductID()))%></p>
+							</td>
+
+							<td class="cart_delete"><a class="cart_quantity_delete"
+								href="<%=LinkGenerator.submitChangeCartProductQuantityLink(
+						cartItem.getProductID(), false, true)%>"><i
+									class="fa fa-times"></i></a></td>
+
+						</tr>
 						<%
 							}
 						%>
-					</div>
-					<!--features_items-->
 
-
-					<div class="recommended_items">
-						<!--recommended_items-->
-						<h2 class="title text-center">Recommended Items</h2>
-						<%
-							if (recommendedProducts != null)
-								for (Product product : recommendedProducts) {
-						%>
-						<div class="col-sm-4">
-							<div class="product-image-wrapper">
-								<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="<%=product.getProductImageLink()%>" alt="" />
-										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
-										<p><%=product.getProductName()%></p>
-										<a
-											href="<%=LinkGenerator.addToCartLink(product
-							.getProductID())%>"
-											class="btn btn-default add-to-cart"><i
-											class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
-								</div>
-								<div class="choose">
-									<ul class="nav nav-pills nav-justified">
-										<li><a
-											href="<%=LinkGenerator.getProductPageLink(product
-							.getProductID())%>"><i
-												class="fa"></i>Product Details</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<%
-							}
-						%>
-					</div>
-					<!--/recommended_items-->
-
-				</div>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</section>
+	<!--/#cart_items-->
 
 	<footer id="footer">
 		<!--Footer-->

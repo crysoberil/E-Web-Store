@@ -347,6 +347,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>BrandProductsPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.BrandProductsPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>BrandProductsPageLoader</servlet-name>
+		<url-pattern>/brand</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ProductPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.ProductPageLoader</servlet-class>
 	</servlet>
@@ -355,4 +365,45 @@
 		<servlet-name>ProductPageLoader</servlet-name>
 		<url-pattern>/product</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CartPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CartPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CartPageLoader</servlet-name>
+		<url-pattern>/cart</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SubmitAddToCartPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.SubmitAddToCartPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SubmitAddToCartPageLoader</servlet-name>
+		<url-pattern>/addtocart</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CustomerLoginSignupPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CustomerLoginSignupPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CustomerLoginSignupPageLoader</servlet-name>
+		<url-pattern>/customerlogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CustomerSignupController</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CustomerSignupController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CustomerSignupController</servlet-name>
+		<url-pattern>/register.do</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

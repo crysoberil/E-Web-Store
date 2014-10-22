@@ -12,10 +12,9 @@ import com.ewebstore.entity.Brand;
 import com.ewebstore.entity.ProductCategory;
 import com.ewebstore.model.BrandQueryModel;
 import com.ewebstore.model.ProductCategoryQueryModel;
+import com.ewebstore.model.SharedData;
 
 public abstract class CheckedCustomerPanelServlet extends CheckedHttpServlet {
-	private static final int popularBrandCount = 7;
-
 	@Override
 	protected final void checkedDoGet(HttpServletRequest req,
 			HttpServletResponse resp) {
@@ -28,7 +27,7 @@ public abstract class CheckedCustomerPanelServlet extends CheckedHttpServlet {
 					.getAllProductCategories();
 
 			ArrayList<Brand> popularBrands = BrandQueryModel
-					.getPopularBrands(popularBrandCount);
+					.getPopularBrands(SharedData.getPopularBrandCount());
 
 			req.setAttribute("loggedIn", loggedIn);
 			req.setAttribute("categories", categories);
@@ -52,13 +51,13 @@ public abstract class CheckedCustomerPanelServlet extends CheckedHttpServlet {
 					.getAllProductCategories();
 
 			ArrayList<Brand> popularBrands = BrandQueryModel
-					.getPopularBrands(popularBrandCount);
+					.getPopularBrands(SharedData.getPopularBrandCount());
 
 			req.setAttribute("loggedIn", loggedIn);
 			req.setAttribute("categories", categories);
 			req.setAttribute("popularBrands", popularBrands);
 
-			customerPanelDoGet(req, resp);
+			customerPanelDoPost(req, resp);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}

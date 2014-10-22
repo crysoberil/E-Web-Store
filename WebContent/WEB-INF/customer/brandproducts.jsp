@@ -109,7 +109,7 @@
 					: LinkGenerator.customerLoginPageLink()%>"><%=loggedIn ? "Logout" : "Login"%></a></li>
 									</ul></li>
 
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="<%=LinkGenerator.contactPageLink()%>">Contact</a></li>
 							</ul>
 						</div>
 					</div>

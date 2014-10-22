@@ -19,6 +19,8 @@
 	ArrayList<Brand> popularBrands = (ArrayList<Brand>) request
 			.getAttribute("popularBrands");
 	Product product = (Product) request.getAttribute("product");
+	boolean addedToCart = (request.getAttribute("addedToCart") == null ? false
+			: true);
 %>
 
 <title><%=product.getProductName()%></title>
@@ -108,7 +110,7 @@
 					: LinkGenerator.customerLoginPageLink()%>"><%=loggedIn ? "Logout" : "Login"%></a></li>
 									</ul></li>
 
-								<li><a href="contact-us.html">Contact</a></li>
+								<li><a href="<%=LinkGenerator.contactPageLink()%>">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -218,6 +220,13 @@
 										}
 									%>
 								</p>
+								<%
+									if (addedToCart) {
+								%>
+								<h4>Added to Cart</h4>
+								<%
+									}
+								%>
 							</div>
 							<!--/product-information-->
 						</div>

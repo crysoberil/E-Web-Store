@@ -16,10 +16,9 @@ import com.ewebstore.entity.ProductCategory;
 import com.ewebstore.model.BrandQueryModel;
 import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.ProductQueryModel;
+import com.ewebstore.model.SharedData;
 
 public class CustomerHomePageLoader extends CheckedCustomerPanelServlet {
-	private static int popularProductCount = 6;
-	private static int recommendedProductCount = 3;
 
 	@Override
 	protected void customerPanelDoGet(HttpServletRequest req,
@@ -28,13 +27,13 @@ public class CustomerHomePageLoader extends CheckedCustomerPanelServlet {
 			HttpSession session = req.getSession();
 
 			ArrayList<Product> popularProducts = ProductQueryModel
-					.getPopularProducts(popularProductCount);
+					.getPopularProducts(SharedData.getPopularProductCount());
 
 			ArrayList<Product> recommendedProducts = null;
 			if (isLoggedInAsCustomer(req)) {
 				recommendedProducts = ProductQueryModel.getRecommendedProducts(
 						session.getAttribute("customerid").toString(),
-						recommendedProductCount);
+						SharedData.getRecommendedProductCount());
 			}
 
 			req.setAttribute("popularProducts", popularProducts);
@@ -45,7 +44,6 @@ public class CustomerHomePageLoader extends CheckedCustomerPanelServlet {
 		} catch (ServletException | IOException ex) {
 			ex.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("ERROR");
 		}
