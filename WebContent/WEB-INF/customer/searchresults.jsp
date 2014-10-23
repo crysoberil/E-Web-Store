@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.ewebstore.model.SharedData"%>
-<%@page import="com.ewebstore.entity.ShoppingCartDisplayInformation"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="com.ewebstore.model.ShoppingCartQueryModel"%>
-<%@page import="com.ewebstore.entity.CartItem"%>
 <%@page import="com.ewebstore.entity.ProductCategory"%>
 <%@page import="com.ewebstore.entity.Product"%>
 <%@page import="com.ewebstore.entity.Brand"%>
@@ -18,24 +13,21 @@
 
 <%
 	boolean loggedIn = (boolean) request.getAttribute("loggedIn");
-	ArrayList<CartItem> cartItems = (ArrayList<CartItem>) request
-			.getAttribute("cartItems");
-	HashMap<String, ShoppingCartDisplayInformation> cartItemsInfo = (HashMap<String, ShoppingCartDisplayInformation>) request
-			.getAttribute("cartItemsInfo");
-	HashMap<String, Double> cartItemsPrice = (HashMap<String, Double>) request
-			.getAttribute("cartItemsPrice");
-	double totalOrderingCost = (double) request
-			.getAttribute("totalOrderingCost");
-	double shippingCost = (double) request.getAttribute("shippingCost");
+	ArrayList<ProductCategory> categories = (ArrayList<ProductCategory>) request
+			.getAttribute("categories");
+	ArrayList<Brand> popularBrands = (ArrayList<Brand>) request
+			.getAttribute("popularBrands");
+
+	ArrayList<Product> products = (ArrayList<Product>) request
+			.getAttribute("matchedproducts");
+
+	ArrayList<Brand> brands = (ArrayList<Brand>) request
+			.getAttribute("matchedbrands");
+
+	String searchKey = (String) request.getAttribute("searchkey");
 %>
 
-<style>
-form {
-	display: inline;
-}
-</style>
-
-<title>Cart</title>
+<title>Home | E-Shopper</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -109,7 +101,8 @@ form {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="<%=LinkGenerator.customerHomePageLink()%>">Home</a></li>
+								<li><a href="<%=LinkGenerator.customerHomePageLink()%>"
+									class="active">Home</a></li>
 
 								<li class="dropdown"><a href="#">Shop<i
 										class="fa fa-angle-down"></i></a>
@@ -140,133 +133,142 @@ form {
 	</header>
 	<!--/header-->
 
-	<section id="cart_items">
+	<section>
 		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li class="active"><h2>Shopping Cart</h2></li>
-				</ol>
-			</div>
-			
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>Category</h2>
+						<div class="panel-group category-products" id="accordian">
+							<!--category-productsr-->
 
-						<%
-							for (CartItem cartItem : cartItems) {
-								ShoppingCartDisplayInformation cartDisplayInformation = cartItemsInfo
-										.get(cartItem.getProductID());
-						%>
-						<tr>
-							<td class="cart_product"><a
-								href="<%=LinkGenerator.getProductLink(cartItem.getProductID())%>"><img
-									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
-									height="<%=SharedData.getProductImageHeight()%>"
-									width="<%=SharedData.getProductImageWidth()%>"></a></td>
-
-							<td class="cart_description">
-								<h4>
-									<a href=""><%=cartDisplayInformation.getProductName()%></a>
-								</h4>
-							</td>
-
-							<td class="cart_price">
-								<p><%=String.format("BDT %.2f",
-						cartDisplayInformation.getProductPrice())%></p>
-							</td>
-
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="increment">
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											+</button>
-									</form>
-
-									<label><%=cartItem.getQuantity()%></label>
-
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="decrement">
-
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											-</button>
-									</form>
+							<%
+								for (ProductCategory category : categories) {
+							%>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a href="<%=category.getCategoryPageLink()%>"><%=category.getCategoryName()%></a>
+									</h4>
 								</div>
-							</td>
+							</div>
+							<%
+								}
+							%>
+						</div>
+						<!--/category-products-->
 
-							<td class="cart_total">
-								<p class="cart_total_price"><%=String.format("BDT %.2f",
-						cartItemsPrice.get(cartItem.getProductID()))%></p>
-							</td>
+						<div class="brands_products">
+							<!--brands_products-->
+							<h2>Brands</h2>
+							<div class="brands-name">
+								<ul class="nav nav-pills nav-stacked">
+									<%
+										for (Brand brand : popularBrands) {
+									%>
+									<li><a href="<%=brand.getBrandPageLink()%>"><%=brand.getBrandName()%>
+									</a></li>
+									<%
+										}
+									%>
+								</ul>
+							</div>
+						</div>
+						<!--/brands_products-->
 
-							<td class="cart_delete">
-								<form role="form" method="post"
-									action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-									<input type="hidden" name="productid"
-										value="<%=cartItem.getProductID()%>"> <input
-										type="hidden" name="delete" value="true">
+						<div class="shipping text-center">
+							<!--shipping-->
+							<img src="images/home/freeshipping.jpg" alt="" />
+						</div>
+						<!--/shipping-->
 
-									<button type="submit"
-										class="btn btn-default cart_quantity_delete">
-										<i class="fa fa-times"></i>
-									</button>
-								</form>
-							</td>
+					</div>
+				</div>
 
-						</tr>
+				<div class="col-sm-9 padding-right">
+					<%
+						if (!products.isEmpty()) {
+					%>
+
+					<div class="features_items">
+						<!--features_items-->
+						<h2 class="title text-center">
+							Matched products for '<%=searchKey%>'
+						</h2>
+						<%
+							for (Product product : products) {
+						%>
+						<div class="col-sm-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+									<div class="productinfo text-center">
+										<img src="<%=product.getProductImageLink()%>" alt="" />
+										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
+										<p><%=product.getProductName()%></p>
+										<form role="form" method="post"
+											action="<%=LinkGenerator.addToCartLink(product
+							.getProductID())%>">
+
+											<button type="submit" class="btn btn-default add-to-cart">
+												<i class="fa fa-shopping-cart"></i>Add to cart
+											</button>
+										</form>
+									</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills nav-justified">
+										<li><a
+											href="<%=LinkGenerator.getProductPageLink(product
+							.getProductID())%>"><i
+												class="fa"></i>Product Details</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 						<%
 							}
 						%>
-
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-	</section>
-	<!--/#cart_items-->
-
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span><%=String.format("BDT %.2f", totalOrderingCost
-					- shippingCost)%></span></li>
-							<li>Shipping Cost <span><%=shippingCost > 0 ? String
-					.format("BDT %.2f", shippingCost) : "Free"%></span></li>
-							<li>Total <span><%=String.format("BDT %.2f", totalOrderingCost)%></span></li>
-						</ul>
-						<a class="btn btn-default update"
-							href="<%=LinkGenerator.customerHomePageLink()%>">Continue
-							Shopping</a> <a class="btn btn-default check_out"
-							href="<%=LinkGenerator.checkoutFormLink()%>">Check Out</a>
 					</div>
+					<!--features_items-->
+					<%
+						}
+					%>
+
+
+
+
+
+					<%
+						if (!brands.isEmpty()) {
+					%>
+
+					<div class="features_items">
+						<!--features_items-->
+						<h2 class="title text-center">
+							Matched brands for '<%=searchKey%>'
+						</h2>
+
+						<div class="brands-name">
+							<ul class="nav nav-pills nav-stacked">
+								<%
+									for (Brand brand : brands) {
+								%>
+								<li><a href="<%=brand.getBrandPageLink()%>"> <span
+										class="pull-right"></span><%=brand.getBrandName()%></a></li>
+								<%
+									}
+								%>
+							</ul>
+						</div>
+					</div>
+					<!--features_items-->
+					<%
+						}
+					%>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!--/#do_action-->
 
 	<footer id="footer">
 		<!--Footer-->

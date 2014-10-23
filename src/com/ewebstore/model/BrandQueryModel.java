@@ -162,4 +162,34 @@ public class BrandQueryModel {
 		return brandProducts;
 	}
 
+	public static ArrayList<Brand> searchBrands(String searchKey) {
+		ArrayList<Brand> brands = new ArrayList<>();
+
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String sqlString = "SELECT brandID, brandName FROM Brand WHERE brandName LIKE \'%"
+					+ searchKey + "%\'";
+
+			statement = DBConnection.getConnection()
+					.prepareStatement(sqlString);
+
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				String brandID = resultSet.getString(1);
+				String brandName = resultSet.getString(2);
+
+				brands.add(new Brand(brandID, brandName));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+
+		return brands;
+	}
 }

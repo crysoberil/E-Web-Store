@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
+import com.ewebstore.entity.Customer;
 
 public class CustomerQueryModel {
 
@@ -119,6 +120,42 @@ public class CustomerQueryModel {
 			throw ex;
 		} finally {
 			DBUtil.dispose(statement);
+		}
+	}
+
+	public static Customer getCustomer(String customerID) throws SQLException {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT name, dob, gender, email, address, contactNumber, registrationDate, premiumCustomer FROM Customer WHERE customerID = ?");
+			preparedStatement.setLong(1, Long.parseLong(customerID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new IllegalArgumentException("No such customer");
+
+			String name = resultSet.getString(1);
+			Date dob = resultSet.getDate(2);
+			boolean isMale = (resultSet.getInt(3) == 1);
+			String email = resultSet.getString(4);
+			String address = resultSet.getString(5);
+			String contactNumber = resultSet.getString(6);
+			Date registrationDate = resultSet.getDate(7);
+			boolean isPremiumCustomer = (resultSet.getInt(8) == 1);
+
+			return new Customer(customerID, name, dob, isMale, email, address,
+					contactNumber, registrationDate, isPremiumCustomer);
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
 		}
 	}
 

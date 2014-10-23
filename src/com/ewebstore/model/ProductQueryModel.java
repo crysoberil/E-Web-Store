@@ -341,4 +341,41 @@ public class ProductQueryModel {
 			int productCount) {
 		return null;
 	}
+
+	public static ArrayList<Product> searchProducts(String searchKey) {
+		ArrayList<Product> products = new ArrayList<>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String sqlString = "SELECT productID, productName, brandID, productImageLink, price FROM Product WHERE LOWER(productName) LIKE \'%"
+					+ searchKey + "%\'";
+
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					sqlString);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String productID = Long.toString(resultSet.getLong(1));
+				String productName = resultSet.getString(2);
+				String brandID = Long.toString(resultSet.getLong(3));
+				String brandName = BrandQueryModel.getBrandName(brandID);
+				String productImageLink = resultSet.getString(4);
+				Double price = resultSet.getDouble(5);
+
+				products.add(new Product(productID, productName, brandID,
+						brandName, null, productImageLink, price, null));
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+
+		return products;
+	}
 }

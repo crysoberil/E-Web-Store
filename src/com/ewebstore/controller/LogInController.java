@@ -128,7 +128,7 @@ public class LogInController extends CheckedHttpServlet {
 			session.setAttribute("loggedin", true);
 
 			try {
-				resp.sendRedirect(LinkGenerator.getHomeLink());
+				resp.sendRedirect(LinkGenerator.customerHomePageLink());
 			} catch (IOException e) {
 				System.err.println("could not redirect");
 				e.printStackTrace();

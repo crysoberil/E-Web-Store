@@ -5,11 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.BriefOrder;
 import com.ewebstore.entity.Order;
+import com.ewebstore.entity.OrderDisplayInformation;
 import com.ewebstore.entity.OrderProduct;
 
 public class OrderQueryModel {
@@ -428,6 +430,125 @@ public class OrderQueryModel {
 				throw new SQLException("invalid order statusID");
 
 			return resultSet.getString(1);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static ArrayList<String> getOrderIDsByCustomerID(String customerID) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<String> orderIDs = new ArrayList<String>();
+
+		try {
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					"SELECT orderID FROM `Order` WHERE customerID = ?");
+			preparedStatement.setLong(1, Long.parseLong(customerID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next())
+				orderIDs.add(resultSet.getString(1));
+
+			return orderIDs;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static OrderDisplayInformation getOrderDisplayInformation(
+			String orderID) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT customerID, orderDate, detailedDeliveryLocation, orderStatusID, totalOrderingCost FROM `Order` WHERE orderID = ?");
+			preparedStatement.setLong(1, Long.parseLong(orderID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new IllegalArgumentException("No such order");
+
+			String customerID = resultSet.getString(1);
+			HashMap<String, Integer> orderProducts = new HashMap<String, Integer>();
+
+			PreparedStatement preparedStatement2 = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT productID, quantity FROM OrderProducts WHERE orderID = ?");
+			preparedStatement2.setLong(1, Long.parseLong(orderID));
+
+			ResultSet resultSet2 = preparedStatement2.executeQuery();
+
+			try {
+				while (resultSet2.next()) {
+					String productID = String.valueOf(resultSet2.getLong(1));
+					String productName = ProductQueryModel
+							.getProductName(productID);
+					int quantity = resultSet2.getInt(2);
+
+					orderProducts.put(productName, quantity);
+				}
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+				return null;
+			} finally {
+				DBUtil.dispose(resultSet2);
+				DBUtil.dispose(preparedStatement2);
+			}
+
+			Date orderDate = resultSet.getDate(2);
+			String detailedDeliveryLocation = resultSet.getString(3);
+			String orderStatusID = String.valueOf(resultSet.getLong(4));
+			String orderStatus = getOrderStatusByID(orderStatusID);
+			double totalOrderingCost = resultSet.getDouble(5);
+
+			return new OrderDisplayInformation(orderID, customerID,
+					orderProducts, orderDate, detailedDeliveryLocation,
+					orderStatus, totalOrderingCost);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	public static ArrayList<OrderDisplayInformation> getOrderDisplayInformationByCustomerID(
+			String customerID) {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		ArrayList<OrderDisplayInformation> displayInformation = new ArrayList<OrderDisplayInformation>();
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT orderID FROM `Order` WHERE customerID = ? ORDER BY orderDate DESC");
+			preparedStatement.setLong(1, Long.parseLong(customerID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String orderID = resultSet.getString(1);
+				displayInformation.add(getOrderDisplayInformation(orderID));
+			}
+
+			return displayInformation;
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			return null;

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.ewebstore.entity.ContactInformation"%>
 <%@page import="com.ewebstore.model.SharedData"%>
 <%@page import="com.ewebstore.entity.ShoppingCartDisplayInformation"%>
 <%@page import="java.util.HashMap"%>
@@ -18,24 +19,11 @@
 
 <%
 	boolean loggedIn = (boolean) request.getAttribute("loggedIn");
-	ArrayList<CartItem> cartItems = (ArrayList<CartItem>) request
-			.getAttribute("cartItems");
-	HashMap<String, ShoppingCartDisplayInformation> cartItemsInfo = (HashMap<String, ShoppingCartDisplayInformation>) request
-			.getAttribute("cartItemsInfo");
-	HashMap<String, Double> cartItemsPrice = (HashMap<String, Double>) request
-			.getAttribute("cartItemsPrice");
-	double totalOrderingCost = (double) request
-			.getAttribute("totalOrderingCost");
-	double shippingCost = (double) request.getAttribute("shippingCost");
+	ContactInformation contactInformation = (ContactInformation) request
+			.getAttribute("contactInformation");
 %>
 
-<style>
-form {
-	display: inline;
-}
-</style>
-
-<title>Cart</title>
+<title>Contact Us</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -140,133 +128,50 @@ form {
 	</header>
 	<!--/header-->
 
-	<section id="cart_items">
-		<div class="container">
-			<div class="breadcrumbs">
-				<ol class="breadcrumb">
-					<li class="active"><h2>Shopping Cart</h2></li>
-				</ol>
-			</div>
-			
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-
-						<%
-							for (CartItem cartItem : cartItems) {
-								ShoppingCartDisplayInformation cartDisplayInformation = cartItemsInfo
-										.get(cartItem.getProductID());
-						%>
-						<tr>
-							<td class="cart_product"><a
-								href="<%=LinkGenerator.getProductLink(cartItem.getProductID())%>"><img
-									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
-									height="<%=SharedData.getProductImageHeight()%>"
-									width="<%=SharedData.getProductImageWidth()%>"></a></td>
-
-							<td class="cart_description">
-								<h4>
-									<a href=""><%=cartDisplayInformation.getProductName()%></a>
-								</h4>
-							</td>
-
-							<td class="cart_price">
-								<p><%=String.format("BDT %.2f",
-						cartDisplayInformation.getProductPrice())%></p>
-							</td>
-
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="increment">
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											+</button>
-									</form>
-
-									<label><%=cartItem.getQuantity()%></label>
-
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="decrement">
-
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											-</button>
-									</form>
-								</div>
-							</td>
-
-							<td class="cart_total">
-								<p class="cart_total_price"><%=String.format("BDT %.2f",
-						cartItemsPrice.get(cartItem.getProductID()))%></p>
-							</td>
-
-							<td class="cart_delete">
-								<form role="form" method="post"
-									action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-									<input type="hidden" name="productid"
-										value="<%=cartItem.getProductID()%>"> <input
-										type="hidden" name="delete" value="true">
-
-									<button type="submit"
-										class="btn btn-default cart_quantity_delete">
-										<i class="fa fa-times"></i>
-									</button>
-								</form>
-							</td>
-
-						</tr>
-						<%
-							}
-						%>
-
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-	</section>
-	<!--/#cart_items-->
-
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
+	<div id="contact-page" class="container">
+		<div class="bg">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2 class="title text-center">
+						Contact <strong>Us</strong>
+					</h2>
+				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span><%=String.format("BDT %.2f", totalOrderingCost
-					- shippingCost)%></span></li>
-							<li>Shipping Cost <span><%=shippingCost > 0 ? String
-					.format("BDT %.2f", shippingCost) : "Free"%></span></li>
-							<li>Total <span><%=String.format("BDT %.2f", totalOrderingCost)%></span></li>
-						</ul>
-						<a class="btn btn-default update"
-							href="<%=LinkGenerator.customerHomePageLink()%>">Continue
-							Shopping</a> <a class="btn btn-default check_out"
-							href="<%=LinkGenerator.checkoutFormLink()%>">Check Out</a>
+				<div class="col-sm-4">
+					<div class="contact-info">
+						<address>
+							<p><%=contactInformation.getName()%></p>
+							<p><%=contactInformation.getAddress()%></p>
+							<p><%=contactInformation.getDistrict()%></p>
+							<p>
+								Mobile: +<%=contactInformation.getMobile()%></p>
+							<p>
+								Fax:
+								<%=contactInformation.getFax()%></p>
+							<p>
+								Email:
+								<%=contactInformation.getEmail()%></p>
+						</address>
+						<div class="social-networks">
+							<h2 class="title text-center">Social Networking</h2>
+							<ul>
+								<li><a href="<%=contactInformation.getFacebookLink()%>"
+									target="_blank"><i class="fa fa-facebook"></i></a></li>
+								<li><a href="<%=contactInformation.getTwitterLink()%>"
+									target="_blank"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="<%=contactInformation.getGoogleplusLink()%>"
+									target="_blank"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="<%=contactInformation.getYoutubeLink()%>"
+									target="_blank"><i class="fa fa-youtube"></i></a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-	<!--/#do_action-->
+	</div>
+	<!--/#contact-page-->
 
 	<footer id="footer">
 		<!--Footer-->

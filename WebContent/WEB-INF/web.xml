@@ -416,4 +416,35 @@
 		<url-pattern>/checkout.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ContactPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.ContactPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ContactPageLoader</servlet-name>
+		<url-pattern>/contactus</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CustomerAccountPageLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CustomerAccountPageLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CustomerAccountPageLoader</servlet-name>
+		<url-pattern>/account</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CustomerPanelSearchController</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CustomerPanelSearchController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CustomerPanelSearchController</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	
+	
 </web-app>

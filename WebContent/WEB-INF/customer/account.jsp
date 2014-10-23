@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%@page import="java.util.Map.Entry"%>
+<%@page import="com.ewebstore.entity.OrderDisplayInformation"%>
+<%@page import="com.ewebstore.entity.Customer"%>
+<%@page import="com.ewebstore.entity.ContactInformation"%>
 <%@page import="com.ewebstore.model.SharedData"%>
 <%@page import="com.ewebstore.entity.ShoppingCartDisplayInformation"%>
 <%@page import="java.util.HashMap"%>
@@ -18,24 +22,12 @@
 
 <%
 	boolean loggedIn = (boolean) request.getAttribute("loggedIn");
-	ArrayList<CartItem> cartItems = (ArrayList<CartItem>) request
-			.getAttribute("cartItems");
-	HashMap<String, ShoppingCartDisplayInformation> cartItemsInfo = (HashMap<String, ShoppingCartDisplayInformation>) request
-			.getAttribute("cartItemsInfo");
-	HashMap<String, Double> cartItemsPrice = (HashMap<String, Double>) request
-			.getAttribute("cartItemsPrice");
-	double totalOrderingCost = (double) request
-			.getAttribute("totalOrderingCost");
-	double shippingCost = (double) request.getAttribute("shippingCost");
+	Customer customer = (Customer) request.getAttribute("customer");
+	ArrayList<OrderDisplayInformation> displayInformation = (ArrayList<OrderDisplayInformation>) request
+			.getAttribute("displayInformation");
 %>
 
-<style>
-form {
-	display: inline;
-}
-</style>
-
-<title>Cart</title>
+<title>Account</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -140,93 +132,128 @@ form {
 	</header>
 	<!--/header-->
 
+	<div id="account-page" class="container">
+		<div class="bg">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2 class="title text-center"><%=customer.getName()%></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="contact-info">
+						<address>
+							<p>
+								ID:
+								<%=customer.getCustomerID()%></p>
+							<p>
+								Email:
+								<%=customer.getEmail()%></p>
+							<p>
+								Address:
+								<%=customer.getAddress()%></p>
+							<p>
+								Contact No: +<%=customer.getContactNumber()%></p>
+							<p>
+								Gender:
+								<%=customer.isMale() ? "Male" : "Female"%></p>
+							<p>
+								Date of Birth:
+								<%=customer.getDob()%></p>
+							<p>
+								Registered at:
+								<%=customer.getRegistrationDate()%>
+							</p>
+
+							<%
+								if (customer.isPremiumCustomer()) {
+							%>
+							<p>Premium Customer</p>
+							<%
+								}
+							%>
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-					<li class="active"><h2>Shopping Cart</h2></li>
+					<li class="active"><h2>Orders</h2></li>
 				</ol>
 			</div>
-			
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
 						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
+							<td class="id">ID</td>
+							<td class="name">Products</td>
 							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
+							<td class="date">Order Date</td>
+							<td class="location">Delivery</td>
+							<td class="status">Status</td>
+							<td class="cost">Cost</td>
 							<td></td>
 						</tr>
 					</thead>
+
 					<tbody>
 
 						<%
-							for (CartItem cartItem : cartItems) {
-								ShoppingCartDisplayInformation cartDisplayInformation = cartItemsInfo
-										.get(cartItem.getProductID());
+							for (OrderDisplayInformation information : displayInformation) {
 						%>
+
 						<tr>
-							<td class="cart_product"><a
-								href="<%=LinkGenerator.getProductLink(cartItem.getProductID())%>"><img
-									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
-									height="<%=SharedData.getProductImageHeight()%>"
-									width="<%=SharedData.getProductImageWidth()%>"></a></td>
 
-							<td class="cart_description">
-								<h4>
-									<a href=""><%=cartDisplayInformation.getProductName()%></a>
-								</h4>
+							<td class="order_id">
+								<p><%=information.getOrderID()%></p>
 							</td>
 
-							<td class="cart_price">
+							<td class="products">
+								<ul>
+									<%
+										for (Entry<String, Integer> orderProduct : information
+													.getOrderProducts().entrySet()) {
+									%>
+									<li><%=orderProduct.getKey()%></li>
+									<%
+										}
+									%>
+								</ul>
+							</td>
+
+							<td class="quantity">
+								<ul>
+									<%
+										for (Entry<String, Integer> orderProduct : information
+													.getOrderProducts().entrySet()) {
+									%>
+									<li><%=orderProduct.getValue()%></li>
+									<%
+										}
+									%>
+								</ul>
+							</td>
+
+							<td class="order_date">
+								<p><%=information.getOrderDate()%></p>
+							</td>
+
+							<td class="order_delivary">
+								<p><%=information.getDetailedDeliveryLocation()%></p>
+							</td>
+
+							<td class="order_status">
+								<p><%=information.getOrderStatus()%></p>
+							</td>
+
+							<td class="order_cost">
 								<p><%=String.format("BDT %.2f",
-						cartDisplayInformation.getProductPrice())%></p>
-							</td>
-
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="increment">
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											+</button>
-									</form>
-
-									<label><%=cartItem.getQuantity()%></label>
-
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="decrement">
-
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											-</button>
-									</form>
-								</div>
-							</td>
-
-							<td class="cart_total">
-								<p class="cart_total_price"><%=String.format("BDT %.2f",
-						cartItemsPrice.get(cartItem.getProductID()))%></p>
-							</td>
-
-							<td class="cart_delete">
-								<form role="form" method="post"
-									action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-									<input type="hidden" name="productid"
-										value="<%=cartItem.getProductID()%>"> <input
-										type="hidden" name="delete" value="true">
-
-									<button type="submit"
-										class="btn btn-default cart_quantity_delete">
-										<i class="fa fa-times"></i>
-									</button>
-								</form>
+						information.getTotalOrderingCost())%></p>
 							</td>
 
 						</tr>
@@ -235,38 +262,12 @@ form {
 						%>
 
 					</tbody>
+
 				</table>
 			</div>
 		</div>
-
 	</section>
 	<!--/#cart_items-->
-
-	<section id="do_action">
-		<div class="container">
-			<div class="heading">
-				<h3>What would you like to do next?</h3>
-			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="total_area">
-						<ul>
-							<li>Cart Sub Total <span><%=String.format("BDT %.2f", totalOrderingCost
-					- shippingCost)%></span></li>
-							<li>Shipping Cost <span><%=shippingCost > 0 ? String
-					.format("BDT %.2f", shippingCost) : "Free"%></span></li>
-							<li>Total <span><%=String.format("BDT %.2f", totalOrderingCost)%></span></li>
-						</ul>
-						<a class="btn btn-default update"
-							href="<%=LinkGenerator.customerHomePageLink()%>">Continue
-							Shopping</a> <a class="btn btn-default check_out"
-							href="<%=LinkGenerator.checkoutFormLink()%>">Check Out</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!--/#do_action-->
 
 	<footer id="footer">
 		<!--Footer-->
