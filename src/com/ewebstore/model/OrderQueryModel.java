@@ -175,7 +175,7 @@ public class OrderQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT orderID FROM `Order` AS ORD1 WHERE orderStatusID = ? AND branchID = ? AND NOT EXISTS(SELECT orderProductsID FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ORD1.orderID AND ORDP1.quantity > (SELECT inStockQuantity - availableQuantity - (SELECT COALESCE(SUM(quantity), 0) FROM BranchInventoryTransfer AS BRIT1 WHERE fromBranchID = BRINV1.branchID AND BRIT1.productID = BRINV1.productID) FROM BranchInventory AS BRINV1 WHERE BRINV1.branchID = ORD1.branchID AND BRINV1.productID = ORDP1.productID)) ORDER BY orderDate ASC");
+							"SELECT orderID FROM `Order` AS ORD1 WHERE orderStatusID = ? AND branchID = ? AND NOT EXISTS(SELECT orderProductsID FROM OrderProducts AS ORDP1 WHERE ORDP1.orderID = ORD1.orderID AND ORDP1.quantity > COALESCE((SELECT inStockQuantity - availableQuantity - (SELECT COALESCE(SUM(quantity), 0) FROM BranchInventoryTransfer AS BRIT1 WHERE fromBranchID = BRINV1.branchID AND BRIT1.productID = BRINV1.productID) FROM BranchInventory AS BRINV1 WHERE BRINV1.branchID = ORD1.branchID AND BRINV1.productID = ORDP1.productID), 0)) ORDER BY orderDate ASC");
 
 			preparedStatement.setLong(1,
 					Long.valueOf(getOrderStatusIDByStatus("Unhandled")));
@@ -409,6 +409,31 @@ public class OrderQueryModel {
 			updateOrderStatus(orderID, "Failed Delivery");
 			BranchInventoryQueryModel
 					.addProductsBackToStockAndMakeAvailable(orderID);
+		}
+	}
+
+	public static String getLatestOrderID() {
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT orderID FROM `Order` ORDER BY orderID DESC LIMIT 1");
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException("invalid order statusID");
+
+			return resultSet.getString(1);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
 		}
 	}
 }

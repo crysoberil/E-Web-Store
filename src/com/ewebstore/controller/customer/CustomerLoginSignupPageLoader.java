@@ -11,8 +11,7 @@ import com.ewebstore.controller.SimpleFeedbackPageLoader;
 public class CustomerLoginSignupPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override
-	protected void customerPanelDoGet(HttpServletRequest req,
-			HttpServletResponse resp) {
+	protected void customerPanelDoGet(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			req.getRequestDispatcher("/WEB-INF/customer/loginsignup.jsp")
 					.forward(req, resp);
@@ -24,8 +23,6 @@ public class CustomerLoginSignupPageLoader extends CheckedCustomerPanelServlet {
 	@Override
 	protected void customerPanelDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

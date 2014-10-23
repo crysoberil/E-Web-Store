@@ -23,11 +23,12 @@ public class ShoppingCartQueryModel {
 	}
 
 	private static boolean isItemDeliverable(CartItem cartItem) {
-		return getAvailableProductQuantity(cartItem.getProductID()) >= cartItem
-				.getQuantity();
+		int availiableQuantity = getTotalAvailableProductQuantity(cartItem
+				.getProductID());
+		return availiableQuantity >= cartItem.getQuantity();
 	}
 
-	private static int getAvailableProductQuantity(String productID) {
+	private static int getTotalAvailableProductQuantity(String productID) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
@@ -35,11 +36,14 @@ public class ShoppingCartQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT SUM(availableQuantity) FROM BranchInventory WHERE productID = ?");
+							"SELECT COALESCE(SUM(availableQuantity), 0) FROM BranchInventory WHERE productID = ?");
 
 			preparedStatement.setLong(1, Long.valueOf(productID));
 
 			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				return 0;
 
 			return resultSet.getInt(1);
 		} catch (SQLException ex) {
@@ -50,27 +54,66 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
-	public static void placeOrder(ShoppingCart cart, String deliveryLocation,
-			String nearestDistrictID) throws SQLException {
+	/**
+	 * 
+	 * @param cart
+	 * @param deliveryLocation
+	 * @param nearestDistrictID
+	 * @return true if the order could be placed
+	 * @throws SQLException
+	 */
+	public static boolean placeOrder(ShoppingCart cart,
+			String deliveryLocation, String nearestDistrictID)
+			throws SQLException {
 		synchronized (cart) {
 			synchronized (DBConnection.getConnection()) {
 				if (!isOrderDeliverable(cart))
-					throw new SQLException("Order can not be delivered");
+					return false;
 
 				try {
 					String branchID = getClosestBranchID(nearestDistrictID);
-					addOrderToOrderTable(cart, deliveryLocation, branchID);
+
+					String orderID = addOrderToOrderTable(cart,
+							deliveryLocation, branchID);
+
+					for (CartItem cartItem : cart.getCartItems())
+						addOrderProduct(orderID, cartItem);
+
 					BranchInventoryTransferModel
 							.distributeOrderBetweenBranches(cart, branchID);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 					throw ex;
 				}
+
+				return true;
 			}
 		}
 	}
 
-	private static void addOrderToOrderTable(ShoppingCart cart,
+	private static void addOrderProduct(String orderID, CartItem cartItem)
+			throws SQLException {
+		PreparedStatement preparedStatement = null;
+
+		try {
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					"INSERT INTO OrderProducts VALUES(NULL, ?, ?, ?)");
+
+			preparedStatement.setLong(1, Long.valueOf(orderID));
+			preparedStatement.setLong(2, Long.valueOf(cartItem.getProductID()));
+			preparedStatement.setLong(3,
+					Integer.valueOf(cartItem.getQuantity()));
+
+			if (preparedStatement.executeUpdate() != 1)
+				throw new SQLException();
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(preparedStatement);
+		}
+	}
+
+	private static String addOrderToOrderTable(ShoppingCart cart,
 			String deliveryLocation, String branchID) throws SQLException {
 		double totalCost = getTotalOrderingCost(cart);
 
@@ -80,7 +123,7 @@ public class ShoppingCartQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"INSERT INTO Order VALUES(NULL, ?, CURDATE(), ?, ?, ?, NULL, ?)");
+							"INSERT INTO `Order` VALUES(NULL, ?, CURDATE(), ?, ?, ?, NULL, ?)");
 
 			preparedStatement.setLong(1, Long.valueOf(cart.getCustomerID()));
 			preparedStatement.setString(2, deliveryLocation);
@@ -89,7 +132,10 @@ public class ShoppingCartQueryModel {
 			preparedStatement.setLong(4, Long.valueOf(branchID));
 			preparedStatement.setDouble(5, totalCost);
 
-			preparedStatement.executeUpdate();
+			if (preparedStatement.executeUpdate() != 1)
+				throw new SQLException();
+
+			return OrderQueryModel.getLatestOrderID();
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {
@@ -136,20 +182,14 @@ public class ShoppingCartQueryModel {
 		double cost = getCartSubTotalCost(cart);
 
 		if (cost > 0) {
-			cost += getShippingCost(cart);
+			cost += SharedData.getShippingCost();
 
 			if (cart.getCustomerID() != null
 					&& CustomerQueryModel.isPremiumUser(cart.getCustomerID()))
 				cost = cost * (1 - CustomerQueryModel.DISCOUNTPERCENTAGE / 100);
-
-			return cost;
 		}
 
-		return 0;
-	}
-
-	public static double getShippingCost(ShoppingCart cart) {
-		return SharedData.getShippingCost();
+		return cost;
 	}
 
 	private static String getClosestBranchID(String nearestDistrictID)
@@ -161,7 +201,7 @@ public class ShoppingCartQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT branchID FROM Branch ORDER BY (SELECT distance FROM DistrictDistance WHERE DistrictDistance.district1ID = ? AND DistrictDistance.district2ID = Branch.branchDistrict) DESC LIMIT 1");
+							"SELECT branchID FROM Branch ORDER BY (SELECT distance FROM DistrictDistance WHERE DistrictDistance.district1ID = ? AND DistrictDistance.district2ID = Branch.branchDistrict) LIMIT 1");
 
 			preparedStatement.setLong(1, Long.valueOf(nearestDistrictID));
 

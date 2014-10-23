@@ -15,8 +15,6 @@ import com.ewebstore.model.CustomerQueryModel;
 public class LogInController extends CheckedHttpServlet {
 	@Override
 	public void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		// Impossible case scenario
 	}
 
 	@Override

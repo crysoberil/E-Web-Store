@@ -3,7 +3,7 @@ package com.ewebstore.entity;
 public class CartItem {
 	private String productID;
 	private int quantity;
-	
+
 	public CartItem(String productID, int quantity) {
 		this.productID = productID;
 		this.quantity = quantity;
@@ -15,5 +15,10 @@ public class CartItem {
 
 	public int getQuantity() {
 		return quantity;
+	}
+
+	@Override
+	public String toString() {
+		return "ID = " + productID + ", quantity = " + quantity;
 	}
 }

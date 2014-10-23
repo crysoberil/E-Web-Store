@@ -2,7 +2,6 @@ package com.ewebstore.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 public class ShoppingCart {
@@ -21,8 +20,10 @@ public class ShoppingCart {
 	}
 
 	public void addToCart(String productID) {
-		if (cartItems.containsKey(productID))
-			cartItems.put(productID, cartItems.get(productID) + 1);
+		Integer count = cartItems.get(productID);
+
+		if (count != null)
+			cartItems.put(productID, count + 1);
 		else
 			cartItems.put(productID, 1);
 	}
@@ -31,7 +32,7 @@ public class ShoppingCart {
 		Integer count = cartItems.get(productID);
 
 		if (count != null && count > 1)
-			cartItems.put(productID, cartItems.get(productID) - 1);
+			cartItems.put(productID, count - 1);
 		else
 			cartItems.remove(productID);
 	}
@@ -43,11 +44,14 @@ public class ShoppingCart {
 	public ArrayList<CartItem> getCartItems() {
 		ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
 
-		for (Entry<String, Integer> cartItem : ((Map<String, Integer>) this.cartItems)
-				.entrySet())
+		for (Entry<String, Integer> cartItem : this.cartItems.entrySet())
 			cartItems.add(new CartItem(cartItem.getKey(), cartItem.getValue()));
 
 		return cartItems;
+	}
+	
+	public boolean isEmpty() {
+		return cartItems.isEmpty();
 	}
 
 	public String getCustomerID() {
@@ -64,5 +68,20 @@ public class ShoppingCart {
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("Customer ID = " + getCustomerID()).append("\n");
+		builder.append("Customer name = " + getCustomerName()).append("\nCart Items:\n");
+		
+		ArrayList<CartItem> cartItems = getCartItems();
+		
+		for (CartItem cartItem : cartItems)
+			builder.append(cartItem.toString()).append("\n");
+		
+		return builder.toString();
 	}
 }

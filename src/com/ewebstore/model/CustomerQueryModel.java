@@ -30,7 +30,7 @@ public class CustomerQueryModel {
 			resultSet = statement.executeQuery();
 
 			if (!resultSet.next())
-				throw new SQLException("no such branch manager");
+				throw new SQLException("no such customer");
 
 			return Long.toString(resultSet.getLong(1));
 

@@ -13,6 +13,7 @@ import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.entity.ShoppingCartDisplayInformation;
 import com.ewebstore.model.ProductQueryModel;
+import com.ewebstore.model.SharedData;
 import com.ewebstore.model.ShoppingCartQueryModel;
 
 public class CartPageLoader extends CheckedCustomerPanelServlet {
@@ -28,8 +29,8 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 			HashMap<String, Double> cartItemsPrice = new HashMap<String, Double>();
 			double totalOrderingCost = ShoppingCartQueryModel
 					.getTotalOrderingCost(cart);
-			double shippingCost = (totalOrderingCost > 0 ? ShoppingCartQueryModel
-					.getShippingCost(cart) : 0);
+			double shippingCost = (totalOrderingCost > 0 ? SharedData
+					.getShippingCost() : 0);
 
 			for (CartItem cartItem : cartItems) {
 				String productID = cartItem.getProductID();
@@ -88,8 +89,7 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 			HashMap<String, Double> cartItemsPrice = new HashMap<String, Double>();
 			double totalOrderingCost = ShoppingCartQueryModel
 					.getTotalOrderingCost(cart);
-			double shippingCost = (totalOrderingCost > 0 ? ShoppingCartQueryModel
-					.getShippingCost(cart) : 0);
+			double shippingCost = (totalOrderingCost > 0 ? SharedData.getShippingCost() : 0);
 
 			for (CartItem cartItem : cartItems) {
 				String productID2 = cartItem.getProductID();

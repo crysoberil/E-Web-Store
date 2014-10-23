@@ -213,4 +213,8 @@ public class LinkGenerator {
 	public static String submitChangeCartProductQuantityLink() {
 		return cartPageLink();
 	}
+
+	public static String placeOrderLink() {
+		return home + "checkout.do";
+	}
 }

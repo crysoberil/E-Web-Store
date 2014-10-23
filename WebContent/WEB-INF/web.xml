@@ -396,4 +396,24 @@
 		<url-pattern>/register.do</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>CheckoutFormLoader</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.CheckoutFormLoader</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CheckoutFormLoader</servlet-name>
+		<url-pattern>/checkout</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PlaceOrderController</servlet-name>
+		<servlet-class>com.ewebstore.controller.customer.PlaceOrderController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PlaceOrderController</servlet-name>
+		<url-pattern>/checkout.do</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

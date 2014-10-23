@@ -10,22 +10,73 @@ import com.ewebstore.dbutil.DBUtil;
 public class BranchInventoryQueryModel {
 	public static void updateBranchInventoryAfterTransfer(
 			String inventoryTransferID) throws SQLException {
+		if (BranchInventoryQueryModel
+				.branchInventoryHasTransferProduct(inventoryTransferID)) {
+			PreparedStatement preparedStatement = null;
+			try {
+				preparedStatement = DBConnection
+						.getConnection()
+						.prepareStatement(
+								"UPDATE BranchInventory SET inStockQuantity = inStockQuantity + (SELECT quantity FROM BranchInventoryTransfer WHERE inventoryTransferID = ?) WHERE BranchInventory.branchID = (SELECT toBranchID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?) AND BranchInventory.productID = (SELECT productID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?)");
+
+				preparedStatement.setLong(1, Long.valueOf(inventoryTransferID));
+				preparedStatement.setLong(2, Long.valueOf(inventoryTransferID));
+				preparedStatement.setLong(3, Long.valueOf(inventoryTransferID));
+
+				preparedStatement.executeUpdate();
+			} catch (SQLException ex) {
+				throw ex;
+			} finally {
+				DBUtil.dispose(preparedStatement);
+			}
+		} else {
+			PreparedStatement preparedStatement = null;
+			try {
+				preparedStatement = DBConnection
+						.getConnection()
+						.prepareStatement(
+								"INSERT INTO BranchInventory VALUES((SELECT toBranchID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?), (SELECT productID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?), (SELECT quantity FROM BranchInventoryTransfer WHERE inventoryTransferID = ?), 0, 0, 0)");
+
+				preparedStatement.setLong(1, Long.valueOf(inventoryTransferID));
+				preparedStatement.setLong(2, Long.valueOf(inventoryTransferID));
+				preparedStatement.setLong(3, Long.valueOf(inventoryTransferID));
+
+				preparedStatement.executeUpdate();
+			} catch (SQLException ex) {
+				throw ex;
+			} finally {
+				DBUtil.dispose(preparedStatement);
+			}
+		}
+	}
+
+	private static boolean branchInventoryHasTransferProduct(
+			String inventoryTransferID) throws SQLException {
 		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
 		try {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"UPDATE BranchInventory SET inStockQuantity = inStockQuantity + (SELECT quantity FROM BranchInventoryTransfer WHERE inventoryTransferID = ?) WHERE BranchInventory.branchID = (SELECT toBranchID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?) AND BranchInventory.productID = (SELECT productID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?)");
+							"SELECT COUNT(*) FROM BranchInventory WHERE branchID = (SELECT toBranchID FROM BranchInventoryTransfer WHERE toBranchID = ?)");
 
 			preparedStatement.setLong(1, Long.valueOf(inventoryTransferID));
-			preparedStatement.setLong(2, Long.valueOf(inventoryTransferID));
-			preparedStatement.setLong(3, Long.valueOf(inventoryTransferID));
 
-			preparedStatement.executeUpdate();
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			int count = resultSet.getInt(1);
+
+			return count == 1;
+
 		} catch (SQLException ex) {
 			throw ex;
 		} finally {
 			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
 		}
 	}
 

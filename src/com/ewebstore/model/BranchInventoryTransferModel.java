@@ -11,7 +11,6 @@ import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.ProductTransferEntity;
 import com.ewebstore.entity.ShoppingCart;
 
-// TODO repair class
 public class BranchInventoryTransferModel {
 
 	private static final int TOBETRANSFERREDSTATUS = 1;
@@ -19,27 +18,22 @@ public class BranchInventoryTransferModel {
 
 	public static void distributeOrderBetweenBranches(ShoppingCart cart,
 			String targetBranchID) throws SQLException {
-		// TODO for cartitems, if necessary create branchtransferreq; update
-		// inventory
-
 		for (CartItem cartItem : cart.getCartItems())
 			distributeCartItemBetweenBranches(cartItem, targetBranchID);
 	}
 
 	private static void distributeCartItemBetweenBranches(CartItem cartItem,
 			String targetBranchID) throws SQLException {
-		// if necessary create branchtransferreq; update inventory
-
 		int quantity = cartItem.getQuantity();
 
 		while (quantity != 0) {
-			int assignedQuantity = assignBranchForItemSupply(
+			int assignedQuantity = assignSomeBranchForItemSupply(
 					cartItem.getProductID(), quantity, targetBranchID);
 			quantity -= assignedQuantity;
 		}
 	}
 
-	private static int assignBranchForItemSupply(String productID,
+	private static int assignSomeBranchForItemSupply(String productID,
 			int maxQuantity, String targetBranchID) throws SQLException {
 
 		String supplierBranchID = BranchQueryModel
@@ -54,7 +48,7 @@ public class BranchInventoryTransferModel {
 		BranchQueryModel.removeAvailableProduct(supplierBranchID, productID,
 				toSupplyQuantity);
 
-		if (supplierBranchID != targetBranchID)
+		if (!supplierBranchID.equals(targetBranchID))
 			addBranchTransferRequest(supplierBranchID, targetBranchID,
 					productID, toSupplyQuantity);
 
@@ -74,7 +68,7 @@ public class BranchInventoryTransferModel {
 				preparedStatement = DBConnection
 						.getConnection()
 						.prepareStatement(
-								"UPDATE BranchInventoryTransfer SET quntity = quntity + ? WHERE fromBranchID = ? AND toBranchID = ?");
+								"UPDATE BranchInventoryTransfer SET quantity = quantity + ? WHERE fromBranchID = ? AND toBranchID = ?");
 				preparedStatement.setInt(1, toSupplyQuantity);
 				preparedStatement.setLong(2, Long.valueOf(supplierBranchID));
 				preparedStatement.setLong(2, Long.valueOf(targetBranchID));
@@ -101,7 +95,8 @@ public class BranchInventoryTransferModel {
 				preparedStatement.setInt(4, toSupplyQuantity);
 				preparedStatement.setInt(5, TOBETRANSFERREDSTATUS);
 
-				preparedStatement.executeUpdate();
+				if (preparedStatement.executeUpdate() != 1)
+					throw new SQLException();
 			} catch (SQLException ex) {
 				throw ex;
 			} finally {
@@ -128,7 +123,7 @@ public class BranchInventoryTransferModel {
 			resultSet = preparedStatement.executeQuery();
 
 			if (!resultSet.next()) // must happen
-				throw new SQLException();
+				return false;
 
 			return resultSet.getInt(1) != 0;
 		} catch (SQLException ex) {

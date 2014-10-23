@@ -42,7 +42,7 @@ public class BranchQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT branchID FROM BranchInventory as BI1 WHERE productID = ? AND availableQuantity <> 0 ORDER BY (SELECT distance FROM District WHERE district1ID = (SELECT branchDistrict FROM Branch WHERE branchID = BI1.branchDistrict) AND district2ID = (SELECT branchDistrict FROM Branch WHERE branchID = ?)) LIMIT 1");
+							"SELECT branchID FROM BranchInventory as BI1 WHERE productID = ? AND availableQuantity <> 0 ORDER BY (SELECT distance FROM DistrictDistance WHERE district1ID = (SELECT branchDistrict FROM Branch WHERE branchID = BI1.branchID) AND district2ID = (SELECT branchDistrict FROM Branch WHERE branchID = ?)) LIMIT 1");
 			preparedStatement.setLong(1, Long.valueOf(productID));
 			preparedStatement.setLong(2, Long.valueOf(branchID));
 
