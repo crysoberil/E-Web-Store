@@ -1,5 +1,7 @@
 package com.ewebstore.entity;
 
+import com.ewebstore.linkgenerators.LinkGenerator;
+
 public class CartItem {
 	private String productID;
 	private int quantity;
@@ -15,6 +17,10 @@ public class CartItem {
 
 	public int getQuantity() {
 		return quantity;
+	}
+	
+	public String getCartProductPageLink() {
+		return LinkGenerator.getProductPageLink(productID);
 	}
 
 	@Override

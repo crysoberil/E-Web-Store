@@ -512,7 +512,7 @@ public class OrderQueryModel {
 			Date orderDate = resultSet.getDate(2);
 			String detailedDeliveryLocation = resultSet.getString(3);
 			String orderStatusID = String.valueOf(resultSet.getLong(4));
-			String orderStatus = getOrderStatusByID(orderStatusID);
+			String orderStatus = getDisplayOrderStatus(getOrderStatusByID(orderStatusID));
 			double totalOrderingCost = resultSet.getDouble(5);
 
 			return new OrderDisplayInformation(orderID, customerID,
@@ -525,6 +525,13 @@ public class OrderQueryModel {
 			DBUtil.dispose(resultSet);
 			DBUtil.dispose(preparedStatement);
 		}
+	}
+
+	private static String getDisplayOrderStatus(String orderStatus) {
+		if (orderStatus.equals("Unhandled"))
+			return "Order Placed";
+
+		return orderStatus;
 	}
 
 	public static ArrayList<OrderDisplayInformation> getOrderDisplayInformationByCustomerID(

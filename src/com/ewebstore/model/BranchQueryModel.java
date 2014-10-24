@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
+import com.ewebstore.entity.Branch;
 
 public class BranchQueryModel {
 
@@ -100,6 +101,106 @@ public class BranchQueryModel {
 				throw new SQLException("No such branch manager");
 
 			return Long.toString(resultSet.getLong(1));
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+	}
+
+	public static int numberOfCompletedDeliveries(String branchID,
+			int numberOfDays) throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT COUNT(*) FROM `Order` as ORD1 WHERE branchID = ? AND orderStatusID = ? AND orderDate BETWEEN DATE_SUB(NOW(), INTERVAL ? DAY) AND NOW()");
+
+			statement.setLong(1, Long.valueOf(branchID));
+			statement.setInt(2, Integer.valueOf(OrderQueryModel
+					.getOrderStatusIDByStatus("Delivered")));
+			statement.setInt(3, numberOfDays);
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			int count = resultSet.getInt(1);
+
+			return count;
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+	}
+
+	public static double totalTransaction(String branchID, int numberOfDays)
+			throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT COALESCE(SUM(totalOrderingCost), 0) FROM `Order` as ORD1 WHERE branchID = ? AND orderStatusID = ? AND orderDate BETWEEN DATE_SUB(NOW(), INTERVAL ? DAY) AND NOW()");
+
+			statement.setLong(1, Long.valueOf(branchID));
+			statement.setInt(2, Integer.valueOf(OrderQueryModel
+					.getOrderStatusIDByStatus("Delivered")));
+			statement.setInt(3, numberOfDays);
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			double totalTransaction = resultSet.getInt(1);
+
+			return totalTransaction;
+
+		} catch (SQLException ex) {
+			throw ex;
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(statement);
+		}
+	}
+
+	public static Branch getBranch(String branchID) throws SQLException {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+
+		try {
+			statement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT branchName, branchLocation, branchDistrict, (SELECT districtName FROM District WHERE District.districtID = Branch.branchDistrict) FROM Branch WHERE branchID = ?");
+
+			statement.setLong(1, Long.valueOf(branchID));
+
+			resultSet = statement.executeQuery();
+
+			if (!resultSet.next())
+				throw new SQLException();
+
+			String branchName = resultSet.getString(1);
+			String branchLocation = resultSet.getString(2);
+			String branchDistrictID = Long.toString(resultSet.getLong(3));
+			String branchDistrictName = DistrictQueryModel
+					.capitalizedDistrictName(resultSet.getString(4));
+
+			return new Branch(branchID, branchName, branchLocation,
+					branchDistrictID, branchDistrictName);
 
 		} catch (SQLException ex) {
 			throw ex;

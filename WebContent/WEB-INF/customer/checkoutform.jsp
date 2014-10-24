@@ -38,7 +38,7 @@ form {
 }
 </style>
 
-<title>Cart</title>
+<title>Checkout</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -216,7 +216,6 @@ form {
 							<td class="price">Price</td>
 							<td class="quantity">Quantity</td>
 							<td class="total">Total</td>
-							<td></td>
 						</tr>
 					</thead>
 					<tbody>
@@ -235,7 +234,7 @@ form {
 
 							<td class="cart_description">
 								<h4>
-									<a href=""><%=cartDisplayInformation.getProductName()%></a>
+									<a href="<%=cartItem.getCartProductPageLink()%>"><%=cartDisplayInformation.getProductName()%></a>
 								</h4>
 							</td>
 
@@ -246,46 +245,13 @@ form {
 
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="increment">
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											+</button>
-									</form>
-
 									<label><%=cartItem.getQuantity()%></label>
-
-									<form role="form" method="post"
-										action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-										<input type="hidden" name="productid"
-											value="<%=cartItem.getProductID()%>"> <input
-											type="hidden" name="change" value="decrement">
-
-										<button type="submit" class="btn btn-default cart_quantity_up">
-											-</button>
-									</form>
 								</div>
 							</td>
 
 							<td class="cart_total">
 								<p class="cart_total_price"><%=String.format("BDT %.2f",
 						cartItemsPrice.get(cartItem.getProductID()))%></p>
-							</td>
-
-							<td class="cart_delete">
-								<form role="form" method="post"
-									action="<%=LinkGenerator.submitChangeCartProductQuantityLink()%>">
-									<input type="hidden" name="productid"
-										value="<%=cartItem.getProductID()%>"> <input
-										type="hidden" name="delete" value="true">
-
-									<button type="submit"
-										class="btn btn-default cart_quantity_delete">
-										<i class="fa fa-times"></i>
-									</button>
-								</form>
 							</td>
 
 						</tr>
@@ -295,7 +261,7 @@ form {
 
 
 						<tr>
-							<td colspan="4">&nbsp;</td>
+							<td colspan="3">&nbsp;</td>
 							<td colspan="2">
 								<table class="table table-condensed total-result">
 									<tbody>

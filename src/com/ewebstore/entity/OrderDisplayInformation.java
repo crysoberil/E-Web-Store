@@ -16,7 +16,6 @@ public class OrderDisplayInformation {
 			HashMap<String, Integer> orderProducts, Date orderDate,
 			String detailedDeliveryLocation, String orderStatus,
 			double totalOrderingCost) {
-		super();
 		this.orderID = orderID;
 		this.customerID = customerID;
 		this.orderProducts = orderProducts;

@@ -129,7 +129,8 @@
 								<li><a
 									href="<%=LinkGenerator.addGenericProductPageLink()%>">New
 										Product</a></li>
-								<li><a href="<%=LinkGenerator.addProductsToStockPageLink()%>">Add
+								<li><a
+									href="<%=LinkGenerator.addProductsToStockPageLink()%>">Add
 										Products to Stock</a></li>
 								<li><a
 									href="<%=LinkGenerator.genericProductSearchPageLink()%>">Product

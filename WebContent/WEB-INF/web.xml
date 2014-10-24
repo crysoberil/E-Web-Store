@@ -6,11 +6,6 @@
 	<display-name>E-Web-Store</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
 	<servlet>
@@ -285,7 +280,7 @@
 		<servlet-name>ConfirmOrderDeliverySubmissionController</servlet-name>
 		<url-pattern>/confirmdelivery.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>InventoryTransferSendRequestsPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.InventoryTransferSendRequestsPageLoader</servlet-class>
@@ -295,7 +290,7 @@
 		<servlet-name>InventoryTransferSendRequestsPageLoader</servlet-name>
 		<url-pattern>/productssendrequests</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>InventoryTransferReceiveRequestsPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.InventoryTransferReceiveRequestsPageLoader</servlet-class>
@@ -306,7 +301,7 @@
 		<url-pattern>/productsreceiverequests</url-pattern>
 	</servlet-mapping>
 
-		<servlet>
+	<servlet>
 		<servlet-name>DispatchInventoryTransferController</servlet-name>
 		<servlet-class>com.ewebstore.controller.DispatchInventoryTransferController</servlet-class>
 	</servlet>
@@ -325,7 +320,7 @@
 		<servlet-name>ReceiveInventoryTransferController</servlet-name>
 		<url-pattern>/receiveinventorytransfer.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CustomerHomePageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CustomerHomePageLoader</servlet-class>
@@ -335,7 +330,7 @@
 		<servlet-name>CustomerHomePageLoader</servlet-name>
 		<url-pattern>/home</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CategoryPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CategoryPageLoader</servlet-class>
@@ -345,7 +340,7 @@
 		<servlet-name>CategoryPageLoader</servlet-name>
 		<url-pattern>/category</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>BrandProductsPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.BrandProductsPageLoader</servlet-class>
@@ -355,7 +350,7 @@
 		<servlet-name>BrandProductsPageLoader</servlet-name>
 		<url-pattern>/brand</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ProductPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.ProductPageLoader</servlet-class>
@@ -365,7 +360,7 @@
 		<servlet-name>ProductPageLoader</servlet-name>
 		<url-pattern>/product</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CartPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CartPageLoader</servlet-class>
@@ -375,7 +370,7 @@
 		<servlet-name>CartPageLoader</servlet-name>
 		<url-pattern>/cart</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CustomerLoginSignupPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CustomerLoginSignupPageLoader</servlet-class>
@@ -395,7 +390,7 @@
 		<servlet-name>CustomerSignupController</servlet-name>
 		<url-pattern>/register.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CheckoutFormLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CheckoutFormLoader</servlet-class>
@@ -405,7 +400,7 @@
 		<servlet-name>CheckoutFormLoader</servlet-name>
 		<url-pattern>/checkout</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>PlaceOrderController</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.PlaceOrderController</servlet-class>
@@ -415,7 +410,7 @@
 		<servlet-name>PlaceOrderController</servlet-name>
 		<url-pattern>/checkout.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ContactPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.ContactPageLoader</servlet-class>
@@ -425,7 +420,7 @@
 		<servlet-name>ContactPageLoader</servlet-name>
 		<url-pattern>/contactus</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CustomerAccountPageLoader</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CustomerAccountPageLoader</servlet-class>
@@ -435,7 +430,7 @@
 		<servlet-name>CustomerAccountPageLoader</servlet-name>
 		<url-pattern>/account</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>CustomerPanelSearchController</servlet-name>
 		<servlet-class>com.ewebstore.controller.customer.CustomerPanelSearchController</servlet-class>
@@ -445,6 +440,15 @@
 		<servlet-name>CustomerPanelSearchController</servlet-name>
 		<url-pattern>/search</url-pattern>
 	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>CustomerHomePageLoader</servlet-name>
+		<url-pattern>/index.html</url-pattern>
+	</servlet-mapping>
 	
-	
+	<servlet-mapping>
+		<servlet-name>AdminHomePageLoader</servlet-name>
+		<url-pattern>/dashboard</url-pattern>
+	</servlet-mapping>
 </web-app>

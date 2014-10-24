@@ -7,7 +7,6 @@ public class ShoppingCartDisplayInformation {
 
 	public ShoppingCartDisplayInformation(String productName,
 			String productImageLink, double productPrice) {
-		super();
 		this.productName = productName;
 		this.productImageLink = productImageLink;
 		this.productPrice = productPrice;

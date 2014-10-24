@@ -169,14 +169,14 @@ form {
 						%>
 						<tr>
 							<td class="cart_product"><a
-								href="<%=LinkGenerator.getProductLink(cartItem.getProductID())%>"><img
+								href="<%= cartItem.getCartProductPageLink()%>"><img
 									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
 									height="<%=SharedData.getProductImageHeight()%>"
 									width="<%=SharedData.getProductImageWidth()%>"></a></td>
 
 							<td class="cart_description">
 								<h4>
-									<a href=""><%=cartDisplayInformation.getProductName()%></a>
+									<a href="<%= cartItem.getCartProductPageLink()%>"><%=cartDisplayInformation.getProductName()%></a>
 								</h4>
 							</td>
 
@@ -260,7 +260,7 @@ form {
 						<a class="btn btn-default update"
 							href="<%=LinkGenerator.customerHomePageLink()%>">Continue
 							Shopping</a> <a class="btn btn-default check_out"
-							href="<%=LinkGenerator.checkoutFormLink()%>">Check Out</a>
+							href="<%=LinkGenerator.checkoutFormLink()%>">Checkout</a>
 					</div>
 				</div>
 			</div>

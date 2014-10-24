@@ -26,7 +26,7 @@ public class DistrictQueryModel {
 
 			while (resultSet.next()) {
 				String districtID = resultSet.getString(1);
-				String districtName = capitalizeFirstLetters(resultSet
+				String districtName = capitalizedDistrictName(resultSet
 						.getString(2));
 
 				districts.add(new District(districtID, districtName));
@@ -41,7 +41,7 @@ public class DistrictQueryModel {
 		return districts;
 	}
 
-	private static String capitalizeFirstLetters(String distName) {
+	public static String capitalizedDistrictName(String distName) {
 		String[] toks = distName.split(" +");
 		StringBuilder builder = new StringBuilder();
 

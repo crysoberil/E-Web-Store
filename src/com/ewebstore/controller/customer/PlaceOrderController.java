@@ -58,7 +58,7 @@ public class PlaceOrderController extends CheckedCustomerPanelServlet {
 						.getAttribute("customername");
 
 				if (!customerID.equals(sessionCustomerID))
-					throw new Exception();
+					throw new IllegalArgumentException("Wrong email / password");
 
 				if (!sessionCustomerID.equals(cart.getCustomerID())
 						|| !sessionCustomerName.equals(cart.getCustomerName()))

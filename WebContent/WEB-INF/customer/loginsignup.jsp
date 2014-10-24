@@ -19,7 +19,7 @@
 			.getAttribute("popularBrands");
 %>
 
-<title>Home | E-Shopper</title>
+<title>Login | Sign up</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
