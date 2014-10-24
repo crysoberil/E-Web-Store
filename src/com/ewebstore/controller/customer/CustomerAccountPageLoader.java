@@ -14,6 +14,13 @@ import com.ewebstore.entity.OrderDisplayInformation;
 import com.ewebstore.model.CustomerQueryModel;
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The CustomerAccountPageLoader class is a servlet handling the loading of the
+ * customer account page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CustomerAccountPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override
@@ -22,7 +29,7 @@ public class CustomerAccountPageLoader extends CheckedCustomerPanelServlet {
 		try {
 			if (req.getSession().getAttribute("customerid") == null) {
 				String errorMessage = "You aren't logged in!";
-				
+
 				SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req,
 						resp, errorMessage);
 			} else {

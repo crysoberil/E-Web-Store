@@ -14,6 +14,14 @@ import com.ewebstore.model.BrandQueryModel;
 import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.SharedData;
 
+/**
+ * The CheckedCustomerPanelServlet class is a servlet that is the superclass of
+ * all the controllers related to the customer panel, providing the skeletal
+ * structure of the customer end pages.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public abstract class CheckedCustomerPanelServlet extends CheckedHttpServlet {
 	@Override
 	protected final void checkedDoGet(HttpServletRequest req,

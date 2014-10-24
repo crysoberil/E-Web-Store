@@ -19,6 +19,13 @@ import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.ProductQueryModel;
 import com.ewebstore.model.SharedData;
 
+/**
+ * The CustomerHomePageLoader class is a servlet handling the loading of the
+ * customer home page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CustomerHomePageLoader extends CheckedCustomerPanelServlet {
 
 	@Override

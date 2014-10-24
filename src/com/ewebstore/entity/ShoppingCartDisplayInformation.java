@@ -1,5 +1,12 @@
 package com.ewebstore.entity;
 
+/**
+ * The ShoppingCartDisplayInformation class is an entity encapsulating necessary
+ * information on shopping carts display.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ShoppingCartDisplayInformation {
 	private String productName;
 	private String productImageLink;

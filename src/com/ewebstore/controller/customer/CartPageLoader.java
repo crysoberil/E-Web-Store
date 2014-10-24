@@ -17,6 +17,12 @@ import com.ewebstore.model.ProductQueryModel;
 import com.ewebstore.model.SharedData;
 import com.ewebstore.model.ShoppingCartQueryModel;
 
+/**
+ * The CartPageLoader class is a servlet handling the loading of a cart's page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CartPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override

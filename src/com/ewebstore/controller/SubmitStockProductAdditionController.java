@@ -12,6 +12,13 @@ import com.ewebstore.entity.ProductCategory;
 import com.ewebstore.model.BranchInventoryQueryModel;
 import com.ewebstore.model.ProductCategoryQueryModel;
 
+/**
+ * The SubmitStockProductAdditionController class is a servlet handling the
+ * addition of a product to a branch stock.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SubmitStockProductAdditionController extends CheckedHttpServlet {
 
 	@Override

@@ -1,5 +1,12 @@
 package com.ewebstore.entity;
 
+/**
+ * The ProductTransferEntity class is an entity encapsulating necessary
+ * information on product transfers.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ProductTransferEntity {
 	private String inventoryTransferID;
 	private String productID;

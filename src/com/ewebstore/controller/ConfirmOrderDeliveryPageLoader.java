@@ -6,6 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The ConfirmOrderDeliveryPageLoader class is a servlet handling the loading of
+ * the delivery confirmation page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ConfirmOrderDeliveryPageLoader extends CheckedHttpServlet {
 
 	@Override
@@ -18,7 +25,8 @@ public class ConfirmOrderDeliveryPageLoader extends CheckedHttpServlet {
 						"/WEB-INF/admin/orderdeliveryconfirmationpage.jsp")
 						.forward(req, resp);
 			} catch (IOException | ServletException ex) {
-				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

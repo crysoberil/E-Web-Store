@@ -11,6 +11,13 @@ import com.ewebstore.entity.ProductTransferEntity;
 import com.ewebstore.model.BranchInventoryTransferModel;
 import com.ewebstore.model.BranchManagerQueryModel;
 
+/**
+ * The InventoryTransferReceiveRequestsPageLoader class is a servlet handling
+ * the loading of the receive products requests for inventory transfers page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class InventoryTransferReceiveRequestsPageLoader extends
 		CheckedHttpServlet {
 
@@ -32,7 +39,8 @@ public class InventoryTransferReceiveRequestsPageLoader extends
 						.forward(req, resp);
 
 			} catch (ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

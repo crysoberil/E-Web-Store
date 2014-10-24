@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The SubmitDispatchOrderController class is a servlet handling the dispatching
+ * of an order.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SubmitDispatchOrderController extends CheckedHttpServlet {
 
 	@Override

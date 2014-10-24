@@ -1,5 +1,12 @@
 package com.ewebstore.model;
 
+/**
+ * The SharedData class contains the constant data shared between classes in the
+ * project.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class SharedData {
 	private final static String SHOP_NAME = "E-Web-Store";
 
@@ -10,7 +17,7 @@ public class SharedData {
 	private final static int PRODUCT_IMAGE_HEIGHT = 100;
 	private final static int PRODUCT_IMAGE_WIDTH = 100;
 
-	private static final double SHIPPING_COST = 30.0; // in BDT
+	private final static double SHIPPING_COST = 30.0; // in BDT
 
 	public static int getPopularProductCount() {
 		return POPULAR_PRODUCT_COUNT;

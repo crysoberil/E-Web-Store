@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.ewebstore.entity.SalesEmployee;
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
+/**
+ * The EditEmployeeFormLoader class is a servlet handling the loading of the
+ * edit employee form.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class EditEmployeeFormLoader extends CheckedHttpServlet {
 
 	@Override

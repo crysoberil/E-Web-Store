@@ -6,6 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The EditEmployeePageLoader class is a servlet handling the loading of the
+ * edit employees page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class EditEmployeePageLoader extends CheckedHttpServlet {
 
 	@Override

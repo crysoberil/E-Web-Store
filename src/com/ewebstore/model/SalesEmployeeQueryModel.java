@@ -10,7 +10,35 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.SalesEmployee;
 
+/**
+ * The SalesEmployeeQueryModel class handles the database operations related to
+ * the sales employees.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class SalesEmployeeQueryModel {
+
+	/**
+	 * Updates database by inserting a new sales employee
+	 * 
+	 * @param name
+	 *            Name of the employee
+	 * @param gender
+	 *            Gender of the employee (true if male; false if female)
+	 * @param email
+	 *            Email address of the employee
+	 * @param contactNumber
+	 *            Contact no. of the employee
+	 * @param dob
+	 *            Date of birth of the employee
+	 * @param address
+	 *            Address of the employee
+	 * @param branchID
+	 *            Branch ID of the employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void addSalesEmployee(String name, boolean gender,
 			String email, String contactNumber, Date dob, String address,
 			String branchID) throws SQLException {
@@ -39,6 +67,16 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Returns information on the sales employee corresponding to the provided
+	 * employee ID
+	 * 
+	 * @param employeeID
+	 *            ID of the sales employee
+	 * @return Information on the sales employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static SalesEmployee getSalesEmployee(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -70,6 +108,27 @@ public class SalesEmployeeQueryModel {
 				currentlyEmployed);
 	}
 
+	/**
+	 * Updates database by modifying the record of the sales employee
+	 * corresponding to the provided sales employee
+	 * 
+	 * @param employeeID
+	 *            ID of the employee
+	 * @param name
+	 *            Name of the employee
+	 * @param gender
+	 *            Gender of the employee (true if male; false if female)
+	 * @param email
+	 *            Email address of the employee
+	 * @param contactNumber
+	 *            Contact no. of the employee
+	 * @param dob
+	 *            Date of birth of the employee
+	 * @param address
+	 *            Address of the employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void updateSalesEmployee(String employeeID, String name,
 			boolean gender, String email, String contactNumber, Date dob,
 			String address) throws SQLException {
@@ -97,6 +156,15 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by deleting the record of the sales employee
+	 * corresponding to the provided employee ID
+	 * 
+	 * @param employeeID
+	 *            ID of the sales employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void removeSalesEmployee(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -120,6 +188,16 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Checks if the sales employee corresponding to the provided employee ID is
+	 * currently employed or not
+	 * 
+	 * @param employeeID
+	 *            ID of the sales employee
+	 * @return true if the sales employee is currently employed; false otherwise
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static boolean isCurrentlyEmployed(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -147,6 +225,16 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the name of the sales employee corresponding to the provided
+	 * employee ID
+	 * 
+	 * @param employeeID
+	 *            ID of the sales employee
+	 * @return Name of sales employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getSalesEmployeeName(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -173,6 +261,16 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the contact number of the sales employee corresponding to the
+	 * provided employee ID
+	 * 
+	 * @param employeeID
+	 *            ID of the sales employee
+	 * @return Contact no. of the sales employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getSalesEmployeeContactNumber(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -201,6 +299,17 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of sales employee IDs of employees who are currently
+	 * available for delivery and are employed to the branch corresponding to
+	 * the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return List of sales employee IDs
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<String> getAvailableSalesEmployeeIDs(String branchID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -232,6 +341,16 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of sales employee IDs of employees who are employed to the
+	 * branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return List of sales employee IDs
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<String> getAllSalesEmployeeIDs(String branchID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -263,6 +382,16 @@ public class SalesEmployeeQueryModel {
 		}
 	}
 
+	/**
+	 * Checks if the sales employee corresponding to the provided employee ID is
+	 * currently available for delivery
+	 * 
+	 * @param employeeID
+	 *            ID of the sales employee
+	 * @return true if the sales employee is available; false otherwise
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static boolean isSalesEmployeeAvailable(String employeeID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;

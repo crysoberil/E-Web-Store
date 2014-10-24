@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * The ImageLinkGenerator class handles all the image source location generation
+ * related to the project.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ImageLinkGenerator {
 	private static String imagesFolderAbsolutePathExtension = File.separator
 			+ "images" + File.separator + "productimages" + File.separator;

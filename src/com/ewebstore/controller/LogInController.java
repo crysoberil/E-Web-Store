@@ -13,6 +13,12 @@ import com.ewebstore.linkgenerators.LinkGenerator;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.CustomerQueryModel;
 
+/**
+ * The LogInController class is a servlet handling the logins of users.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class LogInController extends CheckedCustomerPanelServlet {
 	@Override
 	public void customerPanelDoGet(HttpServletRequest req,

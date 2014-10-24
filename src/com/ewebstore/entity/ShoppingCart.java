@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+/**
+ * The ShoppingCart class is an entity encapsulating necessary information on
+ * shopping carts.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ShoppingCart {
 	private HashMap<String, Integer> cartItems;
 	private String customerID = null;
@@ -49,7 +56,7 @@ public class ShoppingCart {
 
 		return cartItems;
 	}
-	
+
 	public boolean isEmpty() {
 		return cartItems.isEmpty();
 	}
@@ -69,19 +76,20 @@ public class ShoppingCart {
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		
+
 		builder.append("Customer ID = " + getCustomerID()).append("\n");
-		builder.append("Customer name = " + getCustomerName()).append("\nCart Items:\n");
-		
+		builder.append("Customer name = " + getCustomerName()).append(
+				"\nCart Items:\n");
+
 		ArrayList<CartItem> cartItems = getCartItems();
-		
+
 		for (CartItem cartItem : cartItems)
 			builder.append(cartItem.toString()).append("\n");
-		
+
 		return builder.toString();
 	}
 }

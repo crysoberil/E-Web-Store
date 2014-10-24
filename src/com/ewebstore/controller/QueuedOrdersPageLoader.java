@@ -12,6 +12,13 @@ import com.ewebstore.entity.BriefOrder;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The QueuedOrdersPageLoader class is a servlet handling the loading of the
+ * queued orders page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class QueuedOrdersPageLoader extends CheckedHttpServlet {
 
 	@Override
@@ -24,10 +31,10 @@ public class QueuedOrdersPageLoader extends CheckedHttpServlet {
 						"adminid");
 				String branchID = BranchManagerQueryModel
 						.getBranchID(managerID);
-				
+
 				if (branchID == null)
 					throw new SQLException();
-				
+
 				ArrayList<BriefOrder> briefOrders = OrderQueryModel
 						.getOrdersToDispatch(branchID);
 				req.setAttribute("brieforders", briefOrders);
@@ -36,7 +43,8 @@ public class QueuedOrdersPageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/showbrieforders.jsp")
 						.forward(req, resp);
 			} catch (SQLException | ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

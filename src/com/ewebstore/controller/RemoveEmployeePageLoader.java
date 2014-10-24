@@ -6,6 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The RemoveEmployeePageLoader class is a servlet handling the loading of the
+ * remove employees page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class RemoveEmployeePageLoader extends CheckedHttpServlet {
 
 	@Override

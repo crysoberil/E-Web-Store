@@ -10,6 +10,13 @@ import javax.servlet.http.HttpSession;
 import com.ewebstore.entity.BranchManager;
 import com.ewebstore.model.BranchManagerQueryModel;
 
+/**
+ * The AdminProfilePageLoader class is a servlet handling the loading of the
+ * admin's profile page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class AdminProfilePageLoader extends CheckedHttpServlet {
 
 	@Override

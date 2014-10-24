@@ -17,6 +17,13 @@ import com.ewebstore.linkgenerators.ImageLinkGenerator;
 import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.ProductQueryModel;
 
+/**
+ * The SubmitNewGenricProductController class is a servlet handling the
+ * submission of a new generic product.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SubmitNewGenricProductController extends CheckedHttpServlet {
 
 	@Override

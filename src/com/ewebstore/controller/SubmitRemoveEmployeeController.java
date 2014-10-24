@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
+/**
+ * The SubmitRemoveEmployeeController class is a servlet handling the removal of
+ * an employee.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SubmitRemoveEmployeeController extends CheckedHttpServlet {
 
 	@Override

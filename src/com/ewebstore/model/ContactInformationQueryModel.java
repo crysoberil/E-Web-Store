@@ -1,5 +1,12 @@
 package com.ewebstore.model;
 
+/**
+ * The ContactInformationQueryModel class stores the contact information of the
+ * shop
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class ContactInformationQueryModel {
 	private final static String SHOP_NAME = "E-Web-Store";
 	private final static String ADDRESS = "BUET, Dhaka";

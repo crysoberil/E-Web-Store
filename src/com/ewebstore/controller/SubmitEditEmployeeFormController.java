@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
+/**
+ * The SubmitEditEmployeeFormController class is a servlet handling the editing
+ * of an employee.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SubmitEditEmployeeFormController extends CheckedHttpServlet {
 
 	@Override

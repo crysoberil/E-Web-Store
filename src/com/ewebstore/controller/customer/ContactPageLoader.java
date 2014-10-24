@@ -9,6 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.ContactInformation;
 
+/**
+ * The ContactPageLoader class is a servlet handling the loading of the contact
+ * us page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ContactPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override

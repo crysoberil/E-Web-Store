@@ -14,12 +14,27 @@ import com.ewebstore.entity.Order;
 import com.ewebstore.entity.OrderDisplayInformation;
 import com.ewebstore.entity.OrderProduct;
 
+/**
+ * The OrderQueryModel class handles the database operations related to the
+ * orders.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class OrderQueryModel {
 
 	// Note-
 	// alloted for delivery from this branch := instock - available -
 	// sum(quantity)_for_this_branch_in_BranchInventoryTransfer_table
 
+	/**
+	 * Returns a list of breif descriptions on the orders corresponding to the
+	 * provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return
+	 */
 	public static ArrayList<BriefOrder> getOrdersToDispatch(String branchID) {
 
 		ArrayList<String> collectiveOrderIDs = getToDispatchOrderIDs(branchID);
@@ -35,6 +50,14 @@ public class OrderQueryModel {
 		return collectiveOrders;
 	}
 
+	/**
+	 * Returns a brief description on the order corresponding to the provided
+	 * order ID
+	 * 
+	 * @param collectiveOrderID
+	 *            ID of the order
+	 * @return Brief description on the order
+	 */
 	private static BriefOrder getBriefOrderByID(String collectiveOrderID) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -70,6 +93,13 @@ public class OrderQueryModel {
 		return order;
 	}
 
+	/**
+	 * Returns information on a order corresponding to the provided order ID
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @return Information on the order
+	 */
 	// returns null on invalid orderID
 	public static Order getOrderByID(String orderID) {
 		PreparedStatement preparedStatement = null;
@@ -132,6 +162,14 @@ public class OrderQueryModel {
 		return order;
 	}
 
+	/**
+	 * Returns a list of products order information of a order corresponding to
+	 * the provided order ID
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @return List of products order information
+	 */
 	private static ArrayList<OrderProduct> getOrderProducts(String orderID) {
 		ArrayList<OrderProduct> orderProducts = new ArrayList<OrderProduct>();
 
@@ -167,6 +205,14 @@ public class OrderQueryModel {
 		return orderProducts;
 	}
 
+	/**
+	 * Returns a list of the order IDs of the orders that are to be dispatched
+	 * from the branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return List of order IDs
+	 */
 	private static ArrayList<String> getToDispatchOrderIDs(String branchID) {
 		ArrayList<String> orderIDs = new ArrayList<String>();
 
@@ -197,6 +243,17 @@ public class OrderQueryModel {
 		return orderIDs;
 	}
 
+	/**
+	 * Updates database by setting the status of a order corresponding to the
+	 * provided order ID to the 'orderStatus'
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @param orderStatus
+	 *            Status to be set
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	private static void updateOrderStatus(String orderID, String orderStatus)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -219,18 +276,55 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of of the brief descriptions on the orders that are being
+	 * delivered at the moment from the branch corresponding to the provided
+	 * branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return List of brief descriptions on orders
+	 */
 	public static ArrayList<BriefOrder> getOnDeliveryOrders(String branchID) {
 		return getBriefOrdersWithStatus(branchID, "Being Delivered");
 	}
 
+	/**
+	 * Returns a list of of the brief descriptions on the orders that are
+	 * delivered from the branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return List of brief descriptions on orders
+	 */
 	public static ArrayList<BriefOrder> getDeliveredOrders(String branchID) {
 		return getBriefOrdersWithStatus(branchID, "Delivered");
 	}
 
+	/**
+	 * Returns a list of of the brief descriptions on the orders that have
+	 * failed from being delivered from the branch corresponding to the provided
+	 * branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return List of brief descriptions on orders
+	 */
 	public static ArrayList<BriefOrder> getFailedDeliveryOrders(String branchID) {
 		return getBriefOrdersWithStatus(branchID, "Failed Delivery");
 	}
 
+	/**
+	 * Returns a list of of the brief descriptions on the orders that have the
+	 * status 'deliveryStatus' from the branch corresponding to the provided
+	 * branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @param deliveryStatus
+	 *            Status of the delivery
+	 * @return List of brief descriptions on orders
+	 */
 	private static ArrayList<BriefOrder> getBriefOrdersWithStatus(
 			String branchID, String deliveryStatus) {
 
@@ -248,6 +342,16 @@ public class OrderQueryModel {
 		return collectiveOrders;
 	}
 
+	/**
+	 * Returns a list of of the order IDs that have the status 'deliveryStatus'
+	 * from the branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @param deliveryStatus
+	 *            Status of the delivery
+	 * @return List of brief descriptions on orders
+	 */
 	private static ArrayList<String> getOrdersIDsOfStatus(String branchID,
 			String deliveryStatus) {
 		ArrayList<String> orderIDs = new ArrayList<String>();
@@ -279,6 +383,17 @@ public class OrderQueryModel {
 		return orderIDs;
 	}
 
+	/**
+	 * Updates database by assigning the employee to the order corresponding
+	 * respectively to the provided order ID and employee ID and returns a
+	 * boolean value denoting if the employee was assigned to the order
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @param employeeID
+	 *            ID of the employee
+	 * @return true if the customer was assigned to the order; false otherwise
+	 */
 	private static boolean assignEmployeeForDelivery(String orderID,
 			String employeeID) {
 		// this method returns true if target employee can be assigned to an
@@ -312,6 +427,14 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the ID of the employee associated to the order corresponding to
+	 * the provided order ID
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @return ID of the associated employee
+	 */
 	// returns null on failure
 	private static String getAssociatedEmployeeID(String orderID) {
 		PreparedStatement preparedStatement = null;
@@ -342,6 +465,15 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the status ID of the provided status
+	 * 
+	 * @param status
+	 *            A status of orders
+	 * @return ID of the status
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getOrderStatusIDByStatus(String status)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -367,6 +499,15 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the status corresponding to the provided status ID
+	 * 
+	 * @param statusID
+	 *            ID of a status
+	 * @return Status
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getOrderStatusByID(String statusID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -392,6 +533,18 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by dispatching the order corresponding to the provided
+	 * orderID and associating the employee corresponding to the provided
+	 * employee ID to the order
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @param employeeID
+	 *            ID of the employee
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void dispatchOrder(String orderID, String employeeID)
 			throws SQLException {
 		if (!assignEmployeeForDelivery(orderID, employeeID))
@@ -402,6 +555,18 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by confirming the order corresponding to the provided
+	 * order ID as either delivered or failed, denoted by the provided boolean
+	 * status
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @param successfulDelivery
+	 *            Boolean flag denoting the order as delivered or failed
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void confirmOrderDelivery(String orderID,
 			boolean successfulDelivery) throws SQLException {
 		if (successfulDelivery) {
@@ -414,6 +579,11 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the ID of the latest order
+	 * 
+	 * @return ID of the latest order
+	 */
 	public static String getLatestOrderID() {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -439,6 +609,14 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of order IDs related to the customer corresponding to the
+	 * provided customer ID
+	 * 
+	 * @param customerID
+	 *            ID of the customer
+	 * @return List of order IDs
+	 */
 	public static ArrayList<String> getOrderIDsByCustomerID(String customerID) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -464,6 +642,14 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a brief description to be displayed of the order corresponding to
+	 * provided order ID
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @return Display information of the order
+	 */
 	public static OrderDisplayInformation getOrderDisplayInformation(
 			String orderID) {
 		PreparedStatement preparedStatement = null;
@@ -527,6 +713,13 @@ public class OrderQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the status to be displayed corresponding to the status ID
+	 * 
+	 * @param orderStatus
+	 *            ID of the status
+	 * @return Status to be displayed
+	 */
 	private static String getDisplayOrderStatus(String orderStatus) {
 		if (orderStatus.equals("Unhandled"))
 			return "Order Placed";
@@ -534,6 +727,14 @@ public class OrderQueryModel {
 		return orderStatus;
 	}
 
+	/**
+	 * Returns a list of brief descriptions on orders to displayed related to
+	 * the customer corresponding to the provided customer ID
+	 * 
+	 * @param customerID
+	 *            ID of the customer
+	 * @return List of order display information
+	 */
 	public static ArrayList<OrderDisplayInformation> getOrderDisplayInformationByCustomerID(
 			String customerID) {
 		PreparedStatement preparedStatement = null;

@@ -2,6 +2,13 @@ package com.ewebstore.entity;
 
 import java.sql.Date;
 
+/**
+ * The Customer class is an entity encapsulating necessary information on
+ * customers.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class Customer {
 	private String customerID;
 	private String name;

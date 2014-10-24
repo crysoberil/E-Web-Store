@@ -6,6 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The SimpleFeedbackPageLoader class is a servlet handling the loading of the
+ * various feedback pages.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SimpleFeedbackPageLoader {
 	public static void showSimpleFeedbackPage(HttpServletRequest req,
 			HttpServletResponse resp, String title, String header, String body) {

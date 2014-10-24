@@ -2,6 +2,13 @@ package com.ewebstore.entity;
 
 import java.sql.Date;
 
+/**
+ * The BranchManager class is an entity encapsulating necessary information on
+ * branch managers.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class BranchManager {
 	private String managerID;
 	private String branchID;

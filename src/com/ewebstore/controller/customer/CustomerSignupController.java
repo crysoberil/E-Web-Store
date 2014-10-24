@@ -11,6 +11,13 @@ import com.ewebstore.controller.CheckedHttpServlet;
 import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.model.CustomerQueryModel;
 
+/**
+ * The CustomerSignupController class is a servlet handling the signup of a new
+ * customer.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CustomerSignupController extends CheckedCustomerPanelServlet {
 
 	@Override

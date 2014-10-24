@@ -12,6 +12,13 @@ import com.ewebstore.model.BranchInventoryQueryModel;
 import com.ewebstore.model.BranchInventoryTransferModel;
 import com.ewebstore.model.BranchManagerQueryModel;
 
+/**
+ * The InventoryTransferSendRequestsPageLoader class is a servlet handling the
+ * loading of the send products requests for inventory transfers page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class InventoryTransferSendRequestsPageLoader extends CheckedHttpServlet {
 
 	@Override

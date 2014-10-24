@@ -11,6 +11,14 @@ import javax.servlet.http.HttpSession;
 
 import com.ewebstore.entity.ShoppingCart;
 
+/**
+ * The CheckedCustomerPanelServlet class is a servlet that is the superclass of
+ * all the controllers of the project, providing the skeletal structure of the
+ * classes.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public abstract class CheckedHttpServlet extends HttpServlet {
 
 	@Override

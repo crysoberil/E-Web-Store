@@ -10,7 +10,23 @@ import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.Brand;
 import com.ewebstore.entity.Product;
 
+/**
+ * The BrandQueryModel class handles database operations related to the brands.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class BrandQueryModel {
+
+	/**
+	 * Returns the brand name corresponding to the provided brand ID
+	 * 
+	 * @param brandID
+	 *            ID of the brand
+	 * @return Corresponding brand name
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getBrandName(String brandID) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -37,6 +53,12 @@ public class BrandQueryModel {
 		}
 	}
 
+	/**
+	 * 
+	 * @param brandName
+	 * @return
+	 * @throws SQLException
+	 */
 	public static String pushAndGetBrandIDByName(String brandName)
 			throws SQLException {
 		try {
@@ -48,6 +70,12 @@ public class BrandQueryModel {
 		return getBrandIDByName(brandName);
 	}
 
+	/**
+	 * Updates database by inserting a brand
+	 * 
+	 * @param brandName
+	 *            Name of the brand
+	 */
 	private static void tryPushBrand(String brandName) {
 		PreparedStatement preparedStatement = null;
 
@@ -67,6 +95,15 @@ public class BrandQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the ID of the brand corresponding to the provided brand name
+	 * 
+	 * @param brandName
+	 *            Name of the brand
+	 * @return ID of the brand
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	private static String getBrandIDByName(String brandName)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -93,6 +130,15 @@ public class BrandQueryModel {
 		}
 	}
 
+	/**
+	 * Returns information on the popular brands
+	 * 
+	 * @param brandCount
+	 *            Number of the brands on which information is to be returned
+	 * @return List of brand information
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<Brand> getPopularBrands(int brandCount)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -124,6 +170,13 @@ public class BrandQueryModel {
 		}
 	}
 
+	/**
+	 * Returns information on the popular products of the provided brand
+	 * 
+	 * @param brandID
+	 *            ID of the brand
+	 * @return List of product information
+	 */
 	public static ArrayList<Product> getPopularBrandProducts(String brandID) {
 		ArrayList<Product> brandProducts = new ArrayList<>();
 
@@ -162,6 +215,13 @@ public class BrandQueryModel {
 		return brandProducts;
 	}
 
+	/**
+	 * Returns information on brands relating to the provided search key
+	 * 
+	 * @param searchKey
+	 *            Search key
+	 * @return List of brand information
+	 */
 	public static ArrayList<Brand> searchBrands(String searchKey) {
 		ArrayList<Brand> brands = new ArrayList<>();
 

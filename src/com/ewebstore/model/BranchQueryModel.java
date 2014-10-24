@@ -8,8 +8,24 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.Branch;
 
+/**
+ * The BranchQueryModel class handles the database operations related to the
+ * branches.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class BranchQueryModel {
 
+	/**
+	 * Returns the branch name corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return Corresponding branch name
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getBranchNameByID(String branchID) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -34,6 +50,20 @@ public class BranchQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the ID of the branch among the branches that has the product
+	 * available corresponding to the provided product ID and is the nearest to
+	 * the branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch that requires the product
+	 * @param productID
+	 *            ID of the required product
+	 * @return ID of the branch that is the nearest among the branches with the
+	 *         product available
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getNearestBranchIDWithProductAvailble(String branchID,
 			String productID) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -62,6 +92,19 @@ public class BranchQueryModel {
 		}
 	}
 
+	/**
+	 * Updates the database by removing the product corresponding to the
+	 * provided product ID to the provided quantity
+	 * 
+	 * @param supplierBranchID
+	 *            ID of the branch supplying the product
+	 * @param productID
+	 *            ID of the product to be removed
+	 * @param toSupplyQuantity
+	 *            Quantity of the product to be removed
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void removeAvailableProduct(String supplierBranchID,
 			String productID, int toSupplyQuantity) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -85,6 +128,16 @@ public class BranchQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the ID of the branch corresponding to the provided branch manager
+	 * ID
+	 * 
+	 * @param managerID
+	 *            ID of the branch manager
+	 * @return Corresponding branch ID
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getBranchID(String managerID) throws SQLException {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -110,6 +163,18 @@ public class BranchQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the number of the completed deliveries between the last
+	 * 'numberOfDays' from the branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @param numberOfDays
+	 *            Interval of days
+	 * @return Number of successful deliveries between the interval
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static int numberOfCompletedDeliveries(String branchID,
 			int numberOfDays) throws SQLException {
 		PreparedStatement statement = null;
@@ -143,6 +208,18 @@ public class BranchQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the total transaction done over the last 'numberOfDays' in the
+	 * branch corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @param numberOfDays
+	 *            Interval of days
+	 * @return Total transaction done between the interval
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static double totalTransaction(String branchID, int numberOfDays)
 			throws SQLException {
 		PreparedStatement statement = null;
@@ -176,6 +253,15 @@ public class BranchQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the branch information corresponding to the provided branch ID
+	 * 
+	 * @param branchID
+	 *            ID of the branch
+	 * @return Corresponding branch information
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static Branch getBranch(String branchID) throws SQLException {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;

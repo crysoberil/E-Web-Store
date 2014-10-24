@@ -13,6 +13,13 @@ import com.ewebstore.entity.Product;
 import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.ProductQueryModel;
 
+/**
+ * The CategoryPageLoader class is a servlet handling the loading of a
+ * category's page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CategoryPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override

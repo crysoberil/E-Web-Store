@@ -9,8 +9,25 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.Product;
 
+/**
+ * The ProductQueryModel class handles the database operations related to the
+ * products.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class ProductQueryModel {
 
+	/**
+	 * Returns the information of the product corresponding to the provided
+	 * product ID
+	 * 
+	 * @param productID
+	 *            ID of the product
+	 * @return Information on the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static Product getProduct(String productID) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -71,6 +88,15 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the name of the product corresponding to the provided product ID
+	 * 
+	 * @param productID
+	 *            ID of the product
+	 * @return Name of the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getProductName(String productID) throws SQLException {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -96,6 +122,16 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the image source link of the product corresponding to the
+	 * provided product ID
+	 * 
+	 * @param productID
+	 *            ID of the product
+	 * @return Image source link of the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getProductImageLink(String productID)
 			throws SQLException {
 		PreparedStatement statement = null;
@@ -122,6 +158,15 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the price of the product corresponding to the provided product ID
+	 * 
+	 * @param productID
+	 *            ID of the product
+	 * @return price of the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static double getProductPrice(String productID) throws SQLException {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -147,6 +192,24 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by inserting a new generic product
+	 * 
+	 * @param productName
+	 *            Name of the product
+	 * @param brandName
+	 *            Name of the brand of the product
+	 * @param description
+	 *            Description of the product
+	 * @param price
+	 *            Price of the product
+	 * @param selectedCategoryIDs
+	 *            IDs of the categories of the product
+	 * @param imageLink
+	 *            Image source link of the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void addGenericProduct(String productName, String brandName,
 			String description, double price,
 			ArrayList<String> selectedCategoryIDs, String imageLink)
@@ -179,6 +242,16 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of product IDs with their names containing the provided
+	 * prefix
+	 * 
+	 * @param productNamePrefix
+	 *            Prefix string
+	 * @return List of product IDs
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<String> getAllProductIDsWithNameSubstring(
 			String productNamePrefix) throws SQLException {
 		ArrayList<String> productIDs = new ArrayList<String>();
@@ -206,6 +279,16 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the name of the brand of the product corresponding to the
+	 * provided product ID
+	 * 
+	 * @param productID
+	 *            ID of the product
+	 * @return Name of the brand of the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getProductBrandName(String productID)
 			throws SQLException {
 		PreparedStatement statement = null;
@@ -233,6 +316,16 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of information on products having the category
+	 * corresponding to the provided category ID as a category
+	 * 
+	 * @param categoryID
+	 *            ID of the category
+	 * @return List of product information
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<Product> getProductsByCategory(String categoryID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -295,6 +388,15 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of information on most popular products
+	 * 
+	 * @param productCount
+	 *            Number of products on which information is to be returned
+	 * @return List of product information
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<Product> getPopularProducts(int productCount)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -337,6 +439,18 @@ public class ProductQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of information on recommended products for the customer
+	 * corresponding to the provided customer ID
+	 * 
+	 * @param customerID
+	 *            ID of the customer
+	 * @param productCount
+	 *            Number of products on which information is to be returned
+	 * @return List of product information
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static ArrayList<Product> getRecommendedProducts(String customerID,
 			int productCount) {
 		ArrayList<Product> products = new ArrayList<>();
@@ -378,6 +492,13 @@ public class ProductQueryModel {
 		return products;
 	}
 
+	/**
+	 * Returns information on products relating to the provided search key
+	 * 
+	 * @param searchKey
+	 *            Search key
+	 * @return List of product information
+	 */
 	public static ArrayList<Product> searchProducts(String searchKey) {
 		ArrayList<Product> products = new ArrayList<>();
 

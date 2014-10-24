@@ -12,6 +12,13 @@ import javax.servlet.http.Part;
 import com.ewebstore.entity.ProductCategory;
 import com.ewebstore.model.ProductCategoryQueryModel;
 
+/**
+ * The AddGenericProductPageLoader class is a servlet handling the loading of
+ * the new generic product page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 @MultipartConfig
 public class AddGenericProductPageLoader extends CheckedHttpServlet {
 
@@ -23,13 +30,14 @@ public class AddGenericProductPageLoader extends CheckedHttpServlet {
 			try {
 				ArrayList<ProductCategory> categories = ProductCategoryQueryModel
 						.getAllProductCategories();
-				
+
 				req.setAttribute("categories", categories);
 
 				req.getRequestDispatcher("/WEB-INF/admin/addproductform.jsp")
 						.forward(req, resp);
 			} catch (IOException | ServletException ex) {
-				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

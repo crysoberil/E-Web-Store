@@ -14,6 +14,13 @@ import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.BranchQueryModel;
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The AdminHomePageLoader class is a servlet handling the loading of the admin
+ * home page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 // admin dashboard loader
 public class AdminHomePageLoader extends CheckedHttpServlet {
 
@@ -38,12 +45,12 @@ public class AdminHomePageLoader extends CheckedHttpServlet {
 				String managerName = (String) req.getSession().getAttribute(
 						"adminname");
 				Branch branch = BranchQueryModel.getBranch(branchID);
-				
+
 				int deliveriesCompleted = BranchQueryModel
 						.numberOfCompletedDeliveries(branchID, 30);
 				double transaction = BranchQueryModel.totalTransaction(
 						branchID, 30);
-				
+
 				req.setAttribute("managerid", managerID);
 				req.setAttribute("managername", managerName);
 				req.setAttribute("branch", branch);
@@ -53,7 +60,8 @@ public class AdminHomePageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/dashboard.jsp")
 						.forward(req, resp);
 			} catch (SQLException | ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 
 		} else {

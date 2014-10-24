@@ -12,6 +12,13 @@ import com.ewebstore.entity.BriefOrder;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The OnDeliveryOrdersPageLoader class is a servlet handling the loading of the
+ * orders on delivery page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class OnDeliveryOrdersPageLoader extends CheckedHttpServlet {
 
 	@Override

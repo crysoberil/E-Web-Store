@@ -6,6 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The AddEmployeePageLoader class is a servlet handling the loading of the new
+ * employee page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class AddEmployeePageLoader extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {

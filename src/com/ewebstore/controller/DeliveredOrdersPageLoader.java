@@ -12,6 +12,13 @@ import com.ewebstore.entity.BriefOrder;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The DeliveredOrdersPageLoader class is a servlet handling the loading of the
+ * delivered orders' page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class DeliveredOrdersPageLoader extends CheckedHttpServlet {
 
 	@Override
@@ -36,7 +43,8 @@ public class DeliveredOrdersPageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/showbrieforders.jsp")
 						.forward(req, resp);
 			} catch (SQLException | ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

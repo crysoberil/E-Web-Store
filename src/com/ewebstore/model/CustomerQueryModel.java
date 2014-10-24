@@ -9,10 +9,29 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.Customer;
 
+/**
+ * The CustomerQueryModel class handles the database operations related to the
+ * customers.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class CustomerQueryModel {
 
 	public static final double DISCOUNTPERCENTAGE = 5;
 
+	/**
+	 * Returns the ID of the customer corresponding to the provided email and
+	 * password
+	 * 
+	 * @param email
+	 *            Email address of the customer
+	 * @param password
+	 *            Password of the customer
+	 * @return ID of the customer
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getCustomerID(String email, String password)
 			throws SQLException {
 
@@ -43,6 +62,16 @@ public class CustomerQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the name of the customer corresponding to the provided customer
+	 * ID
+	 * 
+	 * @param customerID
+	 *            ID of the customer
+	 * @return Name of the customer
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getCustomerName(String customerID) throws SQLException {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -69,6 +98,14 @@ public class CustomerQueryModel {
 		}
 	}
 
+	/**
+	 * Checks if the customer corresponding to the provided customer ID is a
+	 * premium customer
+	 * 
+	 * @param customerID
+	 *            ID of the customer
+	 * @return true if the customer is a premium customer; false otherwise.
+	 */
 	public static boolean isPremiumUser(String customerID) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -95,6 +132,26 @@ public class CustomerQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by inserting a new customer record
+	 * 
+	 * @param customerName
+	 *            Name of the customer
+	 * @param email
+	 *            Email of the customer
+	 * @param password
+	 *            Password of the customer
+	 * @param isMale
+	 *            Gender of the customer (true if male, false if female)
+	 * @param dob
+	 *            Date of birth of the customer
+	 * @param address
+	 *            Address of the customer
+	 * @param contactNumber
+	 *            Contact number of the customer
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void addCustomer(String customerName, String email,
 			String password, boolean isMale, Date dob, String address,
 			String contactNumber) throws SQLException {
@@ -123,6 +180,16 @@ public class CustomerQueryModel {
 		}
 	}
 
+	/**
+	 * Returns information on a customer corresponding to the provided customer
+	 * ID
+	 * 
+	 * @param customerID
+	 *            ID of the customer
+	 * @return Information on the customer
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static Customer getCustomer(String customerID) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

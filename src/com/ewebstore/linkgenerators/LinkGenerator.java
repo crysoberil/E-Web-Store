@@ -1,5 +1,12 @@
 package com.ewebstore.linkgenerators;
 
+/**
+ * The LinkGenerator class handles all the URL generation for various front-end
+ * pages related to the project.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class LinkGenerator {
 	private static final String home = "/E-Web-Store/";
 

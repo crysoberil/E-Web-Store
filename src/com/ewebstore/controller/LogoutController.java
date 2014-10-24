@@ -3,6 +3,12 @@ package com.ewebstore.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The LogoutController class is a servlet handling the logouts of users.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class LogoutController extends CheckedHttpServlet {
 
 	@Override

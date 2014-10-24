@@ -3,6 +3,13 @@ package com.ewebstore.entity;
 import java.sql.Date;
 import java.util.HashMap;
 
+/**
+ * The OrderDisplayInformation class is an entity encapsulating necessary
+ * information on orders display.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class OrderDisplayInformation {
 	private String orderID;
 	private String customerID;

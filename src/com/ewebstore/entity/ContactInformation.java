@@ -2,6 +2,13 @@ package com.ewebstore.entity;
 
 import com.ewebstore.model.ContactInformationQueryModel;
 
+/**
+ * The ContactInformation class is an entity encapsulating necessary information
+ * on contacts.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ContactInformation {
 	private String name = ContactInformationQueryModel.getShopName();
 	private String address = ContactInformationQueryModel.getAddress();

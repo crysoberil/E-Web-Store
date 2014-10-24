@@ -12,6 +12,13 @@ import com.ewebstore.entity.Product;
 import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.model.ProductQueryModel;
 
+/**
+ * The ProductPageLoader class is a servlet handling the loading of a product's
+ * page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ProductPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override

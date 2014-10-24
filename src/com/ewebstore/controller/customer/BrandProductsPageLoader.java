@@ -12,6 +12,13 @@ import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.Product;
 import com.ewebstore.model.BrandQueryModel;
 
+/**
+ * The BrandProductsPageLoader class is a servlet handling the loading of a
+ * brand's page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class BrandProductsPageLoader extends CheckedCustomerPanelServlet {
 	@Override
 	protected void customerPanelDoGet(HttpServletRequest req,

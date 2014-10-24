@@ -13,6 +13,13 @@ import com.ewebstore.entity.SalesEmployee;
 import com.ewebstore.model.BranchQueryModel;
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
+/**
+ * The AllEmployeesPageLoader class is a servlet handling the loading of the all
+ * employees information page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class AllEmployeesPageLoader extends CheckedHttpServlet {
 
 	@Override

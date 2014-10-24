@@ -9,8 +9,25 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.ProductCategory;
 
+/**
+ * The ProductCategoryQueryModel class handles the database operations related
+ * to the product categories.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class ProductCategoryQueryModel {
 
+	/**
+	 * Returns the name of the category corresponding to the provided category
+	 * ID
+	 * 
+	 * @param categoryID
+	 *            ID of the category
+	 * @return Name of the category
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getCategoryName(String categoryID) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -34,6 +51,11 @@ public class ProductCategoryQueryModel {
 		}
 	}
 
+	/**
+	 * Returns a list of information on all the categories from database
+	 * 
+	 * @return List of category information
+	 */
 	public static ArrayList<ProductCategory> getAllProductCategories() {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -62,6 +84,16 @@ public class ProductCategoryQueryModel {
 		return categories;
 	}
 
+	/**
+	 * Updates database by inserting product-category pairs
+	 * 
+	 * @param productName
+	 *            Name of the products
+	 * @param categorieIDs
+	 *            List of the categories corresponding to the product
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static void addProductCategories(String productName,
 			ArrayList<String> categorieIDs) throws SQLException {
 

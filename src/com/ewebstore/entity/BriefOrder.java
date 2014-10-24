@@ -4,13 +4,20 @@ import java.sql.Date;
 
 import com.ewebstore.linkgenerators.LinkGenerator;
 
+/**
+ * The BriefOrder class is an entity encapsulating necessary information on
+ * brief orders.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class BriefOrder {
 	private String orderID;
 	private String customerID;
 	private Date orderDate;
 	private String deliveryLocation;
 	private String associatedEmployeeID;
-	
+
 	public BriefOrder(String orderID, String customerID, Date orderDate,
 			String deliveryLocation, String associatedEmployeeID) {
 		this.orderID = orderID;
@@ -19,7 +26,7 @@ public class BriefOrder {
 		this.deliveryLocation = deliveryLocation;
 		this.associatedEmployeeID = associatedEmployeeID;
 	}
-	
+
 	public String getOrderID() {
 		return orderID;
 	}
@@ -39,7 +46,7 @@ public class BriefOrder {
 	public String getAssociatedEmployeeID() {
 		return associatedEmployeeID;
 	}
-	
+
 	public String getOrderPageLink() {
 		return LinkGenerator.getOrderLink(orderID);
 	}

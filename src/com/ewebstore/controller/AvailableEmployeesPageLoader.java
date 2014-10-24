@@ -12,6 +12,13 @@ import javax.servlet.http.HttpSession;
 import com.ewebstore.model.BranchQueryModel;
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
+/**
+ * The AvailableEmployeesPageLoader class is a servlet handling the loading of
+ * the available employees information page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class AvailableEmployeesPageLoader extends CheckedHttpServlet {
 
 	@Override

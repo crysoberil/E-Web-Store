@@ -2,6 +2,13 @@ package com.ewebstore.entity;
 
 import java.util.ArrayList;
 
+/**
+ * The Product class is an entity encapsulating necessary information on
+ * products.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class Product {
 	private String productID;
 	private String productName;

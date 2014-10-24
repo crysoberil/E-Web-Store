@@ -2,8 +2,15 @@ package com.ewebstore.entity;
 
 import com.ewebstore.linkgenerators.LinkGenerator;
 
+/**
+ * The GenericProduct class is an entity encapsulating necessary information on
+ * generic products.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class GenericProduct {
-	
+
 	private String productID;
 	private String productName;
 	private String brand;
@@ -47,7 +54,7 @@ public class GenericProduct {
 	public String getProductImageLink() {
 		return productImageLink;
 	}
-	
+
 	public String getCategory() {
 		return category;
 	}

@@ -8,10 +8,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.controller.SimpleFeedbackPageLoader;
 
+/**
+ * The CustomerLoginSignupPageLoader class is a servlet handling the loading of
+ * the customer login and signup page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CustomerLoginSignupPageLoader extends CheckedCustomerPanelServlet {
 
 	@Override
-	protected void customerPanelDoGet(HttpServletRequest req, HttpServletResponse resp) {
+	protected void customerPanelDoGet(HttpServletRequest req,
+			HttpServletResponse resp) {
 		try {
 			req.getRequestDispatcher("/WEB-INF/customer/loginsignup.jsp")
 					.forward(req, resp);

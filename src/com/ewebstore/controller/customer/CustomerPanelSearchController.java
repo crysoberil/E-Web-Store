@@ -13,6 +13,13 @@ import com.ewebstore.entity.Product;
 import com.ewebstore.model.BrandQueryModel;
 import com.ewebstore.model.ProductQueryModel;
 
+/**
+ * The CustomerPanelSearchController class is a servlet handling the loading of
+ * the search results page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CustomerPanelSearchController extends CheckedCustomerPanelServlet {
 
 	@Override

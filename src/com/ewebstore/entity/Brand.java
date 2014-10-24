@@ -2,6 +2,12 @@ package com.ewebstore.entity;
 
 import com.ewebstore.linkgenerators.LinkGenerator;
 
+/**
+ * The Brand class is an entity encapsulating necessary information on brands.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class Brand {
 	private String brandID;
 	private String brandName;

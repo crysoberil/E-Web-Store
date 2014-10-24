@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.BranchInventoryTransferModel;
 
+/**
+ * The ReceiveInventoryTransferController class is a servlet handling the
+ * loading of the receive products for inventory transfers page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ReceiveInventoryTransferController extends CheckedHttpServlet {
 
 	@Override

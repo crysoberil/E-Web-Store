@@ -1,12 +1,19 @@
 package com.ewebstore.entity;
 
+/**
+ * The Branch class is an entity encapsulating necessary information on
+ * branches.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class Branch {
 	private String branchID;
 	private String branchName;
 	private String branchLocation;
 	private String branchDistrictID;
 	private String branchDistrictName;
-	
+
 	public Branch(String branchID, String branchName, String branchLocation,
 			String branchDistrictID, String branchDistrictName) {
 		this.branchID = branchID;
@@ -15,7 +22,7 @@ public class Branch {
 		this.branchDistrictID = branchDistrictID;
 		this.branchDistrictName = branchDistrictName;
 	}
-	
+
 	public String getBranchID() {
 		return branchID;
 	}

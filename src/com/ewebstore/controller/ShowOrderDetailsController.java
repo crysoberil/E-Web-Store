@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.ewebstore.entity.Order;
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The ShowOrderDetailsController class is a servlet handling the loading of the
+ * order details page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ShowOrderDetailsController extends CheckedHttpServlet {
 
 	@Override

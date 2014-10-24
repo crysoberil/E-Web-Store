@@ -8,6 +8,13 @@ import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.model.CustomerQueryModel;
 import com.ewebstore.model.ShoppingCartQueryModel;
 
+/**
+ * The PlaceOrderController class is a servlet handling the submission of a new
+ * order.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class PlaceOrderController extends CheckedCustomerPanelServlet {
 
 	@Override

@@ -1,5 +1,12 @@
 package com.ewebstore.entity;
 
+/**
+ * The InterBranchProductTransfer class is an entity encapsulating necessary
+ * information on inter-branch product transfers.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class InterBranchProductTransfer {
 	private String transferID;
 	private String fromBranchID;

@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.ProductQueryModel;
 
+/**
+ * The AdminProductSearchController class is a servlet handling the loading of
+ * the products' search page for admins.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class AdminProductSearchController extends CheckedHttpServlet {
 
 	@Override

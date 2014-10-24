@@ -9,6 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
+/**
+ * The SubmitAddEmployeeController class is a servlet handling the submission of
+ * a new employee information.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SubmitAddEmployeeController extends CheckedHttpServlet {
 
 	@Override
@@ -50,7 +57,7 @@ public class SubmitAddEmployeeController extends CheckedHttpServlet {
 
 				String adminID = req.getSession().getAttribute("adminid")
 						.toString();
-				String branchID = BranchManagerQueryModel.getBranchID(adminID);				
+				String branchID = BranchManagerQueryModel.getBranchID(adminID);
 
 				SalesEmployeeQueryModel.addSalesEmployee(name, gender, email,
 						contactNumber, dob, address, branchID);

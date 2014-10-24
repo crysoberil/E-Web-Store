@@ -6,6 +6,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The AdminLogInPageLoader class is a servlet handling the loading of the admin
+ * login page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class AdminLogInPageLoader extends CheckedHttpServlet {
 
 	@Override

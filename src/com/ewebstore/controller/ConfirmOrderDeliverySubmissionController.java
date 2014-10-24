@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.OrderQueryModel;
 
+/**
+ * The ConfirmOrderDeliverySubmissionController class is a servlet handling the
+ * confirmation of a delivery.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class ConfirmOrderDeliverySubmissionController extends
 		CheckedHttpServlet {
 

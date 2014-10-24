@@ -9,7 +9,20 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.District;
 
+/**
+ * The DistrictQueryModel class handles the database operations related to the
+ * districts.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class DistrictQueryModel {
+
+	/**
+	 * Returns information on all the districts from database.
+	 * 
+	 * @return List of district information.
+	 */
 	public static ArrayList<District> getAllDistricts() {
 		ArrayList<District> districts = new ArrayList<>();
 
@@ -41,6 +54,14 @@ public class DistrictQueryModel {
 		return districts;
 	}
 
+	/**
+	 * Returns capitalized district name corresponding to the provided district
+	 * ID
+	 * 
+	 * @param distName
+	 *            Name of the district
+	 * @return
+	 */
 	public static String capitalizedDistrictName(String distName) {
 		String[] toks = distName.split(" +");
 		StringBuilder builder = new StringBuilder();

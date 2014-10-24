@@ -10,8 +10,23 @@ import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.ShoppingCart;
 
+/**
+ * The ShoppingCartQueryModel class handles the database operations related to
+ * shopping carts and checkout.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class ShoppingCartQueryModel {
 
+	/**
+	 * Checks if an order corresponding to the provided shopping cart is
+	 * deliverable or not
+	 * 
+	 * @param cart
+	 *            Shopping cart information
+	 * @return true if the order is deliverable; false otherwise
+	 */
 	private static boolean isOrderDeliverable(ShoppingCart cart) {
 		ArrayList<CartItem> cartItems = cart.getCartItems();
 
@@ -22,12 +37,28 @@ public class ShoppingCartQueryModel {
 		return true;
 	}
 
+	/**
+	 * Checks if an order item corresponding to the provided cart item is
+	 * deliverable or not
+	 * 
+	 * @param cartItem
+	 *            Shopping cart item information
+	 * @return true if the order item is deliverable; false otherwise
+	 */
 	private static boolean isItemDeliverable(CartItem cartItem) {
 		int availiableQuantity = getTotalAvailableProductQuantity(cartItem
 				.getProductID());
 		return availiableQuantity >= cartItem.getQuantity();
 	}
 
+	/**
+	 * Returns the available quantity of the product corresponding to the
+	 * provided product ID
+	 * 
+	 * @param productID
+	 *            ID of the product
+	 * @return Available quantity of the product
+	 */
 	private static int getTotalAvailableProductQuantity(String productID) {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -55,12 +86,17 @@ public class ShoppingCartQueryModel {
 	}
 
 	/**
+	 * Updates database by placing an order
 	 * 
 	 * @param cart
+	 *            Shopping cart information
 	 * @param deliveryLocation
+	 *            Delivery location
 	 * @param nearestDistrictID
-	 * @return true if the order could be placed
+	 *            ID of the district nearest to the delivery location
+	 * @return true if the order could be placed; false otherwise
 	 * @throws SQLException
+	 *             if a database access error occurs
 	 */
 	public static boolean placeOrder(ShoppingCart cart,
 			String deliveryLocation, String nearestDistrictID)
@@ -91,6 +127,17 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by adding a cart item to the order corresponding to the
+	 * provided order ID
+	 * 
+	 * @param orderID
+	 *            ID of the order
+	 * @param cartItem
+	 *            Cart item information
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	private static void addOrderProduct(String orderID, CartItem cartItem)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -113,6 +160,19 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
+	/**
+	 * Updates database by inserting an order
+	 * 
+	 * @param cart
+	 *            Shopping cart information
+	 * @param deliveryLocation
+	 *            Delivery location
+	 * @param branchID
+	 *            ID of the branch
+	 * @return ID of the new order
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	private static String addOrderToOrderTable(ShoppingCart cart,
 			String deliveryLocation, String branchID) throws SQLException {
 		double totalCost = getTotalOrderingCost(cart);
@@ -143,6 +203,15 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the cost of a cart item
+	 * 
+	 * @param cartItem
+	 *            Cart item information
+	 * @return Cost of the cart item
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static double getCartItemCost(CartItem cartItem) throws SQLException {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -167,6 +236,15 @@ public class ShoppingCartQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the cost of the total cart
+	 * 
+	 * @param cart
+	 *            Shopping cart information
+	 * @return Total cost of the cart
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static double getCartSubTotalCost(ShoppingCart cart)
 			throws SQLException {
 		double cost = 0;
@@ -177,6 +255,15 @@ public class ShoppingCartQueryModel {
 		return cost;
 	}
 
+	/**
+	 * Returns the total cost of the order related to the shopping cart
+	 * 
+	 * @param cart
+	 *            Shopping cart information
+	 * @return Cost of the order
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static double getTotalOrderingCost(ShoppingCart cart)
 			throws SQLException {
 		double cost = getCartSubTotalCost(cart);
@@ -192,6 +279,16 @@ public class ShoppingCartQueryModel {
 		return cost;
 	}
 
+	/**
+	 * Returns the ID of the branch that is the closest to the district
+	 * corresponding to the provided district ID
+	 * 
+	 * @param nearestDistrictID
+	 *            ID of the district
+	 * @return ID of the closest branch
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	private static String getClosestBranchID(String nearestDistrictID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;

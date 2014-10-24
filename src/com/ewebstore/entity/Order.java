@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import com.ewebstore.linkgenerators.LinkGenerator;
 
+/**
+ * The Order class is an entity encapsulating necessary information on orders.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class Order {
 	private String orderID;
 	private String customerID;
@@ -81,7 +87,7 @@ public class Order {
 	public String getAssociatedEmployeeID() {
 		return associatedEmployeeID;
 	}
-	
+
 	public String getAssociatedEmployeeName() {
 		return associatedEmployeeName;
 	}

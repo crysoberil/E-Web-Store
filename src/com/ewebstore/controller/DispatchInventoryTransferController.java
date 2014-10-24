@@ -7,6 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ewebstore.model.BranchInventoryTransferModel;
 
+/**
+ * The DispatchInventoryTransferController class is a servlet handling the
+ * dispatching of inventory transfers.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class DispatchInventoryTransferController extends CheckedHttpServlet {
 
 	@Override

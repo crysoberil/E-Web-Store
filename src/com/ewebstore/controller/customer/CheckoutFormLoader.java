@@ -20,6 +20,13 @@ import com.ewebstore.model.ProductQueryModel;
 import com.ewebstore.model.SharedData;
 import com.ewebstore.model.ShoppingCartQueryModel;
 
+/**
+ * The CheckoutFormLoader class is a servlet handling the loading of the
+ * checkout form's page.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class CheckoutFormLoader extends CheckedCustomerPanelServlet {
 	@Override
 	protected void customerPanelDoGet(HttpServletRequest req,

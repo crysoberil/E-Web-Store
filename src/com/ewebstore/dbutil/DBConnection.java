@@ -5,6 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 
+/**
+ * The DBConnection class handles the connections with database.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class DBConnection {
 
 	private static final int MAXIMUMCONNECTION = 10;

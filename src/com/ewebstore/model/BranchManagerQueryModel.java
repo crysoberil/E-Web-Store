@@ -9,7 +9,27 @@ import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 import com.ewebstore.entity.BranchManager;
 
+/**
+ * The BranchManagerQueryModel class handles the database operations related to
+ * the branch managers.
+ * 
+ * @author ewebstore.org
+ *
+ */
 public class BranchManagerQueryModel {
+
+	/**
+	 * Returns the ID of a branch manager corresponding to the provided email
+	 * and password
+	 * 
+	 * @param email
+	 *            Email address of the branch manager
+	 * @param password
+	 *            Passwords of the branch manager
+	 * @return Corresponding branch manager ID
+	 * @throws SQLException
+	 *             if a database access error occurs
+	 */
 	public static String getManagerId(String email, String password)
 			throws SQLException {
 
@@ -41,6 +61,13 @@ public class BranchManagerQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the branch manager name corresponding to the provided ID
+	 * 
+	 * @param managerID
+	 *            ID of the branch manager
+	 * @return Corresponding branch manager name
+	 */
 	public static String getManagerName(String managerID) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -68,6 +95,14 @@ public class BranchManagerQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the ID of a branch corresponding to the provided branch manager
+	 * ID
+	 * 
+	 * @param managerID
+	 *            ID of the branch manager
+	 * @return Corresponding branch ID
+	 */
 	public static String getBranchID(String managerID) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -95,6 +130,14 @@ public class BranchManagerQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the name of the branch manager corresponding to the provided
+	 * branch manager ID
+	 * 
+	 * @param managerID
+	 *            ID of the branch manager
+	 * @return Corresponding branch manager name
+	 */
 	public static BranchManager getBranchManager(String managerID) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;

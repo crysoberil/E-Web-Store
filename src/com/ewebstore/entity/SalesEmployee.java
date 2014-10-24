@@ -4,6 +4,13 @@ import java.sql.Date;
 
 import com.ewebstore.linkgenerators.LinkGenerator;
 
+/**
+ * The SalesEmployee class is an entity encapsulating necessary information on
+ * sales employees.
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class SalesEmployee {
 	private String employeeID;
 	private String name;
