@@ -7,7 +7,21 @@ import java.sql.SQLException;
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
 
+/**
+ * This class manages database query model for branch inventory
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class BranchInventoryQueryModel {
+	/**
+	 * Updates receiver branch inventory according to the inventory transfer
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @throws SQLException
+	 *             When no such inventory transfer record is found
+	 */
 	public static void updateBranchInventoryAfterTransfer(
 			String inventoryTransferID) throws SQLException {
 		if (BranchInventoryQueryModel
@@ -50,6 +64,16 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * This method checks whether the destination branch already has the product
+	 * associated with the inventory transfer id in it's inventory
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @return {@code true} if branch inventory already has the product
+	 * @throws SQLException
+	 *             When no such inventory transfer record is found
+	 */
 	private static boolean branchInventoryHasTransferProduct(
 			String inventoryTransferID) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -80,6 +104,18 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * Adds a quantity of some product to inventory
+	 * 
+	 * @param branchManagerID
+	 *            Manager ID of respective branch
+	 * @param productID
+	 *            Product ID
+	 * @param quantity
+	 *            Quantity of {@code productID} to be added
+	 * @throws SQLException
+	 *             For invalid branch manager or invalid product
+	 */
 	public static void addProductToInventory(String branchManagerID,
 			String productID, int quantity) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -105,6 +141,18 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * Returns the quantity of the product available at this branch which can be
+	 * transferred to another branch or locked be reserved for new orders
+	 * 
+	 * @param branchID
+	 *            Branch ID
+	 * @param productID
+	 *            Product ID
+	 * @return Number of such available products
+	 * @throws SQLException
+	 *             For invalid {@code brancID} or {@code prdoctID}
+	 */
 	public static int getAvailableProductQuantity(String branchID,
 			String productID) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -134,6 +182,15 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * Withdraws products from stock of the respective branch for the given
+	 * order
+	 * 
+	 * @param orderID
+	 *            Order ID
+	 * @throws SQLException
+	 *             For invalid {@code orderID}
+	 */
 	public static void withdrawProductsFromStock(String orderID)
 			throws SQLException {
 		// availability of products already reduced during shopping cart
@@ -160,6 +217,16 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * Adds products back to inventory and makes them available for future order
+	 * delivery or inventory transfer. This method is called when a delivery
+	 * fails.
+	 * 
+	 * @param orderID
+	 *            Order ID
+	 * @throws SQLException
+	 *             For invalid {@code orderID}
+	 */
 	public static void addProductsBackToStockAndMakeAvailable(String orderID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -183,6 +250,14 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * Marks order products as sold. Called for successful delivery.
+	 * 
+	 * @param orderID
+	 *            Order ID
+	 * @throws SQLException
+	 *             When {@code orderID} is invalid
+	 */
 	public static void markProductsAsSold(String orderID) throws SQLException {
 		PreparedStatement preparedStatement = null;
 
@@ -204,6 +279,15 @@ public class BranchInventoryQueryModel {
 		}
 	}
 
+	/**
+	 * Withdraws products from branch inventory. These products are to be
+	 * transfered to another branch respective to {@code inventoryTransferID}
+	 * 
+	 * @param inventoryTransferID
+	 *            ID for inventory transfer
+	 * @throws SQLException
+	 *             When {@code inventoryTransferID} is invalid
+	 */
 	public static void withdrawProductsForTransfer(String inventoryTransferID)
 			throws SQLException {
 		PreparedStatement preparedStatement = null;

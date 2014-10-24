@@ -11,17 +11,52 @@ import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.ProductTransferEntity;
 import com.ewebstore.entity.ShoppingCart;
 
+/**
+ * This class manages database query model for inter-branch inventory transfer
+ * 
+ * @author ewebstore.com
+ *
+ */
 public class BranchInventoryTransferModel {
-
+	/**
+	 * An integer representing yet to be transferred inventory transfer status
+	 */
 	private static final int TOBETRANSFERREDSTATUS = 1;
+
+	/**
+	 * An integer representing currently being transferred inventory transfer
+	 * status
+	 */
 	private static final int BEINGTRANSFERREDSTATUS = 2;
 
+	/**
+	 * Generates inventory transfer requests and updates branch inventory
+	 * information according to optimal distribution of order products between
+	 * branches
+	 * 
+	 * @param cart
+	 *            Shopping cart
+	 * @param targetBranchID
+	 *            ID of branch associated with delivery for this order
+	 * @throws SQLException
+	 *             When {@code targetBranchID} is invalid
+	 */
 	public static void distributeOrderBetweenBranches(ShoppingCart cart,
 			String targetBranchID) throws SQLException {
 		for (CartItem cartItem : cart.getCartItems())
 			distributeCartItemBetweenBranches(cartItem, targetBranchID);
 	}
 
+	/**
+	 * Optimally distributes cart items between branches
+	 * 
+	 * @param cartItem
+	 *            The shopping cart item
+	 * @param targetBranchID
+	 *            ID of branch associated with delivery for this order
+	 * @throws SQLException
+	 *             When {@code targetBranchID} is invalid
+	 */
 	private static void distributeCartItemBetweenBranches(CartItem cartItem,
 			String targetBranchID) throws SQLException {
 		int quantity = cartItem.getQuantity();
@@ -33,6 +68,19 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
+	/**
+	 * Optimally assigns a branch for supplying a product
+	 * 
+	 * @param productID
+	 *            Traget product
+	 * @param maxQuantity
+	 *            Maximum amount of the product that this branch needs to supply
+	 * @param targetBranchID
+	 *            ID of branch associated with delivery for this order
+	 * @return Assigned quantity of the product
+	 * @throws SQLException
+	 *             When {@code targetBranchID} or {@code productID} is invalid
+	 */
 	private static int assignSomeBranchForItemSupply(String productID,
 			int maxQuantity, String targetBranchID) throws SQLException {
 
@@ -55,6 +103,20 @@ public class BranchInventoryTransferModel {
 		return toSupplyQuantity;
 	}
 
+	/**
+	 * Adds or updates(in case record already exists) a branch transfer request
+	 * 
+	 * @param supplierBranchID
+	 *            ID of supplier branch
+	 * @param targetBranchID
+	 *            ID of receiver branch
+	 * @param productID
+	 *            Product ID
+	 * @param toSupplyQuantity
+	 *            Quantity of the product to be transferred
+	 * @throws SQLException
+	 *             When any parameter is inexistent in the database
+	 */
 	private static void addBranchTransferRequest(String supplierBranchID,
 			String targetBranchID, String productID, int toSupplyQuantity)
 			throws SQLException {
@@ -105,6 +167,19 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
+	/**
+	 * Checks if such branch transfer record already exists
+	 * 
+	 * @param supplierBranchID
+	 *            ID of supplier branch
+	 * @param targetBranchID
+	 *            ID of receiver branch
+	 * @param productID
+	 *            Product ID
+	 * @return {@code true} if such record exists
+	 * @throws SQLException
+	 *             When any parameter is inexistent in the database
+	 */
 	private static boolean branchTransferRecordExists(String supplierBranchID,
 			String targetBranchID, String productID) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -134,6 +209,15 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
+	/**
+	 * This method updates database accordingly to reflect a inventory transfer
+	 * completion
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @throws SQLException
+	 *             When no such inventory transfer record exists
+	 */
 	public static void confirmInventoryTransfer(String inventoryTransferID)
 			throws SQLException {
 		try {
@@ -146,6 +230,14 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
+	/**
+	 * Deletes record for completed inventory transfer
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @throws SQLException
+	 *             When no such inventory transfer record exists
+	 */
 	private static void deleteCompletedInventoryTransfer(
 			String inventoryTransferID) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -164,12 +256,30 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
+	/**
+	 * Marks an inventory transfer as ongoing
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @throws SQLException
+	 *             For invalid inventory transfer ID
+	 */
 	private static void markAsOngoingInventoryTransfer(
 			String inventoryTransferID) throws SQLException {
 		updateInventoryTransferStatus(inventoryTransferID,
 				BEINGTRANSFERREDSTATUS);
 	}
 
+	/**
+	 * Updates inventory transfer status according to {@code targetStatus}
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @param targetStatus
+	 *            Target status
+	 * @throws SQLException
+	 *             For invalid inventory transfer ID
+	 */
 	private static void updateInventoryTransferStatus(
 			String inventoryTransferID, int targetStatus) throws SQLException {
 		PreparedStatement preparedStatement = null;
@@ -193,6 +303,13 @@ public class BranchInventoryTransferModel {
 		}
 	}
 
+	/**
+	 * Returns a list of to transfer to other branches inventory transfers
+	 * 
+	 * @param branchID
+	 *            Source branch ID
+	 * @return List of {@code ProductTransferEntity} entities
+	 */
 	public static ArrayList<ProductTransferEntity> getToSendTransferRequests(
 			String branchID) {
 		ArrayList<ProductTransferEntity> transferEntities = new ArrayList<ProductTransferEntity>();
@@ -239,6 +356,14 @@ public class BranchInventoryTransferModel {
 		return transferEntities;
 	}
 
+	/**
+	 * Updates database when an inventory transfer is dispatched
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @throws SQLException
+	 *             For invalid inventory transfer ID
+	 */
 	public static void dispatchInventoryTransfer(String inventoryTransferID)
 			throws SQLException {
 		// get product out of stock
@@ -247,6 +372,13 @@ public class BranchInventoryTransferModel {
 				.withdrawProductsForTransfer(inventoryTransferID);
 	}
 
+	/**
+	 * Returns a list of to receive transfers from other branches
+	 * 
+	 * @param branchID
+	 *            Inventory transfer destination branch ID
+	 * @return List of {@code ProductTransferEntity} entities
+	 */
 	public static ArrayList<ProductTransferEntity> getToReceiveTransferRequests(
 			String branchID) {
 		ArrayList<ProductTransferEntity> transferEntities = new ArrayList<ProductTransferEntity>();
@@ -294,6 +426,14 @@ public class BranchInventoryTransferModel {
 		return transferEntities;
 	}
 
+	/**
+	 * Updates database according when received an inventory transfer
+	 * 
+	 * @param inventoryTransferID
+	 *            Inventory transfer ID
+	 * @throws SQLException
+	 *             For invalid inventory transfer ID
+	 */
 	public static void receiveInventoryTransfer(String inventoryTransferID)
 			throws SQLException {
 		// add to stock and NOT availability, then remove entry
