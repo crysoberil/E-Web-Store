@@ -24,10 +24,10 @@ public class OnDeliveryOrdersPageLoader extends CheckedHttpServlet {
 						"adminid");
 				String branchID = BranchManagerQueryModel
 						.getBranchID(managerID);
-				
+
 				if (branchID == null)
 					throw new SQLException();
-				
+
 				ArrayList<BriefOrder> briefOrders = OrderQueryModel
 						.getOnDeliveryOrders(branchID);
 				req.setAttribute("brieforders", briefOrders);
@@ -37,7 +37,8 @@ public class OnDeliveryOrdersPageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/showbrieforders.jsp")
 						.forward(req, resp);
 			} catch (SQLException | ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

@@ -23,8 +23,8 @@ public class PlaceOrderController extends CheckedCustomerPanelServlet {
 					"cart");
 
 			if (cart.isEmpty()) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Empty Cart", "Empty Cart",
+				SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req,
+						resp, "Empty Cart", "Empty Cart",
 						"Your shopping cart is empty.");
 				return;
 			}
@@ -71,7 +71,7 @@ public class PlaceOrderController extends CheckedCustomerPanelServlet {
 
 				if (!orderPlaced) {
 					SimpleFeedbackPageLoader
-							.showSimpleFeedbackPage(
+							.showCustomerSimpleFeedbackPage(
 									req,
 									resp,
 									"Order Not Place",
@@ -79,7 +79,7 @@ public class PlaceOrderController extends CheckedCustomerPanelServlet {
 									"Order could not be placed. Some products are out of stock. Please try again later");
 				} else {
 					SimpleFeedbackPageLoader
-							.showSimpleFeedbackPage(
+							.showCustomerSimpleFeedbackPage(
 									req,
 									resp,
 									"Order Placed",
@@ -88,11 +88,12 @@ public class PlaceOrderController extends CheckedCustomerPanelServlet {
 				}
 
 			} catch (IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Error", "Order Could Not Be Placed", ex.getMessage());
+				SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req,
+						resp, "Error", "Order Could Not Be Placed",
+						ex.getMessage());
 			} catch (Exception ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Error", "Order Could Not Be Placed",
+				SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req,
+						resp, "Error", "Order Could Not Be Placed",
 						"Invalid Parameters");
 			}
 		} else {

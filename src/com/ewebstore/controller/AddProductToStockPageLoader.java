@@ -16,7 +16,7 @@ public class AddProductToStockPageLoader extends CheckedHttpServlet {
 			try {
 				req.getRequestDispatcher("/WEB-INF/admin/addproducttostock.jsp").forward(req, resp);
 			} catch (ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

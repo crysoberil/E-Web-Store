@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ewebstore.model.BranchInventoryQueryModel;
 import com.ewebstore.model.BranchInventoryTransferModel;
 
 public class DispatchInventoryTransferController extends CheckedHttpServlet {
@@ -33,11 +32,11 @@ public class DispatchInventoryTransferController extends CheckedHttpServlet {
 				BranchInventoryTransferModel
 						.dispatchInventoryTransfer(inventoryTransferID);
 
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "Database Updated",
 						"Inventory product transfer database updated");
 			} catch (SQLException | IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid operation",
 						"No such inventory transfer request");
 			}

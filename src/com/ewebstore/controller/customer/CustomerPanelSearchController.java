@@ -43,7 +43,10 @@ public class CustomerPanelSearchController extends CheckedCustomerPanelServlet {
 			req.getRequestDispatcher("/WEB-INF/customer/searchresults.jsp")
 					.forward(req, resp);
 		} catch (ServletException | IOException ex) {
-			SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+			String errorMessage = "Invalid Search";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		}
 	}
 

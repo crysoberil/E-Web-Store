@@ -28,8 +28,8 @@ public class CheckoutFormLoader extends CheckedCustomerPanelServlet {
 			try {
 				resp.sendRedirect(LinkGenerator.customerLoginPageLink());
 			} catch (IOException e) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Please Log In", "Log in to continue",
+				SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req,
+						resp, "Please Log In", "Log in to continue",
 						"You need to log in to continue with checkout");
 			}
 
@@ -82,13 +82,16 @@ public class CheckoutFormLoader extends CheckedCustomerPanelServlet {
 							"/WEB-INF/customer/checkoutform.jsp").forward(req,
 							resp);
 				} catch (ServletException | IOException e) {
-					SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+					String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+					SimpleFeedbackPageLoader.showCustomerOperationFailedPage(
+							req, resp, errorMessage);
 				} catch (SQLException ex) {
 					ex.printStackTrace();
 				}
 			} else
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
-						"Empty Cart", "Empty Cart",
+				SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req,
+						resp, "Empty Cart", "Empty Cart",
 						"Your shopping cart is empty.");
 		}
 	}

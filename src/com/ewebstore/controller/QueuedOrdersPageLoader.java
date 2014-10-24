@@ -36,7 +36,7 @@ public class QueuedOrdersPageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/showbrieforders.jsp")
 						.forward(req, resp);
 			} catch (SQLException | ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

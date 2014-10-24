@@ -11,16 +11,17 @@ import com.ewebstore.controller.CheckedHttpServlet;
 import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.model.CustomerQueryModel;
 
-public class CustomerSignupController extends CheckedHttpServlet {
+public class CustomerSignupController extends CheckedCustomerPanelServlet {
 
 	@Override
-	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
+	protected void customerPanelDoGet(HttpServletRequest req,
+			HttpServletResponse resp) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	protected void checkedDoPost(HttpServletRequest req,
+	protected void customerPanelDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
 		forceLogOut(req, resp);
 
@@ -49,20 +50,21 @@ public class CustomerSignupController extends CheckedHttpServlet {
 			CustomerQueryModel.addCustomer(customerName, email, password,
 					isMale, dob, address, contactNumber);
 
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+			SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req, resp,
 					"Account created", "Registration complete",
 					"Registration complete. Please log in to continue.");
 
 		} catch (SQLException ex) {
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp, "Error",
-					"Account not created",
+			SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req, resp,
+					"Error", "Account not created",
 					"Invalid entry or email already registered");
 		} catch (IllegalArgumentException ex) {
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp, "Error",
-					"Account not created", ex.getMessage());
+			SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req, resp,
+					"Error", "Account not created", ex.getMessage());
 		} catch (Exception ex) {
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp, "Error",
-					"Account not created", "Invalid entry. Please try again.");
+			SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req, resp,
+					"Error", "Account not created",
+					"Invalid entry. Please try again.");
 		}
 	}
 }

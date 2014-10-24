@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.Product;
 import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.model.ProductQueryModel;
@@ -27,7 +28,10 @@ public class ProductPageLoader extends CheckedCustomerPanelServlet {
 			req.getRequestDispatcher("/WEB-INF/customer/product.jsp").forward(
 					req, resp);
 		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("ERROR");

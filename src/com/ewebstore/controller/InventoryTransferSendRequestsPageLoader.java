@@ -32,7 +32,8 @@ public class InventoryTransferSendRequestsPageLoader extends CheckedHttpServlet 
 						.forward(req, resp);
 
 			} catch (ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

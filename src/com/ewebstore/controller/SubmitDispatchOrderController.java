@@ -35,14 +35,15 @@ public class SubmitDispatchOrderController extends CheckedHttpServlet {
 
 				OrderQueryModel.dispatchOrder(orderID, employeeID);
 
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "Database Updated", String.format(
 								"Employee %s is associated with order %s",
 								employeeID, orderID));
 			} catch (SQLException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			} catch (IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Entry",
 						"Invalid entry for order id or employee id");
 			}

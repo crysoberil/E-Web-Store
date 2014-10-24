@@ -1,6 +1,8 @@
 package com.ewebstore.model;
 
 public class SharedData {
+	private final static String SHOP_NAME = "E-Web-Store";
+
 	private final static int POPULAR_BRAND_COUNT = 7;
 	private final static int POPULAR_PRODUCT_COUNT = 6;
 	private final static int RECOMMENDED_PRODUCT_COUNT = 3;
@@ -32,5 +34,9 @@ public class SharedData {
 
 	public static double getShippingCost() {
 		return SHIPPING_COST;
+	}
+
+	public static String getShopName() {
+		return SHOP_NAME;
 	}
 }

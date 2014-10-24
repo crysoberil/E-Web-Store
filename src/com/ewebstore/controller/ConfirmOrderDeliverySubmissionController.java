@@ -36,14 +36,14 @@ public class ConfirmOrderDeliverySubmissionController extends
 				OrderQueryModel.confirmOrderDelivery(orderID,
 						successfulDelivery);
 
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "Order Delivery Status Updated", String
 								.format("Order %s marked as %s delivery",
 										orderID,
 										successfulDelivery ? "successful"
 												: "failed"));
 			} catch (IllegalArgumentException | SQLException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid entry",
 						"Invalid form entry. Try again.");
 			}

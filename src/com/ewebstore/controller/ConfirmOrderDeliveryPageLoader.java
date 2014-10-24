@@ -18,7 +18,7 @@ public class ConfirmOrderDeliveryPageLoader extends CheckedHttpServlet {
 						"/WEB-INF/admin/orderdeliveryconfirmationpage.jsp")
 						.forward(req, resp);
 			} catch (IOException | ServletException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

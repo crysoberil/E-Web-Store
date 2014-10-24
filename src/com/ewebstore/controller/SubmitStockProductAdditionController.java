@@ -63,7 +63,7 @@ public class SubmitStockProductAdditionController extends CheckedHttpServlet {
 						branchManagerID, productID, quantity);
 
 				SimpleFeedbackPageLoader
-						.showSimpleFeedbackPage(
+						.showAdminSimpleFeedbackPage(
 								req,
 								resp,
 								"Product Added",
@@ -72,10 +72,11 @@ public class SubmitStockProductAdditionController extends CheckedHttpServlet {
 										"%d products of productid %s added to inventory",
 										quantity, productID));
 			} catch (IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", ex.getMessage());
 			} catch (SQLException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

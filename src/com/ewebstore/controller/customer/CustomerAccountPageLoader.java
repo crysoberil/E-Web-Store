@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.Customer;
 import com.ewebstore.entity.OrderDisplayInformation;
 import com.ewebstore.model.CustomerQueryModel;
@@ -20,9 +21,10 @@ public class CustomerAccountPageLoader extends CheckedCustomerPanelServlet {
 			HttpServletResponse resp) {
 		try {
 			if (req.getSession().getAttribute("customerid") == null) {
-				req.setAttribute("errorMessage", "You aren't logged in!");
-				req.getRequestDispatcher("/WEB-INF/customer/404.jsp").forward(
-						req, resp);
+				String errorMessage = "You aren't logged in!";
+				
+				SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req,
+						resp, errorMessage);
 			} else {
 				String customerID = req.getSession().getAttribute("customerid")
 						.toString();
@@ -37,7 +39,10 @@ public class CustomerAccountPageLoader extends CheckedCustomerPanelServlet {
 						.forward(req, resp);
 			}
 		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("ERROR");

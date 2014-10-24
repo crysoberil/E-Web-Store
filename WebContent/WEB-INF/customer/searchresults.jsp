@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.ewebstore.model.SharedData"%>
 <%@page import="com.ewebstore.entity.ProductCategory"%>
 <%@page import="com.ewebstore.entity.Product"%>
 <%@page import="com.ewebstore.entity.Brand"%>
@@ -27,7 +28,7 @@
 	String searchKey = (String) request.getAttribute("searchkey");
 %>
 
-<title>Home | E-Shopper</title>
+<title>Search | <%=SharedData.getShopName()%></title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -101,13 +102,11 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="<%=LinkGenerator.customerHomePageLink()%>"
-									class="active">Home</a></li>
+								<li><a href="<%=LinkGenerator.customerHomePageLink()%>">Home</a></li>
 
 								<li class="dropdown"><a href="#">Shop<i
 										class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
-										<li><a href="<%=LinkGenerator.productsPageLink()%>">Products</a></li>
 										<li><a href="<%=LinkGenerator.cartPageLink()%>">Cart</a></li>
 										<li><a
 											href="<%=loggedIn ? LinkGenerator.customerLogoutPageLink()

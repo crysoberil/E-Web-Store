@@ -32,11 +32,11 @@ public class ReceiveInventoryTransferController extends CheckedHttpServlet {
 				BranchInventoryTransferModel
 						.receiveInventoryTransfer(inventoryTransferID);
 
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "Database Updated",
 						"Inventory product transfer database updated");
 			} catch (SQLException | IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid operation",
 						"No such inventory transfer request");
 			}

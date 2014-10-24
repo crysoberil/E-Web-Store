@@ -29,7 +29,7 @@ public class AddGenericProductPageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/addproductform.jsp")
 						.forward(req, resp);
 			} catch (IOException | ServletException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

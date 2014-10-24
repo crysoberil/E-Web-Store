@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.ewebstore.model.SharedData"%>
 <%@page import="com.ewebstore.entity.ProductCategory"%>
 <%@page import="com.ewebstore.entity.Product"%>
 <%@page import="com.ewebstore.entity.Brand"%>
@@ -23,7 +24,7 @@
 			.getAttribute("recommendedProducts");
 %>
 
-<title>Home | E-Shopper</title>
+<title>Home | <%=SharedData.getShopName()%></title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -103,7 +104,6 @@
 								<li class="dropdown"><a href="#">Shop<i
 										class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
-										<li><a href="<%=LinkGenerator.productsPageLink()%>">Products</a></li>
 										<li><a href="<%=LinkGenerator.cartPageLink()%>">Cart</a></li>
 										<li><a
 											href="<%=loggedIn ? LinkGenerator.customerLogoutPageLink()

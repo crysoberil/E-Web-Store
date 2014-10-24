@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.entity.ShoppingCartDisplayInformation;
@@ -61,11 +62,11 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 
 			req.getRequestDispatcher("/WEB-INF/customer/cart.jsp").forward(req,
 					resp);
-		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("ERROR");
+		} catch (ServletException | IOException | SQLException ex) {
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		}
 	}
 
@@ -89,7 +90,8 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 			HashMap<String, Double> cartItemsPrice = new HashMap<String, Double>();
 			double totalOrderingCost = ShoppingCartQueryModel
 					.getTotalOrderingCost(cart);
-			double shippingCost = (totalOrderingCost > 0 ? SharedData.getShippingCost() : 0);
+			double shippingCost = (totalOrderingCost > 0 ? SharedData
+					.getShippingCost() : 0);
 
 			for (CartItem cartItem : cartItems) {
 				String productID2 = cartItem.getProductID();
@@ -121,11 +123,11 @@ public class CartPageLoader extends CheckedCustomerPanelServlet {
 			req.getRequestDispatcher("/WEB-INF/customer/cart.jsp").forward(req,
 					resp);
 
-		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("ERROR");
+		} catch (ServletException | IOException | SQLException ex) {
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		}
 	}
 

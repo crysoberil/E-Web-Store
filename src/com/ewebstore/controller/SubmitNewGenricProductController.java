@@ -79,12 +79,12 @@ public class SubmitNewGenricProductController extends CheckedHttpServlet {
 
 				ProductQueryModel.addGenericProduct(productName, brandName,
 						description, price, selectedCategoryIDs, imageLinks[1]);
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "New Product Added",
 						"New product infromtaion added.");
 
 			} catch (IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", ex.getMessage());
 			} catch (SQLException | ServletException | IOException ex) {
 				SimpleFeedbackPageLoader

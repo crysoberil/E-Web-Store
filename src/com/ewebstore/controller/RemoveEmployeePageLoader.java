@@ -11,7 +11,6 @@ public class RemoveEmployeePageLoader extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
 		if (isAdmin(req)) {
-			// TODO load admin home
 			try {
 				req.getRequestDispatcher("/WEB-INF/admin/removeemployee.jsp")
 						.forward(req, resp);
@@ -31,8 +30,5 @@ public class RemoveEmployeePageLoader extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
 	}
-
 }

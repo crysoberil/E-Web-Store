@@ -17,7 +17,8 @@ public class DispatchOrdersFormLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/dispatchorderpage.jsp")
 						.forward(req, resp);
 			} catch (ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

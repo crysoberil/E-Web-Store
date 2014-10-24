@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.ewebstore.model.SalesEmployeeQueryModel;
 
@@ -52,12 +51,12 @@ public class SubmitEditEmployeeFormController extends CheckedHttpServlet {
 				SalesEmployeeQueryModel.updateSalesEmployee(employeeID, name,
 						gender, email, contactNumber, dob, address);
 
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "Employee Updated",
 						"Employee information updated.");
 
 			} catch (IllegalArgumentException e) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", e.getMessage());
 			} catch (SQLException e) {
 				SimpleFeedbackPageLoader

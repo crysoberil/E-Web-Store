@@ -18,22 +18,24 @@ public class ShowOrderDetailsController extends CheckedHttpServlet {
 			SimpleFeedbackPageLoader.showInvalidAccessPage(req, resp);
 		else {
 			String orderID = req.getParameter("orderid");
-			
+
 			try {
 				Order order = OrderQueryModel.getOrderByID(orderID);
-				
+
 				if (order == null)
 					throw new SQLException();
-				
+
 				req.setAttribute("order", order);
-				
-				req.getRequestDispatcher("/WEB-INF/admin/showorder.jsp").forward(req, resp);
+
+				req.getRequestDispatcher("/WEB-INF/admin/showorder.jsp")
+						.forward(req, resp);
 			} catch (SQLException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Invalid Order", "Invalid Order ID",
 						"No such order exists");
-			} catch (ServletException |IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+			} catch (ServletException | IOException ex) {
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

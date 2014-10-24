@@ -8,17 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ewebstore.controller.customer.CheckedCustomerPanelServlet;
 import com.ewebstore.linkgenerators.LinkGenerator;
 import com.ewebstore.model.BranchManagerQueryModel;
 import com.ewebstore.model.CustomerQueryModel;
 
-public class LogInController extends CheckedHttpServlet {
+public class LogInController extends CheckedCustomerPanelServlet {
 	@Override
-	public void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
+	public void customerPanelDoGet(HttpServletRequest req,
+			HttpServletResponse resp) {
 	}
 
 	@Override
-	public void checkedDoPost(HttpServletRequest req, HttpServletResponse resp) {
+	public void customerPanelDoPost(HttpServletRequest req,
+			HttpServletResponse resp) {
 		if (isLoggedIn(req.getSession()))
 			forceLogOut(req, resp);
 
@@ -97,8 +100,9 @@ public class LogInController extends CheckedHttpServlet {
 		}
 
 		if (customerID == null) {
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp, "Error",
-					"Customer not found", "Email or password is wrong");
+			SimpleFeedbackPageLoader
+					.showCustomerSimpleFeedbackPage(req, resp, "Error",
+							"Customer not found", "Email or password is wrong");
 		} else {
 
 			String customerName = null;
@@ -130,8 +134,10 @@ public class LogInController extends CheckedHttpServlet {
 			try {
 				resp.sendRedirect(LinkGenerator.customerHomePageLink());
 			} catch (IOException e) {
-				System.err.println("could not redirect");
-				e.printStackTrace();
+				String errorMessage = "Could not redirect";
+
+				SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req,
+						resp, errorMessage);
 			}
 		}
 	}

@@ -11,15 +11,11 @@ public class SubmitRemoveEmployeeController extends CheckedHttpServlet {
 
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void checkedDoPost(HttpServletRequest req,
 			HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-
 		if (!isAdmin(req))
 			SimpleFeedbackPageLoader.showInvalidAccessPage(req, resp);
 		else {
@@ -36,7 +32,7 @@ public class SubmitRemoveEmployeeController extends CheckedHttpServlet {
 						"Employee information removed.");
 
 			} catch (IllegalArgumentException e) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", e.getMessage());
 
 			} catch (SQLException e) {

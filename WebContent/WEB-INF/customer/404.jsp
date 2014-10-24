@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.ewebstore.model.SharedData"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Home | E-Shopper</title>
+<title>404 | <%=SharedData.getShopName()%></title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -38,7 +39,8 @@
 <body>
 	<div class="container text-center">
 		<div class="logo-404">
-			<a href="index.html"><img src="images/home/logo.png" alt="" /></a>
+			<a href="<%=LinkGenerator.customerHomePageLink()%>"><img
+				src="images/home/logo.png" alt="" /></a>
 		</div>
 		<div class="content-404">
 			<img src="images/404/404.png" class="img-responsive" alt="" />

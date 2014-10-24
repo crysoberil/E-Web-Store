@@ -29,8 +29,7 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 		if (!isAdmin(req))
 			SimpleFeedbackPageLoader.showInvalidAccessPage(req, resp);
 		else {
-			String productNameSubstring = req
-					.getParameter("searchkey");
+			String productNameSubstring = req.getParameter("searchkey");
 
 			if (productNameSubstring != null)
 				productNameSubstring = productNameSubstring.trim()
@@ -70,7 +69,8 @@ public class AdminProductSearchController extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/productsearch.jsp")
 						.forward(req, resp);
 			} catch (ServletException | IOException | SQLException ex3) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		}
 	}

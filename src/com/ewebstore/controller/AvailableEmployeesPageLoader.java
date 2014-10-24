@@ -48,11 +48,9 @@ public class AvailableEmployeesPageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher(
 						"/WEB-INF/admin/availableemployees.jsp").forward(req,
 						resp);
-			} catch (ServletException | IOException ex) {
-				ex.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (ServletException | IOException | SQLException ex) {
+				SimpleFeedbackPageLoader
+						.showAdminOperationFailedPage(req, resp);
 			}
 		} else {
 			try {

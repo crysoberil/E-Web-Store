@@ -16,7 +16,10 @@ public class CustomerLoginSignupPageLoader extends CheckedCustomerPanelServlet {
 			req.getRequestDispatcher("/WEB-INF/customer/loginsignup.jsp")
 					.forward(req, resp);
 		} catch (ServletException | IOException ex) {
-			SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		}
 	}
 

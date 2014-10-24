@@ -55,12 +55,12 @@ public class SubmitAddEmployeeController extends CheckedHttpServlet {
 				SalesEmployeeQueryModel.addSalesEmployee(name, gender, email,
 						contactNumber, dob, address, branchID);
 
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Success", "New Employee Added",
 						"New employee information added.");
 
 			} catch (IllegalArgumentException ex) {
-				SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+				SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 						"Error", "Invalid Input", ex.getMessage());
 			} catch (SQLException ex) {
 				SimpleFeedbackPageLoader

@@ -35,7 +35,7 @@ form {
 }
 </style>
 
-<title>Cart</title>
+<title>Cart | <%=SharedData.getShopName()%></title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -114,7 +114,6 @@ form {
 								<li class="dropdown"><a href="#">Shop<i
 										class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
-										<li><a href="<%=LinkGenerator.productsPageLink()%>">Products</a></li>
 										<li><a href="<%=LinkGenerator.cartPageLink()%>">Cart</a></li>
 										<li><a
 											href="<%=loggedIn ? LinkGenerator.customerLogoutPageLink()
@@ -147,7 +146,7 @@ form {
 					<li class="active"><h2>Shopping Cart</h2></li>
 				</ol>
 			</div>
-			
+
 			<div class="table-responsive cart_info">
 				<table class="table table-condensed">
 					<thead>
@@ -169,14 +168,14 @@ form {
 						%>
 						<tr>
 							<td class="cart_product"><a
-								href="<%= cartItem.getCartProductPageLink()%>"><img
+								href="<%=cartItem.getCartProductPageLink()%>"><img
 									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
 									height="<%=SharedData.getProductImageHeight()%>"
 									width="<%=SharedData.getProductImageWidth()%>"></a></td>
 
 							<td class="cart_description">
 								<h4>
-									<a href="<%= cartItem.getCartProductPageLink()%>"><%=cartDisplayInformation.getProductName()%></a>
+									<a href="<%=cartItem.getCartProductPageLink()%>"><%=cartDisplayInformation.getProductName()%></a>
 								</h4>
 							</td>
 

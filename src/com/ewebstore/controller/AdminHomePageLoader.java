@@ -20,7 +20,6 @@ public class AdminHomePageLoader extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
 		if (isAdmin(req)) {
-			// TODO load admin home
 			try {
 				String managerID = (String) req.getSession().getAttribute(
 						"adminid");
@@ -54,7 +53,7 @@ public class AdminHomePageLoader extends CheckedHttpServlet {
 				req.getRequestDispatcher("/WEB-INF/admin/dashboard.jsp")
 						.forward(req, resp);
 			} catch (SQLException | ServletException | IOException ex) {
-				SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+				SimpleFeedbackPageLoader.showAdminOperationFailedPage(req, resp);
 			}
 
 		} else {

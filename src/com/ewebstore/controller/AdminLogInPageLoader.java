@@ -11,7 +11,7 @@ public class AdminLogInPageLoader extends CheckedHttpServlet {
 	@Override
 	protected void checkedDoGet(HttpServletRequest req, HttpServletResponse resp) {
 		if (isAdmin(req))
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+			SimpleFeedbackPageLoader.showAdminSimpleFeedbackPage(req, resp,
 					"Log In", "Already logged in",
 					"Branch manager is already logged in");
 		else {

@@ -23,7 +23,7 @@
 			.getAttribute("contactInformation");
 %>
 
-<title>Contact Us</title>
+<title>Contact Us | <%=SharedData.getShopName()%></title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -102,14 +102,14 @@
 								<li class="dropdown"><a href="#">Shop<i
 										class="fa fa-angle-down"></i></a>
 									<ul role="menu" class="sub-menu">
-										<li><a href="<%=LinkGenerator.productsPageLink()%>">Products</a></li>
 										<li><a href="<%=LinkGenerator.cartPageLink()%>">Cart</a></li>
 										<li><a
 											href="<%=loggedIn ? LinkGenerator.customerLogoutPageLink()
 					: LinkGenerator.customerLoginPageLink()%>"><%=loggedIn ? "Logout" : "Login"%></a></li>
 									</ul></li>
 
-								<li><a href="<%=LinkGenerator.contactPageLink()%>">Contact</a></li>
+								<li><a href="<%=LinkGenerator.contactPageLink()%>"
+									class="active">Contact</a></li>
 							</ul>
 						</div>
 					</div>

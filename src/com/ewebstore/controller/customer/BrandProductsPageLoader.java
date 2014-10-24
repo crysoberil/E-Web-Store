@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ewebstore.controller.CheckedHttpServlet;
 import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.Product;
 import com.ewebstore.model.BrandQueryModel;
@@ -29,7 +28,7 @@ public class BrandProductsPageLoader extends CheckedCustomerPanelServlet {
 
 			ArrayList<Product> brandProducts = BrandQueryModel
 					.getPopularBrandProducts(brandID);
-			
+
 			String brandName = BrandQueryModel.getBrandName(brandID);
 
 			req.setAttribute("brandname", brandName);
@@ -38,11 +37,14 @@ public class BrandProductsPageLoader extends CheckedCustomerPanelServlet {
 			req.getRequestDispatcher("/WEB-INF/customer/brandproducts.jsp")
 					.forward(req, resp);
 		} catch (IllegalArgumentException | SQLException ex) {
-			SimpleFeedbackPageLoader.showSimpleFeedbackPage(req, resp,
+			SimpleFeedbackPageLoader.showCustomerSimpleFeedbackPage(req, resp,
 					"Invalid brand id", "Inexistent brand",
 					"No such brand exists");
 		} catch (IOException | ServletException ex) {
-			SimpleFeedbackPageLoader.showOperationFailedPage(req, resp);
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		}
 	}
 

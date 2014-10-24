@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ewebstore.controller.CheckedHttpServlet;
+import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.Brand;
 import com.ewebstore.entity.Product;
 import com.ewebstore.entity.ProductCategory;
@@ -42,7 +43,10 @@ public class CustomerHomePageLoader extends CheckedCustomerPanelServlet {
 			req.getRequestDispatcher("/WEB-INF/customer/index.jsp").forward(
 					req, resp);
 		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("ERROR");

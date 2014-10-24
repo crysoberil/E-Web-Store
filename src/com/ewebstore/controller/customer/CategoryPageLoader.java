@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ewebstore.controller.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.Product;
 import com.ewebstore.model.ProductCategoryQueryModel;
 import com.ewebstore.model.ProductQueryModel;
@@ -30,11 +31,11 @@ public class CategoryPageLoader extends CheckedCustomerPanelServlet {
 
 			req.getRequestDispatcher("/WEB-INF/customer/category.jsp").forward(
 					req, resp);
-		} catch (ServletException | IOException ex) {
-			ex.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("ERROR");
+		} catch (ServletException | IOException | SQLException ex) {
+			String errorMessage = "Service not available. We are trying to get a fix on this as soon as possible. Please try again later.";
+
+			SimpleFeedbackPageLoader.showCustomerOperationFailedPage(req, resp,
+					errorMessage);
 		}
 	}
 
