@@ -28,7 +28,7 @@ public class SimpleFeedbackPageLoader {
 				req,
 				resp,
 				"Error",
-				"Operation faield",
+				"Operation failed",
 				"Service not available. We are trying to get a fix on this as soon as possible. Please try again later.");
 	}
 
@@ -46,8 +46,8 @@ public class SimpleFeedbackPageLoader {
 		req.setAttribute("body", body);
 
 		try {
-			req.getRequestDispatcher("/WEB-INF/simple_feedback_customer.jsp").forward(
-					req, resp);
+			req.getRequestDispatcher("/WEB-INF/simple_feedback_customer.jsp")
+					.forward(req, resp);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
@@ -77,8 +77,8 @@ public class SimpleFeedbackPageLoader {
 		req.setAttribute("body", body);
 
 		try {
-			req.getRequestDispatcher("/WEB-INF/admin/simple_feedback_admin.jsp").forward(
-					req, resp);
+			req.getRequestDispatcher("/WEB-INF/admin/simple_feedback_admin.jsp")
+					.forward(req, resp);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}

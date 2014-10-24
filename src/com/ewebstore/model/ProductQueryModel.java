@@ -339,7 +339,43 @@ public class ProductQueryModel {
 
 	public static ArrayList<Product> getRecommendedProducts(String customerID,
 			int productCount) {
-		return null;
+		ArrayList<Product> products = new ArrayList<>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			String sqlString = "SELECT productID, productName, brandID, productImageLink, price FROM Product AS P1 WHERE productID NOT IN (SELECT productID FROM OrderProducts WHERE orderID IN (SELECT orderID FROM `Order` WHERE customerID = ?)) ORDER BY (SELECT COUNT(*) FROM OrderProducts AS OP1 WHERE P1.productID = OP1.productID AND orderID IN (SELECT orderID FROM `Order` WHERE customerID IN (SELECT customerID FROM `Order` WHERE orderID IN (SELECT orderID FROM OrderProducts WHERE productID IN (SELECT productID FROM OrderProducts WHERE orderID IN (SELECT orderID FROM `Order` WHERE customerID = ?)))))) DESC LIMIT ?";
+
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					sqlString);
+
+			preparedStatement.setLong(1, Long.valueOf(customerID));
+			preparedStatement.setLong(2, Long.valueOf(customerID));
+			preparedStatement.setInt(3, productCount);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String productID = Long.toString(resultSet.getLong(1));
+				String productName = resultSet.getString(2);
+				String brandID = Long.toString(resultSet.getLong(3));
+				String brandName = BrandQueryModel.getBrandName(brandID);
+				String productImageLink = resultSet.getString(4);
+				Double price = resultSet.getDouble(5);
+
+				products.add(new Product(productID, productName, brandID,
+						brandName, null, productImageLink, price, null));
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		} finally {
+			DBUtil.dispose(resultSet);
+			DBUtil.dispose(preparedStatement);
+		}
+
+		return products;
 	}
 
 	public static ArrayList<Product> searchProducts(String searchKey) {
