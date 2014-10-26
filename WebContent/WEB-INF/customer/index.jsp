@@ -192,7 +192,9 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="<%=product.getProductImageLink()%>" alt="" />
+										<img src="<%=product.getProductImageLink()%>" alt=""
+											height="<%=SharedData.PRODUCT_IMAGE_HEIGHT%>"
+											width="<%=SharedData.PRODUCT_IMAGE_WIDTH%>" />
 										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
 										<p><%=product.getProductName()%></p>
 										<form role="form" method="post"
@@ -232,7 +234,9 @@
 							<div class="product-image-wrapper">
 								<div class="single-products">
 									<div class="productinfo text-center">
-										<img src="<%=product.getProductImageLink()%>" alt="" />
+										<img src="<%=product.getProductImageLink()%>" alt=""
+											height="<%=SharedData.PRODUCT_IMAGE_HEIGHT%>"
+											width="<%=SharedData.PRODUCT_IMAGE_WIDTH%>" />
 										<h2><%=String.format("BDT %.2f", product.getPrice())%></h2>
 										<p><%=product.getProductName()%></p>
 										<form role="form" method="post"

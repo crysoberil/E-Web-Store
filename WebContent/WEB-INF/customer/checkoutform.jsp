@@ -211,7 +211,7 @@ form {
 					<thead>
 						<tr class="cart_menu">
 							<td class="image">Item</td>
-							<td class="description"></td>
+							<td class="description">Name</td>
 							<td class="price">Price</td>
 							<td class="quantity">Quantity</td>
 							<td class="total">Total</td>
@@ -228,8 +228,8 @@ form {
 							<td class="cart_product"><a
 								href="<%=LinkGenerator.getProductLink(cartItem.getProductID())%>"><img
 									src="<%=cartDisplayInformation.getProductImageLink()%>" alt=""
-									height="<%=SharedData.getProductImageHeight()%>"
-									width="<%=SharedData.getProductImageWidth()%>"></a></td>
+									height="<%=SharedData.getCartProductImageHeight()%>"
+									width="<%=SharedData.getCartProductImageWidth()%>"></a></td>
 
 							<td class="cart_description">
 								<h4>

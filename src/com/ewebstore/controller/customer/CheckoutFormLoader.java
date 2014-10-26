@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ewebstore.controller.SimpleFeedbackPageLoader;
+import com.ewebstore.controller.admin.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.CartItem;
 import com.ewebstore.entity.District;
 import com.ewebstore.entity.ShoppingCart;

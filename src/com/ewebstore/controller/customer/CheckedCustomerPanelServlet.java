@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ewebstore.controller.CheckedHttpServlet;
+import com.ewebstore.controller.admin.CheckedHttpServlet;
 import com.ewebstore.entity.Brand;
 import com.ewebstore.entity.ProductCategory;
 import com.ewebstore.model.BrandQueryModel;

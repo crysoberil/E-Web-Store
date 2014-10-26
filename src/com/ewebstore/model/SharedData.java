@@ -14,8 +14,11 @@ public class SharedData {
 	private final static int POPULAR_PRODUCT_COUNT = 6;
 	private final static int RECOMMENDED_PRODUCT_COUNT = 3;
 
-	private final static int PRODUCT_IMAGE_HEIGHT = 100;
-	private final static int PRODUCT_IMAGE_WIDTH = 100;
+	private final static int CART_PRODUCT_IMAGE_HEIGHT = 100;
+	private final static int CART_PRODUCT_IMAGE_WIDTH = 100;
+
+	public final static int PRODUCT_IMAGE_HEIGHT = 255;
+	public final static int PRODUCT_IMAGE_WIDTH = 255;
 
 	private final static double SHIPPING_COST = 30.0; // in BDT
 
@@ -31,12 +34,12 @@ public class SharedData {
 		return POPULAR_BRAND_COUNT;
 	}
 
-	public static int getProductImageHeight() {
-		return PRODUCT_IMAGE_HEIGHT;
+	public static int getCartProductImageHeight() {
+		return CART_PRODUCT_IMAGE_HEIGHT;
 	}
 
-	public static int getProductImageWidth() {
-		return PRODUCT_IMAGE_WIDTH;
+	public static int getCartProductImageWidth() {
+		return CART_PRODUCT_IMAGE_WIDTH;
 	}
 
 	public static double getShippingCost() {

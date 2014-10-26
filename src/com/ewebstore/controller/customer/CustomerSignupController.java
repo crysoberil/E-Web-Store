@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ewebstore.controller.CheckedHttpServlet;
-import com.ewebstore.controller.SimpleFeedbackPageLoader;
+import com.ewebstore.controller.admin.CheckedHttpServlet;
+import com.ewebstore.controller.admin.SimpleFeedbackPageLoader;
 import com.ewebstore.model.CustomerQueryModel;
 
 /**

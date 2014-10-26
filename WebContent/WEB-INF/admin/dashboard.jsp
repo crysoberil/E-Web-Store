@@ -1,8 +1,8 @@
 <!DOCTYPE html>
+<%@page import="com.ewebstore.entity.InventoryItem"%>
 <%@page import="com.ewebstore.entity.Branch"%>
 <%@page import="com.ewebstore.entity.Order"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.ewebstore.entity.BriefOrder"%>
 <%@page import="com.ewebstore.entity.OrderProduct"%>
 <%@page import="com.ewebstore.linkgenerators.LinkGenerator"%>
 <html lang="en">
@@ -16,13 +16,12 @@
 <meta name="author" content="">
 
 <%
-	ArrayList<BriefOrder> briefOrders = (ArrayList<BriefOrder>) request.getAttribute("ongoingdeliveries");
+	ArrayList<InventoryItem> inventoryItems = (ArrayList<InventoryItem>) request.getAttribute("inventoryitems");
 	String managerID = (String) request.getAttribute("managerid");
 	String managerName = (String) request.getAttribute("managername");
 	Branch branch = (Branch) request.getAttribute("branch");
 	int deliveriesCompleted = (Integer) request.getAttribute("deliveriesonlastmonth");
 	double transaction = (Double) request.getAttribute("transactiononlastmonth");
-	boolean noSalesEmployee = false;
 %>
 
 <title>Admin Dashboard</title>
@@ -253,7 +252,9 @@
 
 
 
-					<h2>On Going Deliveries</h2>
+					<h2><%=branch.getBranchName()%>
+						Inventory
+					</h2>
 
 
 					<table
@@ -262,44 +263,27 @@
 						<thead>
 							<tr role="row" class="gradeA odd">
 								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;" aria-sort="descending">Order
-									ID</th>
+									colspan="1" style="width: 228px;">Product ID</th>
 								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Customer ID</th>
+									colspan="1" style="width: 228px;">Product Name</th>
 								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Order Date</th>
+									colspan="1" style="width: 228px;">Brand</th>
 								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Delivery Location</th>
+									colspan="1" style="width: 228px;">In Stock Quantity</th>
 
-								<%
-									if (!noSalesEmployee) {
-								%>
-								<th tabindex="0" aria-controls="dataTables-example" rowspan="1"
-									colspan="1" style="width: 228px;">Associated Employee ID</th>
-								<%
-									}
-								%>
 							</tr>
 						</thead>
 
 
 						<tbody>
 							<%
-								for (BriefOrder order : briefOrders) {
+								for (InventoryItem inventoryItem : inventoryItems) {
 							%>
 							<tr class="gradeA even">
-								<td><a href="<%=order.getOrderPageLink()%>"><%=order.getOrderID()%></a></td>
-								<td><%=order.getCustomerID()%></td>
-								<td><%=order.getOrderDate()%></td>
-								<td><%=order.getDeliveryLocation()%></td>
-
-								<%
-									if (!noSalesEmployee) {
-								%>
-								<td><%=order.getAssociatedEmployeeID()%></td>
-								<%
-									}
-								%>
+								<td><%=inventoryItem.getProductID()%></td>
+								<td><%=inventoryItem.getProductName()%></td>
+								<td><%=inventoryItem.getBrandName()%></td>
+								<td><%=inventoryItem.getQuantity()%></td>
 							</tr>
 							<%
 								}

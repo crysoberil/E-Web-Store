@@ -46,7 +46,7 @@ public class SalesEmployeeQueryModel {
 		PreparedStatement preparedStatement = null;
 
 		try {
-			String sqlString = "INSERT INTO SalesEmployee VALUES(NULL, ?, ?, ?, ?, CURDATE(), CURDATE(), ?, ?, 1)";
+			String sqlString = "INSERT INTO SalesEmployee VALUES(NULL, ?, ?, ?, ?, ?, CURDATE(), ?, ?, 1)";
 
 			preparedStatement = DBConnection.getConnection().prepareStatement(
 					sqlString);
@@ -55,9 +55,9 @@ public class SalesEmployeeQueryModel {
 			preparedStatement.setInt(2, gender ? 1 : 0);
 			preparedStatement.setString(3, email);
 			preparedStatement.setString(4, contactNumber);
-			// preparedStatement.setDate(5, dob);
-			preparedStatement.setString(5, address);
-			preparedStatement.setLong(6, Long.valueOf(branchID));
+			preparedStatement.setDate(5, dob);
+			preparedStatement.setString(6, address);
+			preparedStatement.setLong(7, Long.valueOf(branchID));
 
 			preparedStatement.executeUpdate();
 		} catch (SQLException ex) {

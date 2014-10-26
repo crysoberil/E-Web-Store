@@ -3,7 +3,7 @@ package com.ewebstore.controller.customer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ewebstore.controller.SimpleFeedbackPageLoader;
+import com.ewebstore.controller.admin.SimpleFeedbackPageLoader;
 import com.ewebstore.entity.ShoppingCart;
 import com.ewebstore.model.CustomerQueryModel;
 import com.ewebstore.model.ShoppingCartQueryModel;
@@ -85,6 +85,8 @@ public class PlaceOrderController extends CheckedCustomerPanelServlet {
 									"Order Could Not Be Placed",
 									"Order could not be placed. Some products are out of stock. Please try again later");
 				} else {
+					req.getSession().removeAttribute("cart");
+
 					SimpleFeedbackPageLoader
 							.showCustomerSimpleFeedbackPage(
 									req,

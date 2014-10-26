@@ -11,7 +11,7 @@ import com.ewebstore.dbutil.DBUtil;
 
 public class Main {
 	public static void main(String[] args) throws Exception {
-//		 pushDistrictNamesToDataBase();
+		pushDistrictNamesToDataBase();
 		updateDistrictDistances();
 	}
 
@@ -34,10 +34,8 @@ public class Main {
 		PreparedStatement preparedStatement = null;
 
 		try {
-			preparedStatement = DBConnection
-					.getConnection()
-					.prepareStatement(
-							"INSERT INTO DistrictDistance VALUES(?, ?, ?)");
+			preparedStatement = DBConnection.getConnection().prepareStatement(
+					"INSERT INTO DistrictDistance VALUES(?, ?, ?)");
 
 			for (int i = 0; i < districtIDs.size(); i++)
 				for (int j = 0; j < districtIDs.size(); j++) {

@@ -3,9 +3,11 @@ package com.ewebstore.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.ewebstore.dbutil.DBConnection;
 import com.ewebstore.dbutil.DBUtil;
+import com.ewebstore.entity.InventoryItem;
 
 /**
  * This class manages database query model for branch inventory
@@ -83,9 +85,10 @@ public class BranchInventoryQueryModel {
 			preparedStatement = DBConnection
 					.getConnection()
 					.prepareStatement(
-							"SELECT COUNT(*) FROM BranchInventory WHERE branchID = (SELECT toBranchID FROM BranchInventoryTransfer WHERE toBranchID = ?)");
+							"SELECT COUNT(*) FROM BranchInventory WHERE branchID = (SELECT toBranchID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?) AND productID = (SELECT productID FROM BranchInventoryTransfer WHERE inventoryTransferID = ?)");
 
 			preparedStatement.setLong(1, Long.valueOf(inventoryTransferID));
+			preparedStatement.setLong(2, Long.valueOf(inventoryTransferID));
 
 			resultSet = preparedStatement.executeQuery();
 
@@ -94,7 +97,7 @@ public class BranchInventoryQueryModel {
 
 			int count = resultSet.getInt(1);
 
-			return count == 1;
+			return count != 0;
 
 		} catch (SQLException ex) {
 			throw ex;
@@ -308,5 +311,49 @@ public class BranchInventoryQueryModel {
 		} finally {
 			DBUtil.dispose(preparedStatement);
 		}
+	}
+
+	/**
+	 * Returns inventory items list of a branch
+	 * 
+	 * @param branchID
+	 *            Corresponding branch ID
+	 * @return The inventory items list
+	 */
+	public static ArrayList<InventoryItem> getBranchInventoryItems(
+			String branchID) {
+		ArrayList<InventoryItem> inventoryItems = new ArrayList<>();
+
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			preparedStatement = DBConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT productID, (SELECT productName FROM Product WHERE Product.productID = BranchInventory.productID), inStockQuantity FROM BranchInventory WHERE inStockQuantity <> 0 AND branchID = ?");
+
+			preparedStatement.setLong(1, Long.valueOf(branchID));
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				String productID = Long.toString(resultSet.getLong(1));
+				String productName = resultSet.getString(2);
+				int inStockQuantity = resultSet.getInt(3);
+				String brandName = ProductQueryModel
+						.getProductBrandName(productID);
+
+				inventoryItems.add(new InventoryItem(productID, productName,
+						brandName, inStockQuantity));
+			}
+
+		} catch (SQLException ex) {
+		} finally {
+			DBUtil.dispose(preparedStatement);
+			DBUtil.dispose(resultSet);
+		}
+
+		return inventoryItems;
 	}
 }

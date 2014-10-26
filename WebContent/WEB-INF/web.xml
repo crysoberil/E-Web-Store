@@ -10,7 +10,7 @@
 
 	<servlet>
 		<servlet-name>AdminLogInPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AdminLogInPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AdminLogInPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -20,7 +20,7 @@
 
 	<servlet>
 		<servlet-name>LogInController</servlet-name>
-		<servlet-class>com.ewebstore.controller.LogInController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.LogInController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -30,7 +30,7 @@
 
 	<servlet>
 		<servlet-name>AdminHomePageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AdminHomePageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AdminHomePageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -40,7 +40,7 @@
 
 	<servlet>
 		<servlet-name>LogoutController</servlet-name>
-		<servlet-class>com.ewebstore.controller.LogoutController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.LogoutController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -50,7 +50,7 @@
 
 	<servlet>
 		<servlet-name>AdminProfilePageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AdminProfilePageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AdminProfilePageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -60,7 +60,7 @@
 
 	<servlet>
 		<servlet-name>AddGenericProductPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AddGenericProductPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AddGenericProductPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -70,7 +70,7 @@
 
 	<servlet>
 		<servlet-name>SubmitNewGenericProductController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitNewGenricProductController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.SubmitNewGenricProductController</servlet-class>
 		<multipart-config>
 			<!-- In this case empty, but can contain additional nested elements -->
 		</multipart-config>
@@ -83,7 +83,7 @@
 
 	<servlet>
 		<servlet-name>AddProductToStockPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AddProductToStockPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AddProductToStockPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -93,7 +93,7 @@
 
 	<servlet>
 		<servlet-name>SubmitStockProductAdditionController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitStockProductAdditionController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.SubmitStockProductAdditionController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -103,7 +103,7 @@
 
 	<servlet>
 		<servlet-name>AdminProductSearchController</servlet-name>
-		<servlet-class>com.ewebstore.controller.AdminProductSearchController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AdminProductSearchController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -113,7 +113,7 @@
 
 	<servlet>
 		<servlet-name>AddEmployeePageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AddEmployeePageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AddEmployeePageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -123,7 +123,7 @@
 
 	<servlet>
 		<servlet-name>SubmitAddEmployeeController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitAddEmployeeController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.SubmitAddEmployeeController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -133,7 +133,7 @@
 
 	<servlet>
 		<servlet-name>EditEmployeePageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.EditEmployeePageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.EditEmployeePageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -143,7 +143,7 @@
 
 	<servlet>
 		<servlet-name>EditEmployeeFormLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.EditEmployeeFormLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.EditEmployeeFormLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -153,7 +153,7 @@
 
 	<servlet>
 		<servlet-name>SubmitEditEmployeeFormController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitEditEmployeeFormController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.SubmitEditEmployeeFormController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -163,7 +163,7 @@
 
 	<servlet>
 		<servlet-name>RemoveEmployeePageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.RemoveEmployeePageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.RemoveEmployeePageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -173,7 +173,7 @@
 
 	<servlet>
 		<servlet-name>SubmitRemoveEmployeeController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitRemoveEmployeeController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.SubmitRemoveEmployeeController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -183,7 +183,7 @@
 
 	<servlet>
 		<servlet-name>AvailableEmployeesPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AvailableEmployeesPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AvailableEmployeesPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -193,7 +193,7 @@
 
 	<servlet>
 		<servlet-name>AllEmployeesPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.AllEmployeesPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.AllEmployeesPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -203,7 +203,7 @@
 
 	<servlet>
 		<servlet-name>QueuedOrdersPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.QueuedOrdersPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.QueuedOrdersPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -213,7 +213,7 @@
 
 	<servlet>
 		<servlet-name>DeliveredOrdersPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.DeliveredOrdersPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.DeliveredOrdersPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -223,7 +223,7 @@
 
 	<servlet>
 		<servlet-name>OnDeliveryOrdersPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.OnDeliveryOrdersPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.OnDeliveryOrdersPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -233,7 +233,7 @@
 
 	<servlet>
 		<servlet-name>ShowOrderDetailsController</servlet-name>
-		<servlet-class>com.ewebstore.controller.ShowOrderDetailsController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.ShowOrderDetailsController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -243,7 +243,7 @@
 
 	<servlet>
 		<servlet-name>DispatchOrdersFormLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.DispatchOrdersFormLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.DispatchOrdersFormLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -253,7 +253,7 @@
 
 	<servlet>
 		<servlet-name>SubmitDispatchOrderController</servlet-name>
-		<servlet-class>com.ewebstore.controller.SubmitDispatchOrderController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.SubmitDispatchOrderController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -263,7 +263,7 @@
 
 	<servlet>
 		<servlet-name>ConfirmOrderDeliveryPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.ConfirmOrderDeliveryPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.ConfirmOrderDeliveryPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -273,7 +273,7 @@
 
 	<servlet>
 		<servlet-name>ConfirmOrderDeliverySubmissionController</servlet-name>
-		<servlet-class>com.ewebstore.controller.ConfirmOrderDeliverySubmissionController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.ConfirmOrderDeliverySubmissionController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -283,7 +283,7 @@
 
 	<servlet>
 		<servlet-name>InventoryTransferSendRequestsPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.InventoryTransferSendRequestsPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.InventoryTransferSendRequestsPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -293,7 +293,7 @@
 
 	<servlet>
 		<servlet-name>InventoryTransferReceiveRequestsPageLoader</servlet-name>
-		<servlet-class>com.ewebstore.controller.InventoryTransferReceiveRequestsPageLoader</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.InventoryTransferReceiveRequestsPageLoader</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -303,7 +303,7 @@
 
 	<servlet>
 		<servlet-name>DispatchInventoryTransferController</servlet-name>
-		<servlet-class>com.ewebstore.controller.DispatchInventoryTransferController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.DispatchInventoryTransferController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -313,7 +313,7 @@
 
 	<servlet>
 		<servlet-name>ReceiveInventoryTransferController</servlet-name>
-		<servlet-class>com.ewebstore.controller.ReceiveInventoryTransferController</servlet-class>
+		<servlet-class>com.ewebstore.controller.admin.ReceiveInventoryTransferController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
