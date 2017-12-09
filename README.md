@@ -17,3 +17,4 @@ The project requires requires:
 - Apache Tomcat 8.0.x
 - Servlet 3.1
 - JSP 2.3
+- MySQL (> 5.1)
