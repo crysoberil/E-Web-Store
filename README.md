@@ -11,7 +11,7 @@ Features
 
 Dependencies
 ------------
-The project requires requires:
+The project requires:
 
 - Java EE 7
 - Apache Tomcat 8.0.x
