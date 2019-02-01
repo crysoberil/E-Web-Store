@@ -1,4 +1,4 @@
-# E-Commerece Website for Online Chain-Shop Management
+# E-Commerce Website for Online Chain-Shop Management
 
 An website to manage an Amazon-like online shopping store for a conceptual chain shop which has warehouses distributed all over the country.
 
